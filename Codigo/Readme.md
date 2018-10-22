@@ -8,3 +8,4 @@
 5. Activar virtualenv (source venv/bin/activate para bash, venv\Scripts\activate para windows)
 6. Instalar librerias con pip (pip install -r requirements.txt)
 7. Generar .flaskenv para guardar variables de entorno 
+8. 
