@@ -14,3 +14,5 @@ Mapa de actividades y Diagrama de Gantt--
 
 Estimación-
 	Se ha estimado el tamaño del software mediante la técnica de estimación por puntos de función (Fig) y utilizando la técnica de COCOMO2 (Fig) para medir el esfuerzo del desarrollo obteniendo una duración del proyecto aproximada.
+
+.
