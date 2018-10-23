@@ -1,16 +1,19 @@
 <html>
     <head>
         {% if title %}
-        <title>{{ title }} - microblog</title>
+        <title>{{ title }} - Seguimientos</title>
         {% else %}
-        <title>microblog</title>
+        <title>Seguimiento</title>
         {% endif %}
     </head>
     <body>
         <div>
-            Microblog:
-            <a href="/index">Home</a>
-            <a href="/login">Login</a>
+            Seguimiento:
+            <a href="{{ url_for('index') }}">Home</a>
+            <a href="{{ url_for('login') }}">Login</a>
+            <a href="{{ url_for('logout') }}">Logout</a>
+            <a href="{{ url_for('trainings') }}">Capacitaciones</a>
+            <a href="# ">Alta capacitaciones</a>
         </div>
         <hr>
         {% with messages = get_flashed_messages() %}
@@ -19,7 +22,7 @@
             {% for message in messages %}
             <li>{{ message }}</li>
             {% endfor %}
-        </ul>
+        </ul>s
         {% endif %}
         {% endwith %}
         {% block content %}{% endblock %}
