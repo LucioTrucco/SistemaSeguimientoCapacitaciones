@@ -1,7 +1,15 @@
 {% extends "base.html" %}
 
 {% block content %}
-    {% for class in training.classes %}
-        <div><p>{{ class.number }}) {{ class.topics }}</b></p></div>
-    {% endfor %}
+    <b>Nombre:</b> {{ training.name }}  <br>
+    <b>Descripcion</b> {{ training.description }}<br>
+    {% if training.classes.first()!=None %}
+    <b>Clases:</b><br>
+        {% for class in training.classes %}
+            <div><p>{{ class.number }}) {{ class.topics }}</b></p></div>
+        {% endfor %}
+    {% endif %}
+    <br>
+    {% block assign_trainer %}
+    {% endblock %} 
 {% endblock %}

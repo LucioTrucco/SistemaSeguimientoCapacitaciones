@@ -1,7 +1,21 @@
 {% extends "base.html" %}
 
 {% block content %}
-    {% for training in current_user.trainings %}
-        <div><p>{{ training.name }} <b>{{ training.description }}</b> <a href="{{ url_for('details', id=training.id) }}">Detalle</a></p></div>
+<table>
+    <thead>
+        <th>Nombre</th>
+        <th>Descripcion</th>
+        <th>Capacitador</th>
+        <th>Mas info</th>
+    </thead>
+    {% for training in trainings %}
+        <tr>
+            <td>{{ training.name }} </td>
+            <td>{{ training.description }}</td>
+            <td><a href="{{ url_for('trainings_user', username=training.trainer.username) }}">{{training.trainer.username}}</a> </td>
+            <td><a href="{{ url_for('details', id=training.id) }}">Detalle</a> </td>
+        </tr>
+    </div>
     {% endfor %}
+</table>
 {% endblock %}

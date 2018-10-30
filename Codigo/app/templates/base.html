@@ -13,7 +13,9 @@
             <a href="{{ url_for('login') }}">Login</a>
             <a href="{{ url_for('logout') }}">Logout</a>
             <a href="{{ url_for('trainings') }}">Capacitaciones</a>
-            <a href="# ">Alta capacitaciones</a>
+            <a href="{{ url_for('users') }}">Capacitaciones Usuario</a>
+            <a href="{{ url_for('create')}} ">Alta capacitaciones</a>
+            <a href="{{ url_for('assign')}} ">Asignar capacitaciones</a>
         </div>
         <hr>
         {% with messages = get_flashed_messages() %}
