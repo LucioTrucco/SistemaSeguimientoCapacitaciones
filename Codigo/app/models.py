@@ -1,7 +1,15 @@
 from app import db, login
-from datetime import datetime
 from flask_login import UserMixin
 from werkzeug.security import generate_password_hash, check_password_hash
+
+training_students = db.table('training_students',
+                             db.Column('training_id',
+                                       db.Integer,
+                                       db.ForeignKey('training.id')),
+                             db.Column('student_id',
+                                       db.Integer,
+                                       db.ForeignKey('student.id'))
+                             )
 
 
 class User(UserMixin, db.Model):
@@ -46,6 +54,18 @@ class Class(db.Model):
 
     def __repr__(self):
         return '<Class {}>'.format(self.topics)
+
+
+class Student(db.Model):
+    id = db.Column(db.Integer, primary_key=True)
+    file = db.Column(db.Integer, primary_key=True)
+    email = db.Column(db.String(120), index=True, unique=True)
+    surname = db.Column(db.String(120))
+    name = db.Column(db.String(120))
+    degree = db.Column(db.Integer, primary_key=True)
+    trainings = db.relationship('Training',
+                                secondary=training_students,
+                                backref=db.backref('students', lazy='dynamic'))
 
 
 @login.user_loader
