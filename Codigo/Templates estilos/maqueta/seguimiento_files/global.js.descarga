@@ -1,0 +1,134 @@
+$(document).ready(function(){
+
+	var d = 1; /*defasaje */
+
+	// ******************************************************************************
+	// ► Func : Carga la pagina que corresponda segun un el modulo y el Tab
+	// ► Obser: 
+	// ► ToDo :
+	// ******************************************************************************
+	 window.loadPage = function(modulo, tab){
+	 	$("#"+modulo).addClass('current-module');
+	 	$('.mdl-layout__tab').removeClass('is-active');
+	 	$('section').removeClass('is-active');
+		$("#"+tab).addClass('is-active');
+		var href = $("#"+tab).attr('href');
+		$(href).addClass('is-active');
+	};
+
+	// *******************************************************************************
+	// ► Func : Extrae el modulo y el TAB de la URL para cargar la pagina 
+	//					y llama a loadPage
+	// ► Obser:
+	// ► ToDo : 
+	// *******************************************************************************
+	var match = location.pathname.split('/');
+	loadPage(match[2 + d /*modulo*/],match[3 + d /*tab*/]);
+
+	// *******************************************************************************
+	// ► Func : Llama a la funcion loadPage al activarse el evento popstate
+	// ► Obser: El evento popstate se dispara al hacer click en las flechas de 
+	// 				  avanzar y retroceder de la ventana del navegador.
+	// ► ToDo : 
+	// *******************************************************************************
+	$(window).bind("popstate", function() {
+		var match = location.pathname.split('/');
+		loadPage(match[2 + d  /*modulo*/],match[3 + d /*tab*/]);
+	});
+
+	// ******************************************************************************
+	// ► Func : Cambia dinamicamente la url al hacer click en los distintos tabs
+	// ► Obser:
+	// ► ToDo : Determinar que hacer si el navegador no soporta HTML5
+	// ******************************************************************************
+	$(".mdl-layout__tab").click(function() {
+		tab = $(this).attr("id");
+		var obj = { Page: 'Gestión Campus', Url: tab };
+		history.pushState(obj, obj.Page, obj.Url);
+	});
+
+	// *******************************************************************************
+	// ► Func : Despliega el dialogo de login normal
+	// ► Obser:
+	// ► ToDo :
+	// ******************************************************************************
+	$("#login-button").click(function(){
+			$("#modal").fadeIn('fast');
+			$("#login-normal").fadeIn('fast');
+	});
+
+	// *******************************************************************************
+	// ► Func : Despliega el dialogo de login forzado si el usuario intenta enviar
+	//					un formulario sin estar loggedo
+	// ► Obser:
+	// ► ToDo :
+	// ********************************************************************************
+	$(".js-login-require").click(function(event){
+		var form = $(event.target).closest("form");
+		event.preventDefault();
+
+		//chequeamos si el usuario se encuentra loggeado en el sistema
+		$.post( "../Login/isLogged", function( data ) {
+			if(data == false){
+				  	$("#modal").fadeIn('fast');
+				  	$("#login-forzado").fadeIn('fast');
+			}else{
+					$(form).submit();
+			}
+		});
+	});
+
+	// *******************************************************************************
+	// ► Func : Desvanece el modal y los formularios de login al hacer click en 
+	//					cualquier parte
+	// ► Obser:
+	// ► ToDo :
+	// ********************************************************************************
+	$('#login-contenedor').on('click','#modal' ,function(event) {
+			$("#modal").fadeOut('fast');
+			$("#login-normal").fadeOut('fast');
+			$("#login-forzado").fadeOut('fast');
+	});
+
+	// *******************************************************************************
+	// ► Func : Agrega la funcion de submit a los formularios de login
+	// ► Obser:
+	// ► ToDo :
+	// ********************************************************************************
+	$('#login-normal, #login-forzado').on('submit','.js-login' ,function(event) {
+		event.preventDefault();
+		var loginData = {
+		    'user'   : $('input[name=usuario]', this).val(),
+		    'pass'   : $('input[name=password]',this).val(),
+		  };
+		$.ajax({
+		    type        : 'POST', // define the type of HTTP verb we want to use (POST for our form)
+		    url         : '/Gestion/index.php/Login/log_in', // the url where we want to POST
+		    data        : loginData, // our data object
+		})
+		.done(function(data) {
+			if(data != 0)
+			{
+					$('.mdl-layout__header-row').find("#login-button").remove();
+					$( "#login-area" ).append(stringToMDL(data));
+					$( "#modal" ).trigger("click");
+			}else{
+					mensajeError = "Error, intente nuevamente";
+					$(".mensaje-error").html(mensajeError).slideDown('normal').delay(3000).slideUp('normal');
+			}
+		});
+	});
+
+	// *******************************************************************************
+	// ► Func : transforma un string html en DOM con los eventos MDL asociados
+	// ► Obser:
+	// ► ToDo :
+	// ********************************************************************************
+	window.stringToMDL = function(str){
+		var html = $.parseHTML(str);
+		$('*', $(html)).each(function () {
+			componentHandler.upgradeElement(this);
+		});
+		return html;
+	};
+});

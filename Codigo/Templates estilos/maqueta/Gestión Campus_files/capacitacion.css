@@ -1,0 +1,51 @@
+@charset "ISO-8859-1";
+.div--inline-block-wrapper {
+	display: inline-block;
+	padding: 20px;
+	margin-bottom: 20px;
+	background-color: #FFFFFF;
+	width: calc(50% - 52px);
+	vertical-align: top;
+}
+
+#fecha0-error,#fecha1-error, #fecha2-error {
+	position: relative !important;
+}
+
+.hora{
+   width: 45%;
+   margin-left: 2%;
+ }
+
+@media(max-width: 532px){
+	.div--inline-block-wrapper {
+		width: calc(100% - 40px);
+	}
+	.divider{
+		display: none;
+	}
+}
+
+#tabla-microtalleres td {
+	vertical-align: top !important;
+	margin-bottom: 20px !important;
+	padding: 15px 10px !important;
+}
+
+#tabla-microtalleres tr {
+	border-bottom: 20px solid white; 
+
+}
+
+#tabla-microtalleres tr:nth-child(even) {background: #FFF}
+#tabla-microtalleres tr:nth-child(odd) {background: #f1f1f1}
+
+.mdl-components__warning {
+    width: 100%;
+    max-width: 640px;
+    margin: 0 auto;
+    background-color: #FFF9C4;
+    padding: 16px;
+    border-radius: 2px;
+    color: #212121;
+}

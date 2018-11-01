@@ -1,0 +1,246 @@
+$(document).ready(function(){
+
+
+    //************************************
+    // habilkita y deshabilita los campos de modalidad y horario segun corresponda
+    //************************************
+    $(".no-estudiante").click(function(){
+        $(".docente").fadeIn();
+        $(".para-docente").fadeIn();
+    });
+
+    $("#estudiante").click(function(){
+        $(".docente").fadeOut();
+        $(".para-docente").fadeOut();
+    });
+
+    $("#modalidad-1").click(function(){
+        $("#horarios").fadeIn();
+    });
+
+    $("#modalidad-2").click(function(){
+        $("#horarios").fadeOut();
+    });
+
+    $(".curso").click(function(){
+        $("#horario-modalidad").fadeIn();
+    });
+
+    $("#ninguno").click(function(){
+        $("#horario-modalidad").fadeOut();
+    });
+
+    //************************************
+    // muestro el el value de los input de microtalleres
+    //************************************
+
+    $("#tabla-microtalleres tr").each(function(index, object){
+        $(object).find("span").text(($(object).find("input").val()));
+    });
+
+
+
+    //**********************************************
+    // VALIDO EL FORMULARIO DE TUTORIAS
+    //**********************************************
+    $('#tutoriaForm').validate({ // initialize the plugin
+        rules: {
+            motivo : 
+                {required: true},
+            nombre : 
+                {required: true},
+            apellido : 
+                {required: true},
+            email : 
+                {required: true,
+                 email: true},
+            telefono : 
+                {required: true,
+                 number: true},
+            dni : 
+                {required: true,
+                 number: true},
+            dependencia : 
+                {required: true},
+            subdependencia : 
+                {required: true},
+            rol : 
+                {required: true},
+            cantidad_personas :
+                {required: function(element) {
+                    return $('#ct_option-2').parent().hasClass("is-checked")},
+                 number: true
+                },
+            modalidad :
+                {required: true},
+            fecha0 : 
+                {required: true,
+                 dateITA: true},
+            hs_desde0 : 
+                {required: true,
+                 number: true},
+            hs_hasta0 : 
+                {required: true,
+                 number: true},
+            fecha1 : 
+                {required: true,
+                 dateITA: true},
+            hs_desde1 : 
+                {required: true,
+                 number: true},
+            hs_hasta1 : 
+                {required: true,
+                 number: true},
+            fecha2 : 
+                {required: true,
+                 dateITA: true},
+            hs_desde2 : 
+                {required: true,
+                 number: true},
+            hs_hasta2 : 
+                {required: true,
+                 number: true},
+        },
+        messages : {
+            motivo : 
+                {required: "Explique brevemente cual es su dificultad"},
+            nombre : 
+                {required: "Indique su nombre"},
+            apellido : 
+                {required: "Indique su apellido"},
+            email : 
+                {required: "Indique su mail",
+                 email: "Escriba un email válido"},
+            telefono : 
+                {required: "Indique su telefono",
+                 number: "Solo debe ingresar números"},
+            dni : 
+                {required: "Indique su dni",
+                 number: "Solo debe ingresar números"},
+            dependencia : 
+                {required: "Indique dependencia"},
+            subdependencia : 
+                {required: "Indique subdependencia"},
+            rol : 
+                {required: "Indique rol"},
+            cantidad_personas :
+                {required: "Cantidad de personas",
+                 number: "Solo debe ingresar números"},
+            fecha0 : 
+                {required: "Complete este campo"},
+            hs_desde0 : 
+                {required: "Complete este campo"},
+            hs_hasta0 : 
+                {required: "Complete este campo"},
+            fecha1 : 
+                {required: "Complete este campo"},
+            hs_desde1 : 
+                {required: "Complete este campo"},
+            hs_hasta1 : 
+                {required: "Complete este campo"},
+            fecha2 : 
+                {required: "Complete este campo"},
+            hs_desde2 : 
+                {required: "Complete este campo"},
+            hs_hasta2 : 
+                {required: "Complete este campo"},
+        },
+        submitHandler: function (form) {
+            form.submit();
+        }
+    });
+
+    //**********************************************
+    // VALIDO EL FORMULARIO DE CURSOS MICROTALLERES
+    //**********************************************
+    $('.cursoForm').each(function(){
+
+    $(this).validate({ // initialize the plugin
+        rules: {
+            nombre : 
+                {required: true},
+            apellido : 
+                {required: true},
+            email : 
+                {required: true,
+                 email: true},
+            telefono : 
+                {required: true,
+                 number: true},
+            dni : 
+                {required: true,
+                 number: true},
+            dependencia : 
+                {required: true},
+            subdependencia : 
+                {required: true},
+            rol : 
+                {required: true},
+        },
+        messages : {
+            curso : 
+                {required: "Seleccione un curso"},
+            nombre : 
+                {required: "Indique su nombre"},
+            apellido : 
+                {required: "Indique su apellido"},
+            email : 
+                {required: "Indique su email",
+                 email: "Escriba un email válido"},
+            telefono : 
+                {required: "Indique su telefono",
+                 number: "Solo debe ingresar números"},
+            dni : 
+                {required: "Indique su dni",
+                 number: "Solo debe ingresar números"},
+            dependencia : 
+                {required: "Indique dependencia"},
+            subdependencia : 
+                {required: "Indique subdependencia"},
+            rol : 
+                {required: "Indique rol"},
+        },
+        submitHandler: function (form) {
+            form.submit();
+        }
+    });
+    });
+
+
+	// ******************************************************************************
+	// ► Func : Genera la opcion para agregar cantidad de personas en una
+    //          capacitacion grupal
+	// ► Obser: 
+	// ► ToDo : 
+	// ******************************************************************************
+	$("#ct_option-2").click(function(){
+        if (!$('#n-personas').length){
+        		$("#formato").append(personas = stringToMDL(
+                "<span class='split'></span>\
+                <div id='n-personas'>\
+                  <div class='mdl-textfield mdl-js-textfield'>\
+                    <input class='mdl-textfield__input' type='text' pattern='[0-9]+' id='sample2' name='cantidad_personas'>\
+                    <label class='mdl-textfield__label' for='sample2'>Nº de personas</label>\
+                    <span class='mdl-textfield__error'>Solo puede ingresar números enteros</span>\
+                  </div>\
+                </div>"));
+        };
+	});
+
+    $("#ct_option-1").click(function(){
+        $(personas).remove();
+    });
+
+    // ******************************************************************************
+    // ► Func : busca el id fecha y le adosa el datepicker de jquery UI
+    // ► Obser: 
+    // ► ToDo : 
+    // ******************************************************************************
+    $( ".fecha" ).datepicker({ dateFormat: 'dd/mm/yy',
+        beforeShowDay: function(date) {
+            var day = date.getDay();
+        return [(day != 0 && day != 6)];
+    }});
+
+
+});

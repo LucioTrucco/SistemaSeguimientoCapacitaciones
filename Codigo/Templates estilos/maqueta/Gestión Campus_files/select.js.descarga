@@ -1,0 +1,32 @@
+$(document).ready(function() {
+    upgradeSelectElement(".select-menu");
+    $(document).click(function(event) {
+        if (!$(event.target).closest('.select-menu').length) {
+            if ($('.select-elementList').is(":visible")) {
+                $('.select-elementList').slideUp("fast");
+            };
+        };
+    });
+});
+
+var upgradeSelectElement = function(select) {
+    $(select).each(function() {
+        $(this).find(".select-input, .select-label").click(function() {
+            var elementList = $(this).siblings(".select-elementList");
+            if($(this).offset().top >  $(window).height()/2){
+                $(elementList).css("top","");
+                $(elementList).css("bottom","0px");
+            }else{
+                $(elementList).css("bottom","");
+                $(elementList).css("top","-22px");
+            }
+            $(elementList).slideToggle("fast")
+        });
+        $("li", $(this)).click(function() {
+      		var parent = $(this).parents(".select-menu");
+          	$(parent).find(".select-input").attr("value", $(this).text().trim());
+          	$(parent).find(".select-label").removeClass(".select-label").addClass("select-label-active");
+          	$(parent).find(".select-elementList").slideToggle("fast");
+        });
+    });
+}

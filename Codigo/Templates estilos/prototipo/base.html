@@ -1,0 +1,89 @@
+<html>
+	<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+	<title>Campus</title>
+	<!--Estilos custom-->
+	<link rel="stylesheet" href= resources/css/styles.css>
+	<link rel="stylesheet" href= resources/css/material.css>
+  <link rel="stylesheet" href= resources/css/material.min.css>
+  <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+	<script src= resources/js/material.js></script>
+	</head>
+	
+	<body>
+	<div class="mdl-layout mdl-js-layout mdl-layout--fixed-header mdl-layout--fixed-tabs">
+  <header class="mdl-layout__header mdl-layout--fixed-drawer">
+    <div class="mdl-layout__header-row" id="barraPrincipal">
+      <a href="" >
+        <img  id="logo-largo" src= resources/i/logo-gestion.png alt="">
+       </a>
+	   <div id="login-area">
+			<a href="" id="login-button" class="mdl-button" data-upgraded=",MaterialButton">
+				        <img src= resources/i/logout.png alt="">
+			</a>        
+		</div>
+    </div>
+	<!-- Tabs -->
+    <div class="mdl-layout__tab-bar mdl-js-ripple-effect" id="barraSecundaria">
+      <a href="#fixed-tab-1" class="mdl-layout__tab is-active">CAPACITACIONES EN CURSO</a>
+      <a href="#fixed-tab-2" class="mdl-layout__tab">CAPACITACIONES DISPONIBLES</a>
+      <a href="#fixed-tab-3" class="mdl-layout__tab">ESTADISTICAS</a>
+    </div>
+  </header> 
+  <main class="mdl-layout__content">
+    <section class="mdl-layout__tab-panel is-active" id="fixed-tab-1">
+    <div class="mdl-grid">
+      <div class="mdl-cell mdl-cell--1-col"></div>
+      <div class="mdl-cell mdl-cell--8-col">
+        <div class="page-content" style="width: 136%;">
+          <table style="width: 100%;" id="tabla-capacitaciones">
+            <tbody>
+            <tr>
+                <th style="text-align: left;">Clase</th>
+                <th style="text-align: left;">Temas vistos</th>
+                <th style="text-align: left;">Temas proxima clase</th>
+                <th style="text-align: left;">Comentarios</th>
+                <th style="text-align: left;"></th>
+            </tr>
+            <tr style="height: 14px;"></tr>
+            <tr>
+                <td>Clase 1</td>
+                <td>Tema 1, Tema 2, Tema 3</td>
+                <td>Tema 4, Tema 5</td>
+                <td>Lorem ipsum dolor sit amet, consectetur adipiscing elit</td>
+                <td><a href="#"><i class="material-icons">create</i></a></td>
+
+            </tr>
+           <tr>
+                <td>Clase 2</td>
+                <td>Tema 4, Tema 5</td>
+                <td>Tema 6, Tema 7</td>
+                <td>consectetur adipiscing elit</td>
+                <td><a href="#"><i class="material-icons">create</i></a></td>
+
+            </tr>
+            <tr>
+                <td>Clase 3</td>
+                <td>Tema 6, Tema 7</td>
+                <td>-</td>
+                <td>consectetur adipiscing elit</td>
+                <td><a href="#"><i class="material-icons">create</i></a></td>
+            </tr>
+            
+            </tbody>
+        </table> 
+        <a href="" class="button">Agregar clase</a>          
+		</div>
+	  </div>
+	</div>
+    </section>
+    <section class="mdl-layout__tab-panel" id="fixed-tab-2">
+      <div class="page-content"><!-- Your content goes here --></div>
+    </section>
+    <section class="mdl-layout__tab-panel" id="fixed-tab-3">
+      <div class="page-content"><!-- Your content goes here --></div>
+    </section>
+  </main>
+</div>
+</body>
+<html>

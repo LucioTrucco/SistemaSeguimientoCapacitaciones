@@ -1,0 +1,197 @@
+@charset "ISO-8859-1";
+body{
+	background-color: #f5f5f5;
+	white-space: no-wrap;
+}
+
+h3{
+  border-left: 10px solid #fe3f81;
+  padding-left: 10px;
+}
+
+.mdl-tooltip {
+will-change:unset;
+}﻿
+
+.middle {
+	margin: 0 auto;
+}
+
+.right {
+	margin: 0 0 0 auto;
+}
+
+.left {
+	margin: 0 auto 0 0;
+}
+
+.split {
+  display: block;
+}
+
+.hidden {
+  display:none;
+}
+
+.spacer {
+	display: block;
+	height: 20px;
+}
+
+.divider {
+	margin-right:20px;
+}
+
+.error {
+  color:#F44336;
+}
+
+.current-module{
+  background-color: #9FA8DA;
+  color:#FFF !important;
+}
+
+.mdl-layout__drawer .mdl-navigation {
+  padding-top: 0px !important;
+}
+
+.mdl-layout__drawer .mdl-navigation .mdl-navigation__link:hover{
+  color:#757575 !important;
+}
+
+.nv--img--small {
+	max-width: 30px;
+	margin-right: 15px;
+}
+
+.mdl-layout__tab-bar{
+  background-color: #5C6BC0;
+}
+.mdl-layout__drawer{
+  border-right: 1px solid #efefef;
+  background: #fff;
+}
+
+.mdl-layout__drawer .mdl-navigation{
+ /* margin-top:30px; */
+}
+
+.mdl-layout__header-row a {
+	margin: 0 auto 0 0;
+}
+
+.mdl-layout__header-row a img {
+	max-height: 52px;
+}
+
+.mdl-layout-title{
+  border-bottom: 1px solid #e0e0e0;
+  height: 113px;
+  /*background: repeating-linear-gradient(
+    135deg,
+    #3f51b5,
+    #3f51b5 5px,
+    #5c6bc0 5px,
+    #5c6bc0 10px
+  ); */
+}
+
+.div--block-wrapper {
+	padding: 20px;
+	background-color: #FFFFFF;
+}
+
+#modal {
+  display: none;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background-color: rgba(0,0,0,0.4);
+  z-index: 9999998;
+}
+
+.login {
+  display: none;
+  position: fixed;
+  top: calc(50% - 200px);
+  left: calc(50% - 160px);
+  z-index: 9999999;
+}
+
+.login .demo-card-square.mdl-card {
+  width: 320px;
+  height: 400px;
+}
+
+.login .demo-card-square > .mdl-card__title h2{
+  margin: 0 auto;
+}
+
+#login-normal .demo-card-square > .mdl-card__title {
+  color: #fff;
+  background: url('../i/login-normal.png') bottom 40% right 50%  no-repeat #3F51B5;
+}
+
+#login-forzado .demo-card-square > .mdl-card__title {
+  color: #fff;
+  background: url('../i/login-forzado.png') bottom 40% right 50%  no-repeat #F44336;
+}
+
+.mensaje-error{
+  position: relative;
+  background-color: #F44336;
+  color: white;
+  height: 50px;
+  line-height: 50px;
+  vertical-align: middle;
+  font-size: 16px;
+  text-align: center;
+  display: none;
+  box-shadow: 0 2px 2px 0 rgba(0,0,0,.14),0 3px 1px -2px rgba(0,0,0,.2),0 1px 5px 0 rgba(0,0,0,.12);
+}
+
+.nota {
+  max-width: 100%;
+  margin: 0 auto;
+  background-color: #FFF9C4;
+  padding: 16px;
+  border-radius: 2px;
+  color: #212121;
+}
+
+label.error {
+    position: absolute;
+    left: 0px;
+    bottom: -5px;
+
+}
+
+.mdl-layout.is-upgraded .mdl-layout__tab.is-active::after{
+  height:4px;
+}
+
+#logo-largo{
+    display: initial;
+}
+
+#logo-corto{
+    display: none;
+}
+
+@media screen and (max-width: 480px) {
+
+    #logo-largo{
+        display: none;
+    }
+
+    #logo-corto{
+        display: initial;
+    }
+}
+
+.logo-unla{
+  height: 48px;
+  cursor:pointer;
+}

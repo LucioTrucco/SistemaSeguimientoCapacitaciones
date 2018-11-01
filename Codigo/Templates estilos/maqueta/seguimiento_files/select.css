@@ -1,0 +1,52 @@
+.select-menu{
+	position: relative;
+	display: inline-block;
+	cursor: pointer;
+	width:100%;
+	max-width: 300px; 
+	background-image: url('../i/dropdown_icon.gif');
+	background-repeat: no-repeat;
+	background-position: right 25px ;
+}
+.select-label {
+	position: absolute;
+	top:24px;
+	color: #bdbdbd;
+	font-size: 16px;
+	font-family: "Helvetica","Arial",sans-serif;
+	font-weight: 400;
+}
+.select-label-active {
+	position: absolute;
+	top:4px;
+	color: #3f51b5;
+	font-size: 12px;
+	font-family: "Helvetica","Arial",sans-serif;
+}
+.select-input {
+	cursor: pointer;
+	background-color: rgba(0,0,0,0);
+	color: #000;
+	width:93%;
+	height: 24px;
+	margin: 20px 0;
+	border: none;
+	border-bottom: 1px solid #e1e1e1;
+	text: left;
+	font-size: 16px;
+	font-family: "Helvetica","Arial",sans-serif;
+}
+.select-elementList{
+	position: absolute;
+	cursor:pointer;
+	display:inline-block;
+	background-color: #FFF;
+	width:100%;
+	display: none;
+	max-height: 40vh;
+	overflow-y: auto;
+	z-index: 999;
+}
+.select-elementList li:hover{
+	background-color: #EEEEEE;
+}

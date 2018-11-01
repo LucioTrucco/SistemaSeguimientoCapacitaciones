@@ -1,0 +1,15 @@
+$(document).ready(function(){
+
+    /*VINCULO DEPENDENCIA CON SUBDEPENDENCIA EN LOS SELECTLIST*/
+    $("#subdependencia li").hide();
+    $("#dependencia li").click(function(){
+
+        dependencia_contenedor = $(this).parents(".dependencia-contenedor").first(); 
+           
+        $("#subdependencia input" , dependencia_contenedor).attr("value", "");
+        $("#subdependencia li" , dependencia_contenedor).hide();
+        var dataDependencia = $(this).attr("data-dependencia");
+        $("#subdependencia li[data-dependencia='"+dataDependencia+"']" , dependencia_contenedor).show();
+    });
+    /*FIN*/
+});

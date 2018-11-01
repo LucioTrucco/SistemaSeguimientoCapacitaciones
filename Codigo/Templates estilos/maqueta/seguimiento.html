@@ -1,0 +1,572 @@
+<!DOCTYPE html>
+<!-- saved from url=(0077)http://campus.unla.edu.ar/Gestion/index.php/Capacitacion/tutorias#fixed-tab-1 -->
+<html class="mdl-js"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+	<style>
+    #tabla-capacitaciones {
+    font-family: "Helvetica","Arial",sans-serif;
+    border-collapse: collapse;
+    width: 100%;
+}
+
+#tabla-capacitaciones td, #customers th {
+    border: 1px solid #ddd;
+    padding: 8px;
+}
+
+#tabla-capacitaciones tr:nth-child(even){background-color: #f2f2f2;}
+
+#tabla-capacitaciones tr:hover {background-color: #ddd;}
+
+#tabla-capacitaciones th {
+    padding-top: 12px;
+    padding-bottom: 12px;
+    text-align: left;
+    background-color: #5C6BC0;
+    color: white;
+}
+
+.space-around {
+    margin: 0px 10px;
+}
+</style>
+    
+    <!-- Codificacion de texto para que se puedan utilizar caracteres especiales -->
+    
+    <!-- tag de titulo -->
+    <title>Gestión Campus</title>
+    <!-- Tag que sirve para activar la vista responsiva en las pantallas mobil -->
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!-- Agrego soporte para jquery -->
+    <script type="text/javascript" src="./seguimiento_files/jquery.min.js.descarga"></script>
+    <!-- Agrego soporte para jqueryValidation -->
+    <script src="./seguimiento_files/jquery.validate.min.js.descarga" type="text/javascript"></script>
+    <!-- Agrego las fuentes de google -->
+    <link rel="stylesheet" href="./seguimiento_files/css" type="text/css">
+    <!-- Agrego los iconos de google (lo mismo que las font-awesome pero de google) -->
+    <link rel="stylesheet" href="./seguimiento_files/icon">
+    <!-- LLamo a los estilos del framework MDL (Material design lite) -->
+    <link rel="stylesheet" href="./seguimiento_files/material.indigo-pink.min.css">
+    <!-- Llamo a los javascript del framework MDL (Material design lite) -->
+    <script defer="" src="./seguimiento_files/material.min.js.descarga" type="text/javascript"></script>
+    <!-- Llamo a mis propios javascript personalizados globales -->
+    <script src="./seguimiento_files/global.js.descarga" type="text/javascript"></script>
+    <!-- Llamo a mis propios CSS personalizados globales -->
+    <link rel="stylesheet" href="./seguimiento_files/global.css">
+    <!-- Llamo a mis propios javascript para agregar elementos de tipo select -->
+    <script src="./seguimiento_files/select.js.descarga" type="text/javascript"></script>
+    <!-- Llamo a mis propios CSS para agregar elementos de tipo select -->
+    <link rel="stylesheet" href="./seguimiento_files/select.css">
+	<link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+  </head>
+  <body>
+    <div id="login-contenedor">
+      <div id="modal"></div>
+      <div id="login-normal" class="login">
+	<div class="demo-card-square mdl-card mdl-shadow--2dp">
+		<div class="mdl-card__title mdl-card--expand">
+			<h2 class="mdl-card__title-text">Ingresar al sistema</h2>
+		</div>
+		<div class="mdl-card__actions mdl-card--border">
+			<form accept-charset="utf-8" class="js-login">
+				<div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label is-dirty is-upgraded" data-upgraded=",MaterialTextfield">
+					<input class="mdl-textfield__input" type="text" name="usuario">
+					<label class="mdl-textfield__label" for="usuario">Usuario</label>
+				</div>
+				<div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label is-upgraded is-dirty" data-upgraded=",MaterialTextfield">
+					<input class="mdl-textfield__input" type="password" name="password">
+					<label class="mdl-textfield__label" for="password">Contraseña</label>
+				</div>
+				<button class="mdl-button mdl-button--colored mdl-js-button mdl-js-ripple-effect" type="submit" data-upgraded=",MaterialButton,MaterialRipple">
+					INGRESAR
+				<span class="mdl-button__ripple-container"><span class="mdl-ripple"></span></span></button>
+			</form>
+		</div>
+	</div>
+	<div class="mensaje-error"></div>
+	</div><div id="login-forzado" class="login">
+	<div class="demo-card-square mdl-card mdl-shadow--2dp">
+		<div class="mdl-card__title mdl-card--expand">
+			<h2 class="mdl-card__title-text">Debe ingresar primero</h2>
+		</div>
+		<div class="mdl-card__actions mdl-card--border">
+			<form accept-charset="utf-8" class="js-login">
+				<div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label is-dirty is-upgraded" data-upgraded=",MaterialTextfield">
+					<input class="mdl-textfield__input" type="text" name="usuario">
+					<label class="mdl-textfield__label" for="usuario">Usuario</label>
+				</div>
+				<div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label is-upgraded is-dirty" data-upgraded=",MaterialTextfield">
+					<input class="mdl-textfield__input" type="password" name="password">
+					<label class="mdl-textfield__label" for="password">Contraseña</label>
+				</div>
+				<button class="mdl-button mdl-button--colored mdl-js-button mdl-js-ripple-effect js-login" type="submit" data-upgraded=",MaterialButton,MaterialRipple">
+					INGRESAR
+				<span class="mdl-button__ripple-container"><span class="mdl-ripple"></span></span></button>
+			</form>
+		</div>
+	</div>
+	<div class="mensaje-error"></div>
+</div>   
+</div>
+    <!-- Inicio de la cabecera -->
+    <div class="mdl-layout__container">
+    <header class="mdl-layout__header is-casting-shadow"><div aria-expanded="false" role="button" tabindex="0" class="mdl-layout__drawer-button"><i class="material-icons"></i></div>
+      <!-- Titulo -->
+      <div class="mdl-layout__header-row">
+        <a href="http://campus.unla.edu.ar/Gestion/">
+        <img id="logo-largo" src="./seguimiento_files/logo-gestion.png" alt="">
+        <img id="logo-corto" src="./seguimiento_files/logo-gestion-corto.png" alt="">
+        </a>
+        <div id="login-area">
+			<button id="login-button" class="mdl-button mdl-js-button mdl-button--icon" data-upgraded=",MaterialButton">
+				<i class="material-icons">input</i>
+			</button>       
+		</div>
+      </div>
+      
+      <!-- Tabs -->
+        <div class="mdl-layout__tab-bar-container">
+          <div class="mdl-layout__tab-bar-button mdl-layout__tab-bar-left-button"><i class="material-icons">chevron_left</i></div>
+          <div class="mdl-layout__tab-bar mdl-js-ripple-effect is-casting-shadow mdl-js-ripple-effect--ignore-events" data-upgraded=",MaterialRipple">
+            <a href="http://campus.unla.edu.ar/Gestion/index.php/Capacitacion/tutorias#fixed-tab-1" class="mdl-layout__tab is-active" id="tutorias">Tutorías/Capacitaciones<span class="mdl-layout__tab-ripple-container mdl-js-ripple-effect" data-upgraded=",MaterialRipple"><span class="mdl-ripple is-animating" style="width: 1268.92px; height: 1268.92px; transform: translate(-50%, -50%) translate(249px, 14px);"></span></span></a>
+            <a href="http://campus.unla.edu.ar/Gestion/index.php/Capacitacion/tutorias#fixed-tab-2" class="mdl-layout__tab" id="microtalleres">Microtalleres<span class="mdl-layout__tab-ripple-container mdl-js-ripple-effect" data-upgraded=",MaterialRipple"><span class="mdl-ripple is-animating" style="width: 743.894px; height: 743.894px; transform: translate(-50%, -50%) translate(200px, 25px);"></span></span></a>
+            <a href="http://campus.unla.edu.ar/Gestion/index.php/Capacitacion/tutorias#fixed-tab-3" class="mdl-layout__tab" id="cursos">Cursos<span class="mdl-layout__tab-ripple-container mdl-js-ripple-effect" data-upgraded=",MaterialRipple"><span class="mdl-ripple is-animating" style="width: 630.407px; height: 630.407px; transform: translate(-50%, -50%) translate(18px, 5px);"></span></span></a>
+          </div>
+          <div class="mdl-layout__tab-bar-button mdl-layout__tab-bar-right-button"><i class="material-icons">chevron_right</i></div>
+        </div>
+        <div class="mdl-layout__tab-bar-container">
+          <div class="mdl-layout__tab-bar-button mdl-layout__tab-bar-left-button"><i class="material-icons">chevron_left</i></div>
+          <div class="mdl-layout__tab-bar mdl-js-ripple-effect is-casting-shadow mdl-js-ripple-effect--ignore-events" data-upgraded=",MaterialRipple">
+            <a href="http://campus.unla.edu.ar/Gestion/index.php/Capacitacion/tutorias#fixed-tab-1" class="mdl-layout__tab" id="tutorias">Solicitar capacitacion<span class="mdl-layout__tab-ripple-container mdl-js-ripple-effect" data-upgraded=",MaterialRipple"><span class="mdl-ripple is-animating" style="width: 1268.92px; height: 1268.92px; transform: translate(-50%, -50%) translate(249px, 14px);"></span></span></a>
+            <a href="http://campus.unla.edu.ar/Gestion/index.php/Capacitacion/tutorias#fixed-tab-2" class="mdl-layout__tab" id="Visualizar estado">Ver estados<span class="mdl-layout__tab-ripple-container mdl-js-ripple-effect" data-upgraded=",MaterialRipple"><span class="mdl-ripple"></span></span></a>
+            <a href="http://campus.unla.edu.ar/Gestion/index.php/Capacitacion/tutorias#fixed-tab-3" class="mdl-layout__tab  is-active" id="Capacitaciones">Capacitaciones<span class="mdl-layout__tab-ripple-container mdl-js-ripple-effect" data-upgraded=",MaterialRipple"><span class="mdl-ripple"></span></span></a>
+
+          </div>
+          <div class="mdl-layout__tab-bar-button mdl-layout__tab-bar-right-button"><i class="material-icons">chevron_right</i></div>
+        </div>
+	
+      
+    </header>
+	
+    <!-- menú de navegacion lateral -->
+    <div class="mdl-layout__drawer" aria-hidden="true">
+      <div class="mdl-layout-title"> 
+        <img class="logo-unla" alt="logo-unla" src="./seguimiento_files/logo-corto.png" onclick="javascript:location.href=&#39;http://campus.unla.edu.ar/&#39;">
+      </div>
+      <nav class="mdl-navigation">
+        <a id="Usuario" class="mdl-navigation__link" href="http://campus.unla.edu.ar/Gestion/index.php/Usuario/matricular"><img class="nv--img--small" src="./seguimiento_files/logomini-usuarios.png" alt="">Usuarios</a>
+        <a id="Aula" class="mdl-navigation__link" href="http://campus.unla.edu.ar/Gestion/index.php/Aula/crear"><img class="nv--img--small" src="./seguimiento_files/logomini-aulas.png" alt="">Aulas</a>
+        <a id="Capacitacion" class="mdl-navigation__link current-module" href="http://campus.unla.edu.ar/Gestion/index.php/Capacitacion/microtalleres"><img class="nv--img--small" src="./seguimiento_files/logomini-capacitaciones.png" alt="">Capacitaciones</a>
+        <a id="Virtualizacion" class="mdl-navigation__link" href="http://campus.unla.edu.ar/Gestion/index.php/Virtualizacion/solicitud_de_virtualizacion_uc"><img class="nv--img--small" src="./seguimiento_files/logomini-virtualizaciones.png" alt="">Virtualizaciones</a>
+      </nav>
+    </div>
+	
+	
+    <!-- fin de la cabecera -->
+<link href="./seguimiento_files/capacitacion.css" rel="stylesheet">
+<link rel="stylesheet" href="./seguimiento_files/jquery-ui.css">
+<script src="./seguimiento_files/jquery-ui.js.descarga"></script>
+<script src="./seguimiento_files/capacitacion.js.descarga" type="text/javascript"></script>
+<!-- Agrego soporte para jqueryValidation additional methods -->
+<script src="./seguimiento_files/additional-methods.min.js.descarga" type="text/javascript"></script>
+<link rel="stylesheet" href="./seguimiento_files/fecha.css">
+<!-- Inicio de las secciones de contenido -->
+<main class="mdl-layout__content">
+  <section class="mdl-layout__tab-panel is-active" id="fixed-tab-1">
+    <div class="mdl-grid">
+      <div class="mdl-cell mdl-cell--1-col"></div>
+      <div class="mdl-cell mdl-cell--8-col">
+        <div class="page-content" style="
+    width: 136%;
+">
+          <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+<h3>Capacitaciones solicitadas</h3>
+<table style="width: 100%;" id="tabla-capacitaciones">
+        <tbody>
+        <tr>
+            <th style="text-align: left;">Capacitacion</th>
+            <th style="text-align: left;">Descripcion</th>
+            <th style="text-align: left;">Horarios</th>
+			<th style="text-align: left;">Cantidad Alumnos</th>
+            <th style="text-align: left;"></th>
+        </tr>
+        <tr style="height: 14px;"></tr>
+        <tr>
+            <td>Uso aula virtual</td>
+            <td>Capacitacion para utilizar aula virtual</td>
+            <td>Lunes 16:00hs</td>
+			<td>3</td>
+            <td><button type="button" class="btn btn-outline-success"><i class="material-icons">done</i></button> <button type="button" class="btn btn-outline-danger"><i class="material-icons">close</i></button> <button type="button" class="btn btn-outline-success"><i class="material-icons">
+			info</i></button></td>
+        </tr>
+       <tr>
+            <td>Uso Campus</td>
+            <td>Capacitacion para utilizar Campus</td>
+            <td>Martes 16:00hs</td>
+			<td>1</td>
+            <td><button type="button" class="btn btn-outline-success"><i class="material-icons">done</i></button> <button type="button" class="btn btn-outline-danger"><i class="material-icons">close</i></button> <button type="button" class="btn btn-outline-success"><i class="material-icons">
+			info</i></button></td>
+        </tr>
+        </tbody>
+    </table>      
+	<br>
+	<br>
+	<br>
+	<br>
+	<br>
+	<br>
+	<br>
+	<br>
+	<br>
+	<br>
+	<br>
+	<br>
+	<br>
+	<br>
+	<br>
+	<br>
+	
+            <div class="div--block-wrapper mdl-shadow--2dp">
+              <h5>Describa brevemente el motivo:</h5>
+              <div class="mdl-textfield mdl-js-textfield is-upgraded" style="width:100%;" data-upgraded=",MaterialTextfield">
+                <textarea class="mdl-textfield__input" id="ct_motivo" name="motivo" rows="4" maxlength="900" type="text"></textarea>
+                <label class="mdl-textfield__label" for="ct_motivo"> El motivo de la tutoría / Capacitación...
+                </label>
+              </div>
+            </div>
+            <span class="spacer"></span>
+            <div class="div--block-wrapper mdl-shadow--2dp">
+              <h5>Datos personales</h5>
+              <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label is-upgraded" data-upgraded=",MaterialTextfield">
+                <input class="mdl-textfield__input" id="ct_nombre" name="nombre" type="text">
+                <label class="mdl-textfield__label" for="ct_nombre">Nombre</label>
+              </div>
+              <span class="divider"></span>
+              <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label is-upgraded" data-upgraded=",MaterialTextfield">
+                <input class="mdl-textfield__input" id="ct_apellido" name="apellido" type="text">
+                <label class="mdl-textfield__label" for="ct_apellido">Apellido</label>
+              </div>
+              <span class="split"></span>
+              <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label is-upgraded" data-upgraded=",MaterialTextfield">
+                <input class="mdl-textfield__input" id="ct_email" name="email" type="text">
+                <label class="mdl-textfield__label" for="ct_email">E-mail</label>
+              </div>
+              <span class="divider"></span>
+              <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label is-upgraded" data-upgraded=",MaterialTextfield">
+                <input class="mdl-textfield__input" id="ct_telefono" name="telefono" type="text">
+                <label class="mdl-textfield__label" for="ct_telefono">Teléfono</label>
+              </div>
+              <span class="split"></span>
+              <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label is-upgraded" data-upgraded=",MaterialTextfield">
+                <input class="mdl-textfield__input" id="ct_dni" name="dni" type="text">
+                <label class="mdl-textfield__label" for="ct_dni">DNI</label>
+              </div>
+            </div>
+            <span class="spacer"></span>
+            <div class="div--block-wrapper mdl-shadow--2dp">
+              <div class="dependencia-contenedor">
+                
+	<div class="select-menu" id="dependencia">
+		<label class="select-label">Dependencia</label>
+		<input readonly="" id="dependencia" class="select-input" type="text" value="" name="dependencia">
+		<ul class="demo-list-item mdl-list select-elementList mdl-shadow--2dp">
+			<li class="mdl-list__item" data-dependencia="1"><span class="mdl-list__item-primary-content">Dpto. Desarrollo Productivo y Técnologico</span></li>
+			<li class="mdl-list__item" data-dependencia="2"><span class="mdl-list__item-primary-content">Dpto. Planificación y Políticas Públicas</span></li>
+			<li class="mdl-list__item" data-dependencia="3"><span class="mdl-list__item-primary-content">Dpto. Humanidades y Artes</span></li>
+			<li class="mdl-list__item" data-dependencia="4"><span class="mdl-list__item-primary-content">Dpto. Salud Comunitaria</span></li>
+			<li class="mdl-list__item" data-dependencia="5"><span class="mdl-list__item-primary-content">Rectorado</span></li>
+			<li class="mdl-list__item" data-dependencia="6"><span class="mdl-list__item-primary-content">Vicerrectorado</span></li>
+			<li class="mdl-list__item" data-dependencia="7"><span class="mdl-list__item-primary-content">Secretaría Académica</span></li>
+			<li class="mdl-list__item" data-dependencia="8"><span class="mdl-list__item-primary-content">Secretaría de Ciencia y Técnica</span></li>
+			<li class="mdl-list__item" data-dependencia="9"><span class="mdl-list__item-primary-content">Secretaría de Cooperación y Servicio Público</span></li>
+			<li class="mdl-list__item" data-dependencia="10"><span class="mdl-list__item-primary-content">Secretaría general</span></li>
+			<li class="mdl-list__item" data-dependencia="11"><span class="mdl-list__item-primary-content">Secretaría de Asuntos Jurídicos e Institucionales</span></li>
+			<li class="mdl-list__item" data-dependencia="12"><span class="mdl-list__item-primary-content">Secretaría de Administración</span></li>
+		</ul>
+	</div>
+	                <span class="divider"></span>
+                
+<script src="./seguimiento_files/subdependencias.js.descarga" type="text/javascript"></script>
+<div class="select-menu" id="subdependencia">
+	<label class="select-label">Subdependencia</label>
+	<input readonly="" id="subdependencia" class="select-input" type="text" value="" name="subdependencia">
+	<ul class="demo-list-item mdl-list select-elementList mdl-shadow--2dp">
+	<li class="mdl-list__item" data-dependencia="1" style="display: none;"><span class="mdl-list__item-primary-content">Ciencia y Tecnología de los Alimentos (Lic.)</span></li>
+	<li class="mdl-list__item" data-dependencia="1" style="display: none;"><span class="mdl-list__item-primary-content">Economía Empresarial (Lic.)</span></li>
+	<li class="mdl-list__item" data-dependencia="1" style="display: none;"><span class="mdl-list__item-primary-content">Gestión Ambiental Urbana (Lic.)</span></li>
+	<li class="mdl-list__item" data-dependencia="1" style="display: none;"><span class="mdl-list__item-primary-content">Planificación Logística (Lic.)</span></li>
+	<li class="mdl-list__item" data-dependencia="1" style="display: none;"><span class="mdl-list__item-primary-content">Sistemas (Lic.)</span></li>
+	<li class="mdl-list__item" data-dependencia="1" style="display: none;"><span class="mdl-list__item-primary-content">Tecnologías Ferroviarias (Lic.)</span></li>
+	<li class="mdl-list__item" data-dependencia="1" style="display: none;"><span class="mdl-list__item-primary-content">Turismo (Lic.)</span></li>
+	<li class="mdl-list__item" data-dependencia="1" style="display: none;"><span class="mdl-list__item-primary-content">Economía Empresarial (Ciclo de Lic.)</span></li>
+	<li class="mdl-list__item" data-dependencia="1" style="display: none;"><span class="mdl-list__item-primary-content">Planificación Logística (Ciclo de Lic.)</span></li>
+	<li class="mdl-list__item" data-dependencia="1" style="display: none;"><span class="mdl-list__item-primary-content">Turismo (Ciclo de Lic.)</span></li>
+	<li class="mdl-list__item" data-dependencia="1" style="display: none;"><span class="mdl-list__item-primary-content">Desarrollo Sustentable (Esp.)</span></li>
+	<li class="mdl-list__item" data-dependencia="1" style="display: none;"><span class="mdl-list__item-primary-content">Formación Profesional (Esp.)</span></li>
+	<li class="mdl-list__item" data-dependencia="1" style="display: none;"><span class="mdl-list__item-primary-content">Gestión de Sistemas Agroalimentarios (Esp.)</span></li>
+	<li class="mdl-list__item" data-dependencia="1" style="display: none;"><span class="mdl-list__item-primary-content">Desarrollo Sustentable (Maestría)</span></li>
+	<li class="mdl-list__item" data-dependencia="1" style="display: none;"><span class="mdl-list__item-primary-content">Gestión de Micro, Pequeñas y Medianas Empresas (Maestría)</span></li>
+	<li class="mdl-list__item" data-dependencia="1" style="display: none;"><span class="mdl-list__item-primary-content">Sistemas de Información (Maestría)</span></li>
+	<li class="mdl-list__item" data-dependencia="1" style="display: none;"><span class="mdl-list__item-primary-content">Tecnología de los Alimentos (Maestría)</span></li>
+	
+	<li class="mdl-list__item" data-dependencia="2" style="display: none;"><span class="mdl-list__item-primary-content">Ciencia Política y Gobierno (Lic.)</span></li>
+	<li class="mdl-list__item" data-dependencia="2" style="display: none;"><span class="mdl-list__item-primary-content">Derechos Humanos (Doc.)</span></li>
+	<li class="mdl-list__item" data-dependencia="2" style="display: none;"><span class="mdl-list__item-primary-content">Derechos Humanos (Maestría)</span></li>
+	<li class="mdl-list__item" data-dependencia="2" style="display: none;"><span class="mdl-list__item-primary-content">Derechos Humanos, Migración y Asilo (Esp.)</span></li>
+	<li class="mdl-list__item" data-dependencia="2" style="display: none;"><span class="mdl-list__item-primary-content">Educación (Lic.)</span></li>
+	<li class="mdl-list__item" data-dependencia="2" style="display: none;"><span class="mdl-list__item-primary-content">Educación con Orientación en Investigación Educativa (Esp.)</span></li>
+	<li class="mdl-list__item" data-dependencia="2" style="display: none;"><span class="mdl-list__item-primary-content">Género, Políticas Públicas y Sociedad (Esp.)</span></li>
+	<li class="mdl-list__item" data-dependencia="2" style="display: none;"><span class="mdl-list__item-primary-content">Gestión de Gobierno Local (Tec.)</span></li>
+	<li class="mdl-list__item" data-dependencia="2" style="display: none;"><span class="mdl-list__item-primary-content">Gestión de la Energía (Maestría)</span></li>
+	<li class="mdl-list__item" data-dependencia="2" style="display: none;"><span class="mdl-list__item-primary-content">Gestión Educativa (Ciclo de Lic.)</span></li>
+	<li class="mdl-list__item" data-dependencia="2" style="display: none;"><span class="mdl-list__item-primary-content">Gestión y Administración Universitaria (Tec.)</span></li>
+	<li class="mdl-list__item" data-dependencia="2" style="display: none;"><span class="mdl-list__item-primary-content">Justicia y Derechos Humanos (Lic.)</span></li>
+	<li class="mdl-list__item" data-dependencia="2" style="display: none;"><span class="mdl-list__item-primary-content">Nuevas Tecnologías Aplicadas a la Justicia (Maestría)</span></li>
+	<li class="mdl-list__item" data-dependencia="2" style="display: none;"><span class="mdl-list__item-primary-content">Políticas Públicas y Gobierno (Maestría)</span></li>
+	<li class="mdl-list__item" data-dependencia="2" style="display: none;"><span class="mdl-list__item-primary-content">Relaciones Internacionales (Lic.)</span></li>
+	<li class="mdl-list__item" data-dependencia="2" style="display: none;"><span class="mdl-list__item-primary-content">Seguridad Ciudadana (Ciclo de Lic.)</span></li>
+	<li class="mdl-list__item" data-dependencia="2" style="display: none;"><span class="mdl-list__item-primary-content">Seguridad Ciudadana (Lic.)</span></li>
+	<li class="mdl-list__item" data-dependencia="2" style="display: none;"><span class="mdl-list__item-primary-content">Seminario Pensamiento Nacional y Latinoamericano (Sem.)</span></li>
+	<li class="mdl-list__item" data-dependencia="2" style="display: none;"><span class="mdl-list__item-primary-content">Tecnologías Digitales para la Educación (Ciclo de Lic.)</span></li>
+
+	
+	<li class="mdl-list__item" data-dependencia="3" style="display: none;"><span class="mdl-list__item-primary-content">Audiovisión (Lic.)</span></li>
+	<li class="mdl-list__item" data-dependencia="3" style="display: none;"><span class="mdl-list__item-primary-content">Diseño y Comunicación Visual (Lic.)</span></li>
+	<li class="mdl-list__item" data-dependencia="3" style="display: none;"><span class="mdl-list__item-primary-content">Diseño Industrial (Lic.)</span></li>
+	<li class="mdl-list__item" data-dependencia="3" style="display: none;"><span class="mdl-list__item-primary-content">Traductorado Público en Idioma Inglés (Lic.)</span></li>
+	<li class="mdl-list__item" data-dependencia="3" style="display: none;"><span class="mdl-list__item-primary-content">Interpretación y Traducción en Formas de Comunicación No Verbal (Ciclo de Lic.)</span></li>
+	<li class="mdl-list__item" data-dependencia="3" style="display: none;"><span class="mdl-list__item-primary-content">Museología Histórica y Patrimonial (Ciclo de Lic.)</span></li>
+	<li class="mdl-list__item" data-dependencia="3" style="display: none;"><span class="mdl-list__item-primary-content">Música (Ciclo de Lic.)</span></li>
+	<li class="mdl-list__item" data-dependencia="3" style="display: none;"><span class="mdl-list__item-primary-content">Metodología de la Investigación Científica (Esp.)</span></li>
+	<li class="mdl-list__item" data-dependencia="3" style="display: none;"><span class="mdl-list__item-primary-content">Metodología de la Investigación Científica (Maestría)</span></li>
+	<li class="mdl-list__item" data-dependencia="3" style="display: none;"><span class="mdl-list__item-primary-content">Filosofía (Doc.)</span></li>
+	
+	<li class="mdl-list__item" data-dependencia="4" style="display: none;"><span class="mdl-list__item-primary-content">Enfermería (Lic.)</span></li>
+	<li class="mdl-list__item" data-dependencia="4" style="display: none;"><span class="mdl-list__item-primary-content">Nutrición (Lic.)</span></li>
+	<li class="mdl-list__item" data-dependencia="4" style="display: none;"><span class="mdl-list__item-primary-content">Trabajo Social (Lic.)</span></li>
+	<li class="mdl-list__item" data-dependencia="4" style="display: none;"><span class="mdl-list__item-primary-content">Enfermería (Ciclo de Lic.)</span></li>
+	<li class="mdl-list__item" data-dependencia="4" style="display: none;"><span class="mdl-list__item-primary-content">Educación Física (Ciclo de Lic.)</span></li>
+	<li class="mdl-list__item" data-dependencia="4" style="display: none;"><span class="mdl-list__item-primary-content">Trabajo Social (Ciclo de Lic.)</span></li>
+	<li class="mdl-list__item" data-dependencia="4" style="display: none;"><span class="mdl-list__item-primary-content">Gestión en Salud (Esp.)</span></li>
+	<li class="mdl-list__item" data-dependencia="4" style="display: none;"><span class="mdl-list__item-primary-content">EpidemiologÍa (Esp.)</span></li>
+	<li class="mdl-list__item" data-dependencia="4" style="display: none;"><span class="mdl-list__item-primary-content">Abordaje Integral de las Problemáticas Sociales en el Ámbito Comunitario (Esp.)</span></li>
+	<li class="mdl-list__item" data-dependencia="4" style="display: none;"><span class="mdl-list__item-primary-content">Salud Mental Comunitaria (Esp.)</span></li>
+	<li class="mdl-list__item" data-dependencia="4" style="display: none;"><span class="mdl-list__item-primary-content">EpidemiologÍa, Gestión y Políticas de Salud (Maestría)</span></li>
+	<li class="mdl-list__item" data-dependencia="4" style="display: none;"><span class="mdl-list__item-primary-content">Salud Mental Comunitaria (Maestría)</span></li>
+	<li class="mdl-list__item" data-dependencia="4" style="display: none;"><span class="mdl-list__item-primary-content">Salud Colectiva (Doc.)</span></li>
+	<li class="mdl-list__item" data-dependencia="4" style="display: none;"><span class="mdl-list__item-primary-content">Salud Mental Comunitaria (Doc.)</span></li>
+	
+	<li class="mdl-list__item" data-dependencia="5" style="display: none;"><span class="mdl-list__item-primary-content">Unidad de Auditoría Interna</span></li>
+	<li class="mdl-list__item" data-dependencia="5" style="display: none;"><span class="mdl-list__item-primary-content">Instituto de Problemas Nacionales</span></li>
+	<li class="mdl-list__item" data-dependencia="5" style="display: none;"><span class="mdl-list__item-primary-content">Instituto de la Cultura</span></li>
+	<li class="mdl-list__item" data-dependencia="5" style="display: none;"><span class="mdl-list__item-primary-content">Instituto de Salud Colectiva</span></li>
+	<li class="mdl-list__item" data-dependencia="5" style="display: none;"><span class="mdl-list__item-primary-content">Instituto de Producción, Economía y trabajo</span></li>
+	<li class="mdl-list__item" data-dependencia="5" style="display: none;"><span class="mdl-list__item-primary-content">Centro de Justicia y DDHH</span></li>
+	
+	<li class="mdl-list__item" data-dependencia="6" style="display: none;"><span class="mdl-list__item-primary-content">Dir. de Campus Virtual</span></li>
+	<li class="mdl-list__item" data-dependencia="6" style="display: none;"><span class="mdl-list__item-primary-content">Dir. de Posgrado</span></li>
+	<li class="mdl-list__item" data-dependencia="6" style="display: none;"><span class="mdl-list__item-primary-content">Dir. de Planificación y Evaluación de la Gestión</span></li>
+	<li class="mdl-list__item" data-dependencia="6" style="display: none;"><span class="mdl-list__item-primary-content">Unidad de Formación en gestión Pública y Social</span></li>
+	
+	<li class="mdl-list__item" data-dependencia="7" style="display: none;"><span class="mdl-list__item-primary-content">Dir. de gestión y Documentación Estudiantil</span></li>
+	<li class="mdl-list__item" data-dependencia="7" style="display: none;"><span class="mdl-list__item-primary-content">Dir. de Pedagogía Universitaria</span></li>
+	<li class="mdl-list__item" data-dependencia="7" style="display: none;"><span class="mdl-list__item-primary-content">Dir. de Biblioteca y Serv. en Inf. Documental</span></li>
+	<li class="mdl-list__item" data-dependencia="7" style="display: none;"><span class="mdl-list__item-primary-content">Dir. de gestión y Evaluación Académica</span></li>
+	
+	<li class="mdl-list__item" data-dependencia="8" style="display: none;"><span class="mdl-list__item-primary-content">Dir. de Innovación y Vinculación tecnológica</span></li>
+	<li class="mdl-list__item" data-dependencia="8" style="display: none;"><span class="mdl-list__item-primary-content">Dirección de Investigación</span></li>
+	<li class="mdl-list__item" data-dependencia="8" style="display: none;"><span class="mdl-list__item-primary-content">Centro Interactivo de Ciencia y tecnología</span></li>
+	<li class="mdl-list__item" data-dependencia="8" style="display: none;"><span class="mdl-list__item-primary-content">Escuela Téc. de Artes y Oficios</span></li>
+	
+	<li class="mdl-list__item" data-dependencia="9" style="display: none;"><span class="mdl-list__item-primary-content">Dir. de Cooperación</span></li>
+	<li class="mdl-list__item" data-dependencia="9" style="display: none;"><span class="mdl-list__item-primary-content">Dir. de Educación Permanente</span></li>
+	<li class="mdl-list__item" data-dependencia="9" style="display: none;"><span class="mdl-list__item-primary-content">Dir. de Cooperación Internacional</span></li>
+	<li class="mdl-list__item" data-dependencia="9" style="display: none;"><span class="mdl-list__item-primary-content">Dir. de Bienestar Universitario</span></li>
+	<li class="mdl-list__item" data-dependencia="9" style="display: none;"><span class="mdl-list__item-primary-content">Dir. de Deportes y Recreación</span></li>
+	<li class="mdl-list__item" data-dependencia="9" style="display: none;"><span class="mdl-list__item-primary-content">Escuela Infantil A. Villaflor</span></li>
+	
+	<li class="mdl-list__item" data-dependencia="10" style="display: none;"><span class="mdl-list__item-primary-content">Dir. de Recursos Humanos</span></li>
+	<li class="mdl-list__item" data-dependencia="10" style="display: none;"><span class="mdl-list__item-primary-content">Dir. de Planificación Física</span></li>
+	<li class="mdl-list__item" data-dependencia="10" style="display: none;"><span class="mdl-list__item-primary-content">Dir. de Relaciones Institucionales y Culturales</span></li>
+	<li class="mdl-list__item" data-dependencia="10" style="display: none;"><span class="mdl-list__item-primary-content">Dir. de Comunicación Institucional</span></li>
+	<li class="mdl-list__item" data-dependencia="10" style="display: none;"><span class="mdl-list__item-primary-content">Dir. de Diseño y Comunicación Visual</span></li>
+	<li class="mdl-list__item" data-dependencia="10" style="display: none;"><span class="mdl-list__item-primary-content">Área de prensa</span></li>
+	<li class="mdl-list__item" data-dependencia="10" style="display: none;"><span class="mdl-list__item-primary-content">Área de Patrimonio Histórico</span></li>
+	
+	<li class="mdl-list__item" data-dependencia="11" style="display: none;"><span class="mdl-list__item-primary-content">Dir. de Asuntos Jurídicos</span></li>
+	<li class="mdl-list__item" data-dependencia="11" style="display: none;"><span class="mdl-list__item-primary-content">Dir. de Desapacho y Mesa de Entrada</span></li>
+	<li class="mdl-list__item" data-dependencia="11" style="display: none;"><span class="mdl-list__item-primary-content">U. de Asist. Téc. y Adm. del C. Superior</span></li>
+	<li class="mdl-list__item" data-dependencia="11" style="display: none;"><span class="mdl-list__item-primary-content">Ofic. de Sumarios e Inv. Admin.</span></li>
+	
+	<li class="mdl-list__item" data-dependencia="12" style="display: none;"><span class="mdl-list__item-primary-content">Dir. de Administración</span></li>
+	<li class="mdl-list__item" data-dependencia="12" style="display: none;"><span class="mdl-list__item-primary-content">Dir. de Compras</span></li>
+	<li class="mdl-list__item" data-dependencia="12" style="display: none;"><span class="mdl-list__item-primary-content">Dir. de Liquidación de Haberes</span></li>
+	<li class="mdl-list__item" data-dependencia="12" style="display: none;"><span class="mdl-list__item-primary-content">Dir. de Contabilidad</span></li>
+	<li class="mdl-list__item" data-dependencia="12" style="display: none;"><span class="mdl-list__item-primary-content">Dir. de Mantenimiento</span></li>
+	<li class="mdl-list__item" data-dependencia="12" style="display: none;"><span class="mdl-list__item-primary-content">Dir. de Informática</span></li>
+	<li class="mdl-list__item" data-dependencia="12" style="display: none;"><span class="mdl-list__item-primary-content">Área de Intendencia</span></li>
+	</ul>
+</div>
+              </div>
+              <span class="split"></span>
+              <div class="select-menu">
+                <label class="select-label">Rol</label>
+                <input readonly="" class="select-input" type="text" name="rol" value="">
+                <ul id="rol" class="demo-list-item mdl-list select-elementList mdl-shadow--2dp">
+                  <li class="mdl-list__item"><span class="mdl-list__item-primary-content">
+                    Docente
+                    </span>
+                  </li>
+                  <li class="mdl-list__item"><span class="mdl-list__item-primary-content">
+                    Nodocente
+                    </span>
+                  </li>
+                  <li class="mdl-list__item"><span class="mdl-list__item-primary-content">
+                    Estudiantes
+                    </span>
+                  </li>
+                  <li id="otros" class="mdl-list__item"><span class="mdl-list__item-primary-content">
+                    Otros Miembros Comunidad UNLa
+                    </span>
+                  </li>
+                </ul>
+              </div>
+            </div>
+            <span class="spacer"></span>
+            <div class="div--block-wrapper mdl-shadow--2dp">
+              <h5>La tutoría será:</h5>
+              <fieldset id="formato">
+                <label class="mdl-radio mdl-js-radio mdl-js-ripple-effect mdl-js-ripple-effect--ignore-events is-checked is-upgraded" for="ct_option-1" data-upgraded=",MaterialRadio,MaterialRipple"><input checked="" class="mdl-radio__button" id="ct_option-1" name="formato" type="radio" value="individual"> <span class="mdl-radio__label">Individual</span><span class="mdl-radio__outer-circle"></span><span class="mdl-radio__inner-circle"></span><span class="mdl-radio__ripple-container mdl-js-ripple-effect mdl-ripple--center" data-upgraded=",MaterialRipple"><span class="mdl-ripple"></span></span></label> 
+                <span class="divider"></span>
+                <label class="mdl-radio mdl-js-radio mdl-js-ripple-effect mdl-js-ripple-effect--ignore-events is-upgraded" for="ct_option-2" data-upgraded=",MaterialRadio,MaterialRipple"><input class="mdl-radio__button" id="ct_option-2" name="formato" type="radio" value="grupal"> <span class="mdl-radio__label">Grupal</span><span class="mdl-radio__outer-circle"></span><span class="mdl-radio__inner-circle"></span><span class="mdl-radio__ripple-container mdl-js-ripple-effect mdl-ripple--center" data-upgraded=",MaterialRipple"><span class="mdl-ripple"></span></span></label>
+              </fieldset>
+            </div>
+            <span class="spacer"></span>
+            <div class="div--inline-block-wrapper mdl-shadow--2dp">
+              <h5>Horarios de tutoría</h5>
+              <table class="mdl-data-table mdl-js-data-table" data-upgraded=",MaterialDataTable">
+                <thead>
+                  <tr>
+                    <th class="mdl-data-table__cell--non-numeric">Días</th>
+                    <th class="mdl-data-table__cell--non-numeric">Horarios</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td class="mdl-data-table__cell--non-numeric">Lunes</td>
+                    <td class="mdl-data-table__cell--non-numeric">9 a 18</td>
+                  </tr>
+                  <tr>
+                    <td class="mdl-data-table__cell--non-numeric">Martes</td>
+                    <td class="mdl-data-table__cell--non-numeric">12 a 18</td>
+                  </tr>
+                  <tr>
+                    <td class="mdl-data-table__cell--non-numeric">Miércoles</td>
+                    <td class="mdl-data-table__cell--non-numeric">12 a 20</td>
+                  </tr>
+                  <tr>
+                    <td class="mdl-data-table__cell--non-numeric">Jueves</td>
+                    <td class="mdl-data-table__cell--non-numeric">9 a 20</td>
+                  </tr>
+                  <tr>
+                    <td class="mdl-data-table__cell--non-numeric">Viernes</td>
+                    <td class="mdl-data-table__cell--non-numeric">9 a 18</td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+            <span class="divider"></span>
+            <div class="div--inline-block-wrapper mdl-shadow--2dp">
+              <h5>Modalidad de la Tutoría</h5>
+              <p>De acuerdo a la disponibilidad horaria. ¿Cree que podrá asistir a una tutoría presencial? (Buscaremos alternativas en caso contrario)</p>
+              <fieldset id="modalidad">
+                <label class="mdl-radio mdl-js-radio mdl-js-ripple-effect mdl-js-ripple-effect--ignore-events is-checked is-upgraded" for="option-3" data-upgraded=",MaterialRadio,MaterialRipple"><input checked="" class="mdl-radio__button" id="option-3" name="modalidad" type="radio" value="presencial"> <span class="mdl-radio__label">SI</span><span class="mdl-radio__outer-circle"></span><span class="mdl-radio__inner-circle"></span><span class="mdl-radio__ripple-container mdl-js-ripple-effect mdl-ripple--center" data-upgraded=",MaterialRipple"><span class="mdl-ripple"></span></span></label> <span class="divider"></span> <label class="mdl-radio mdl-js-radio mdl-js-ripple-effect mdl-js-ripple-effect--ignore-events is-upgraded" for="option-4" data-upgraded=",MaterialRadio,MaterialRipple"><input class="mdl-radio__button" id="option-4" name="modalidad" type="radio" value="virtual"> <span class="mdl-radio__label">NO</span><span class="mdl-radio__outer-circle"></span><span class="mdl-radio__inner-circle"></span><span class="mdl-radio__ripple-container mdl-js-ripple-effect mdl-ripple--center" data-upgraded=",MaterialRipple"><span class="mdl-ripple"></span></span></label>
+              </fieldset>
+            </div>
+            <div class="div--block-wrapper mdl-shadow--2dp">
+              <h5>Fecha de la Tutoría</h5>
+              <p>Seleccione 3 fechas posibles <strong style="color: red;">(de acuerdo al rango horario de tutoría)</strong> para realizar la misma</p>
+                            <!-- Inicio fecha -->
+              <div class="mdl-grid">
+                <div class="mdl-cell mdl-cell--6-col">
+                  <input readonly="" type="text" id="fecha0" class="fecha hasDatepicker" placeholder="Fecha" name="fecha0">
+                </div>
+                <div class="mdl-cell mdl-cell--6-col">
+                  <!-- rango horario -->
+                  <div class="select-menu hora">
+                    <label class="select-label">Desde</label>
+                    <input readonly="" class="select-input" type="text" value="" name="hs_desde0">
+                    <ul id="hs_desde" class="demo-list-item mdl-list select-elementList mdl-shadow--2dp">
+                      <li class="mdl-list__item"><span class="mdl-list__item-primary-content">9</span></li><li class="mdl-list__item"><span class="mdl-list__item-primary-content">10</span></li><li class="mdl-list__item"><span class="mdl-list__item-primary-content">11</span></li><li class="mdl-list__item"><span class="mdl-list__item-primary-content">12</span></li><li class="mdl-list__item"><span class="mdl-list__item-primary-content">13</span></li><li class="mdl-list__item"><span class="mdl-list__item-primary-content">14</span></li><li class="mdl-list__item"><span class="mdl-list__item-primary-content">15</span></li><li class="mdl-list__item"><span class="mdl-list__item-primary-content">16</span></li><li class="mdl-list__item"><span class="mdl-list__item-primary-content">17</span></li><li class="mdl-list__item"><span class="mdl-list__item-primary-content">18</span></li><li class="mdl-list__item"><span class="mdl-list__item-primary-content">19</span></li>                    </ul>
+                  </div>
+                  <div class="select-menu hora">
+                    <label class="select-label">Hasta</label>
+                    <input readonly="" class="select-input" type="text" value="" name="hs_hasta0">
+                    <ul id="hs_hasta" class="demo-list-item mdl-list select-elementList mdl-shadow--2dp">
+                      <li class="mdl-list__item"><span class="mdl-list__item-primary-content">10</span></li><li class="mdl-list__item"><span class="mdl-list__item-primary-content">11</span></li><li class="mdl-list__item"><span class="mdl-list__item-primary-content">12</span></li><li class="mdl-list__item"><span class="mdl-list__item-primary-content">13</span></li><li class="mdl-list__item"><span class="mdl-list__item-primary-content">14</span></li><li class="mdl-list__item"><span class="mdl-list__item-primary-content">15</span></li><li class="mdl-list__item"><span class="mdl-list__item-primary-content">16</span></li><li class="mdl-list__item"><span class="mdl-list__item-primary-content">17</span></li><li class="mdl-list__item"><span class="mdl-list__item-primary-content">18</span></li><li class="mdl-list__item"><span class="mdl-list__item-primary-content">19</span></li><li class="mdl-list__item"><span class="mdl-list__item-primary-content">20</span></li>                    </ul>
+                  </div>
+                  <!-- fin rango horario -->
+                </div>
+              </div>
+              <!-- fin fecha -->
+                            <!-- Inicio fecha -->
+              <div class="mdl-grid">
+                <div class="mdl-cell mdl-cell--6-col">
+                  <input readonly="" type="text" id="fecha1" class="fecha hasDatepicker" placeholder="Fecha" name="fecha1">
+                </div>
+                <div class="mdl-cell mdl-cell--6-col">
+                  <!-- rango horario -->
+                  <div class="select-menu hora">
+                    <label class="select-label">Desde</label>
+                    <input readonly="" class="select-input" type="text" value="" name="hs_desde1">
+                    <ul id="hs_desde" class="demo-list-item mdl-list select-elementList mdl-shadow--2dp">
+                      <li class="mdl-list__item"><span class="mdl-list__item-primary-content">9</span></li><li class="mdl-list__item"><span class="mdl-list__item-primary-content">10</span></li><li class="mdl-list__item"><span class="mdl-list__item-primary-content">11</span></li><li class="mdl-list__item"><span class="mdl-list__item-primary-content">12</span></li><li class="mdl-list__item"><span class="mdl-list__item-primary-content">13</span></li><li class="mdl-list__item"><span class="mdl-list__item-primary-content">14</span></li><li class="mdl-list__item"><span class="mdl-list__item-primary-content">15</span></li><li class="mdl-list__item"><span class="mdl-list__item-primary-content">16</span></li><li class="mdl-list__item"><span class="mdl-list__item-primary-content">17</span></li><li class="mdl-list__item"><span class="mdl-list__item-primary-content">18</span></li><li class="mdl-list__item"><span class="mdl-list__item-primary-content">19</span></li>                    </ul>
+                  </div>
+                  <div class="select-menu hora">
+                    <label class="select-label">Hasta</label>
+                    <input readonly="" class="select-input" type="text" value="" name="hs_hasta1">
+                    <ul id="hs_hasta" class="demo-list-item mdl-list select-elementList mdl-shadow--2dp">
+                      <li class="mdl-list__item"><span class="mdl-list__item-primary-content">10</span></li><li class="mdl-list__item"><span class="mdl-list__item-primary-content">11</span></li><li class="mdl-list__item"><span class="mdl-list__item-primary-content">12</span></li><li class="mdl-list__item"><span class="mdl-list__item-primary-content">13</span></li><li class="mdl-list__item"><span class="mdl-list__item-primary-content">14</span></li><li class="mdl-list__item"><span class="mdl-list__item-primary-content">15</span></li><li class="mdl-list__item"><span class="mdl-list__item-primary-content">16</span></li><li class="mdl-list__item"><span class="mdl-list__item-primary-content">17</span></li><li class="mdl-list__item"><span class="mdl-list__item-primary-content">18</span></li><li class="mdl-list__item"><span class="mdl-list__item-primary-content">19</span></li><li class="mdl-list__item"><span class="mdl-list__item-primary-content">20</span></li>                    </ul>
+                  </div>
+                  <!-- fin rango horario -->
+                </div>
+              </div>
+              <!-- fin fecha -->
+                            <!-- Inicio fecha -->
+              <div class="mdl-grid">
+                <div class="mdl-cell mdl-cell--6-col">
+                  <input readonly="" type="text" id="fecha2" class="fecha hasDatepicker" placeholder="Fecha" name="fecha2">
+                </div>
+                <div class="mdl-cell mdl-cell--6-col">
+                  <!-- rango horario -->
+                  <div class="select-menu hora">
+                    <label class="select-label">Desde</label>
+                    <input readonly="" class="select-input" type="text" value="" name="hs_desde2">
+                    <ul id="hs_desde" class="demo-list-item mdl-list select-elementList mdl-shadow--2dp">
+                      <li class="mdl-list__item"><span class="mdl-list__item-primary-content">9</span></li><li class="mdl-list__item"><span class="mdl-list__item-primary-content">10</span></li><li class="mdl-list__item"><span class="mdl-list__item-primary-content">11</span></li><li class="mdl-list__item"><span class="mdl-list__item-primary-content">12</span></li><li class="mdl-list__item"><span class="mdl-list__item-primary-content">13</span></li><li class="mdl-list__item"><span class="mdl-list__item-primary-content">14</span></li><li class="mdl-list__item"><span class="mdl-list__item-primary-content">15</span></li><li class="mdl-list__item"><span class="mdl-list__item-primary-content">16</span></li><li class="mdl-list__item"><span class="mdl-list__item-primary-content">17</span></li><li class="mdl-list__item"><span class="mdl-list__item-primary-content">18</span></li><li class="mdl-list__item"><span class="mdl-list__item-primary-content">19</span></li>                    </ul>
+                  </div>
+                  <div class="select-menu hora">
+                    <label class="select-label">Hasta</label>
+                    <input readonly="" class="select-input" type="text" value="" name="hs_hasta2">
+                    <ul id="hs_hasta" class="demo-list-item mdl-list select-elementList mdl-shadow--2dp">
+                      <li class="mdl-list__item"><span class="mdl-list__item-primary-content">10</span></li><li class="mdl-list__item"><span class="mdl-list__item-primary-content">11</span></li><li class="mdl-list__item"><span class="mdl-list__item-primary-content">12</span></li><li class="mdl-list__item"><span class="mdl-list__item-primary-content">13</span></li><li class="mdl-list__item"><span class="mdl-list__item-primary-content">14</span></li><li class="mdl-list__item"><span class="mdl-list__item-primary-content">15</span></li><li class="mdl-list__item"><span class="mdl-list__item-primary-content">16</span></li><li class="mdl-list__item"><span class="mdl-list__item-primary-content">17</span></li><li class="mdl-list__item"><span class="mdl-list__item-primary-content">18</span></li><li class="mdl-list__item"><span class="mdl-list__item-primary-content">19</span></li><li class="mdl-list__item"><span class="mdl-list__item-primary-content">20</span></li>                    </ul>
+                  </div>
+                  <!-- fin rango horario -->
+                </div>
+              </div>
+              <!-- fin fecha -->
+                            <p><strong>Importante: </strong>Recuerde que el equipo de Capacitación del Campus Virtual se pondrá en contacto por correo electrónico para acordar el horario de su tutoría</p>
+            </div>
+            <span class="spacer"></span>
+            <button class="mdl-button mdl-js-button mdl-button--raised mdl-button--colored" type="submit" data-upgraded=",MaterialButton">ENVIAR</button>
+          </form>
+        </div>
+      </div>
+      <div class="mdl-cell mdl-cell--3-col"></div>
+    </div>
+  </section>
+</main>
+</div>
+</div>
+
+</body>
+</html>
