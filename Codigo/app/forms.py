@@ -1,7 +1,7 @@
 from flask_wtf import FlaskForm
-from wtforms import StringField, PasswordField, SubmitField, BooleanField
+from wtforms import StringField, PasswordField, SubmitField
+from wtforms import BooleanField, SelectField
 from wtforms.fields.html5 import DateField
-
 from wtforms.validators import DataRequired
 
 
@@ -21,6 +21,10 @@ class TrainingForm(FlaskForm):
 
 class ClassForm(FlaskForm):
     date = DateField('Inicio', validators=[DataRequired()])
-    topics = StringField('Name', validators=[DataRequired()])
-    topicsNext = StringField('Name', validators=[DataRequired()])
-    comments = StringField('Name', validators=[DataRequired()])
+    topics = StringField('Temas vistos', validators=[DataRequired()])
+    topicsNext = StringField('Temas Proxima', validators=[DataRequired()])
+    comments = StringField('Comentarios', validators=[DataRequired()])
+
+
+class TrainerForm(FlaskForm):
+    trainer = SelectField('trainer', validators=[DataRequired()], coerce=int)

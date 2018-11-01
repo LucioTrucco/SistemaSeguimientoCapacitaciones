@@ -1,10 +1,11 @@
-from flask import render_template, flash, redirect, url_for
+from flask import render_template, flash, redirect, url_for, request
 from app import app
-from app.forms import LoginForm, TrainingForm
+from app.forms import LoginForm, TrainingForm, TrainerForm
 from flask_login import current_user, login_user, logout_user
 from app.models import User, Training
 from app import db
 
+import pdb
 
 @app.route('/')
 @app.route('/index')
@@ -63,7 +64,6 @@ def details(id):
 @app.route('/capacitaciones/crear', methods=['GET', 'POST'])
 def create():
     form = TrainingForm()
-    # pdb.set_trace()
     if form.validate_on_submit():
         training = Training(
             name=form.name.data,
@@ -97,11 +97,20 @@ def assign():
     )
 
 
-@app.route('/assign/<int:id>')
+@app.route('/assign/<int:id>', methods=['GET', 'POST'])
 def select_trainer(id):
+    form = TrainerForm()
+    # TODO: Set users to avaialable users
+    form.trainer.choices = [(u.id, u.username) for u in User.query.all()]
+    if form.validate_on_submit():
+        trainer = User.query.get(form.trainer.data)
+        training = Training.query.get(id)
+        training.trainer = trainer
+        db.session.commit()
+        return redirect((url_for('details', id=training.id)))
     return render_template(
         'select_trainer.html',
         title='Asignacion',
+        form=form,
         training=Training.query.get(id),
-        available_users=User.query.all()
     )

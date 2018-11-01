@@ -2,11 +2,8 @@
 
 {% block assign_trainer %}
     <form action='' method='POST'>
-        <select name="users">
-            {% for user in available_users %}
-                <option value={{user.id}}>{{user.username}}</option>
-            {% endfor %}
-        </select>
+        {{ form.hidden_tag() }}
+        {{ form.trainer }}
         <input type="submit" value="Asignar">
     </form>
 {% endblock %}
