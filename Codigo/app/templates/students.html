@@ -1,0 +1,6 @@
+{% extends "base.html" %}
+{% block content %}
+    {% for student in students %}
+        {{ student.file }} {{ student.surname }}, {{ student.surname }}</b> <a href="#">Capacitaciones</a></p></div>
+    {% endfor %}
+{% endblock %}

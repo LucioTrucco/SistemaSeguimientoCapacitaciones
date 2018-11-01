@@ -1,8 +1,8 @@
-"""Students
+"""students
 
-Revision ID: 07e6f3ab3d10
+Revision ID: 7983714ba560
 Revises: d03f19a5a453
-Create Date: 2018-10-31 23:06:29.052538
+Create Date: 2018-10-31 23:12:04.460107
 
 """
 from alembic import op
@@ -10,7 +10,7 @@ import sqlalchemy as sa
 
 
 # revision identifiers, used by Alembic.
-revision = '07e6f3ab3d10'
+revision = '7983714ba560'
 down_revision = 'd03f19a5a453'
 branch_labels = None
 depends_on = None
@@ -24,7 +24,7 @@ def upgrade():
     sa.Column('email', sa.String(length=120), nullable=True),
     sa.Column('surname', sa.String(length=120), nullable=True),
     sa.Column('name', sa.String(length=120), nullable=True),
-    sa.Column('degree', sa.Integer(), nullable=False),
+    sa.Column('degree', sa.String(), nullable=False),
     sa.PrimaryKeyConstraint('id', 'file', 'degree')
     )
     op.create_index(op.f('ix_student_email'), 'student', ['email'], unique=True)

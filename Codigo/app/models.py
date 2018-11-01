@@ -62,7 +62,7 @@ class Student(db.Model):
     email = db.Column(db.String(120), index=True, unique=True)
     surname = db.Column(db.String(120))
     name = db.Column(db.String(120))
-    degree = db.Column(db.Integer, primary_key=True)
+    degree = db.Column(db.String, primary_key=True)
     trainings = db.relationship('Training',
                                 secondary=training_students,
                                 backref=db.backref('students', lazy='dynamic'))
