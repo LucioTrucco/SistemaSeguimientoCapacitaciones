@@ -1,0 +1,6 @@
+{% extends "base.html" %}
+{% block content %}
+    {% for user in users %}
+        {{ user.username }}</b> <a href="{{ url_for('trainings_user', username=user.username) }}">Capacitaciones</a></p></div>
+    {% endfor %}
+{% endblock %}
