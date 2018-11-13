@@ -17,13 +17,14 @@ class TrainingForm(FlaskForm):
     start = DateField('Inicio', format='%Y-%m-%d', validators=[DataRequired()])
     end = DateField('Fin', format='%Y-%m-%d', validators=[DataRequired()])
     description = StringField('Descripcion', validators=[DataRequired()])
+    comments = StringField('Comentarios')
 
 
 class ClassForm(FlaskForm):
     date = DateField('Inicio', validators=[DataRequired()])
     topics = StringField('Temas vistos', validators=[DataRequired()])
     topicsNext = StringField('Temas Proxima', validators=[DataRequired()])
-    comments = StringField('Comentarios', validators=[DataRequired()])
+    comments = StringField('Comentarios')
 
 
 class TrainerForm(FlaskForm):

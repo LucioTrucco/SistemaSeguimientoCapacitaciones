@@ -37,6 +37,7 @@ class Training(db.Model):
     end = db.Column(db.DateTime())
     finalizada = db.Column(db.Boolean())
     description = db.Column(db.String(64))
+    comments = db.Column(db.String(120))
     classes = db.relationship('Class', backref='training', lazy='dynamic')
     students = db.relationship('Student', secondary=training_students,backref=db.backref('lstTraining', lazy='dynamic'))
     user_id = db.Column(db.Integer, db.ForeignKey('user.id'))
