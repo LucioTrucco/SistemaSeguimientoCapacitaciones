@@ -5,11 +5,15 @@ from flask_login import current_user, login_user, logout_user
 from app.models import User, Training
 from app import db
 
+# --------------------------------------------------------------------------------------------------------------
+
 
 @app.route('/')
 @app.route('/index')
 def index():
     return render_template('index.html', title='Home')
+# --------------------------------------------------------------------------------------------------------------
+# LOGIN
 
 
 @app.route('/login', methods=['GET', 'POST'])
@@ -34,6 +38,9 @@ def login():
 def logout():
     logout_user()
     return redirect(url_for('index'))
+
+# --------------------------------------------------------------------------------------------------------------
+# CAPACITACIONES
 
 
 @app.route('/capacitaciones')
@@ -112,6 +119,9 @@ def create():
         title='Crear capacitacion',
         form=form)
 
+# --------------------------------------------------------------------------------------------------------------
+# USARIOS
+
 
 @app.route('/users')
 def users():
@@ -119,6 +129,9 @@ def users():
         'users.html',
         title='Usuarios',
         users=User.query.all())
+
+# --------------------------------------------------------------------------------------------------------------
+# ASIGNAR CAPACITACIONES
 
 
 @app.route('/assign')
