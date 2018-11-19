@@ -6,14 +6,21 @@
         <th>Nombre</th>
         <th>Descripcion</th>
         <th>Capacitador</th>
-        <th>Mas info</th>
+        <th>Acciones</th>
     </thead>
     {% for training in trainings %}
         <tr>
             <td>{{ training.name }} </td>
             <td>{{ training.description }}</td>
             <td><a href="{{ url_for('trainings_user', username=training.trainer.username) }}">{{training.trainer.username}}</a> </td>
-            <td><a href="{{ url_for('details', id=training.id) }}">Detalle</a> </td>
+            <td>
+                <a href="{{ url_for('details', id=training.id) }}">Detalle</a> |
+                <a href="{{ url_for('edit', id=training.id) }}">Editar</a> 
+                {% if not training.finalizada %}
+                    | <a href="#">Seguimiento</a> |
+                    <a href="{{ url_for('finish', id=training.id) }}">Finalizar</a>
+                {% endif %}
+            </td>
         </tr>
     </div>
     {% endfor %}
