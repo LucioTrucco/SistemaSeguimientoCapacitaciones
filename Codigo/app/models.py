@@ -1,7 +1,16 @@
 from app import db, login
-from datetime import datetime
 from flask_login import UserMixin
 from werkzeug.security import generate_password_hash, check_password_hash
+
+
+training_students = db.Table('training_students',
+                             db.Column('training_id',
+                                       db.Integer,
+                                       db.ForeignKey('training.id')),
+                             db.Column('student_id',
+                                       db.Integer,
+                                       db.ForeignKey('student.id'))
+                             )
 
 
 class User(UserMixin, db.Model):
@@ -28,9 +37,10 @@ class Training(db.Model):
     end = db.Column(db.DateTime())
     finalizada = db.Column(db.Boolean())
     description = db.Column(db.String(64))
+    comments = db.Column(db.String(120))
     classes = db.relationship('Class', backref='training', lazy='dynamic')
+    students = db.relationship('Student', secondary=training_students,backref=db.backref('lstTraining', lazy='dynamic'))
     user_id = db.Column(db.Integer, db.ForeignKey('user.id'))
-
     def __repr__(self):
         return '<Training {}>'.format(self.name)
 
@@ -43,19 +53,17 @@ class Class(db.Model):
     topicsNext = db.Column(db.String(64))
     comments = db.Column(db.String(64))
     training_id = db.Column(db.Integer, db.ForeignKey('training.id'))
-
     def __repr__(self):
         return '<Class {}>'.format(self.topics)
 
 
-# class Post(db.Model):
-#     id = db.Column(db.Integer, primary_key=True)
-#     body = db.Column(db.String(140))
-#     timestamp = db.Column(db.DateTime, index=True, default=datetime.utcnow)
-#     user_id = db.Column(db.Integer, db.ForeignKey('user.id'))
-
-#     def __repr__(self):
-#         return '<Post {}>'.format(self.body)
+class Student(db.Model):
+    id = db.Column(db.Integer, primary_key=True)
+    file = db.Column(db.Integer, primary_key=True)
+    email = db.Column(db.String(120), index=True, unique=True)
+    surname = db.Column(db.String(120))
+    name = db.Column(db.String(120))
+    degree = db.Column(db.String(120))
 
 
 @login.user_loader
