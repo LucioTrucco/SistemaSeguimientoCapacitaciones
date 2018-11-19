@@ -24,8 +24,8 @@ def upgrade():
     sa.Column('email', sa.String(length=120), nullable=True),
     sa.Column('surname', sa.String(length=120), nullable=True),
     sa.Column('name', sa.String(length=120), nullable=True),
-    sa.Column('degree', sa.String(), nullable=False),
-    sa.PrimaryKeyConstraint('id', 'file', 'degree')
+    sa.Column('degree', sa.String(length=120), nullable=False),
+    sa.PrimaryKeyConstraint('id', 'file')
     )
     op.create_index(op.f('ix_student_email'), 'student', ['email'], unique=True)
     # ### end Alembic commands ###

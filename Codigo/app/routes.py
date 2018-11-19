@@ -60,6 +60,39 @@ def details(id):
         title='Detalles')
 
 
+@app.route('/capacitaciones/editar/<int:id>', methods=['GET', 'POST'])
+def edit(id):
+    training = Training.query.get(id)
+    form = TrainingForm(
+        name=training.name,
+        start=training.start,
+        end=training.end,
+        description=training.description,
+        comments=training.comments,
+    )
+    if form.validate_on_submit():
+        training.name = form.name.data
+        training.start = form.start.data
+        training.end = form.end.data
+        training.finalizada = False
+        training.description = form.description.data
+        training.comments = form.comments.data
+        db.session.commit()
+        return redirect((url_for('details', id=training.id)))
+    return render_template(
+        'capacitacion.html',
+        title='Editar capacitacion',
+        form=form)
+
+
+@app.route('/capacitaciones/finalizar/<int:id>', methods=['GET', 'POST'])
+def finish(id):
+    training = Training.query.get(id)
+    training.finalizada = True
+    db.session.commit()
+    return redirect((url_for('details', id=training.id)))
+
+
 @app.route('/capacitaciones/crear', methods=['GET', 'POST'])
 def create():
     form = TrainingForm()
@@ -69,7 +102,8 @@ def create():
             start=form.start.data,
             end=form.end.data,
             finalizada=False,
-            description=form.description.data)
+            description=form.description.data,
+            comments=form.comments.data)
         db.session.add(training)
         db.session.commit()
         return redirect((url_for('details', id=training.id)))
