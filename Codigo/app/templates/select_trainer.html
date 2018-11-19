@@ -1,0 +1,9 @@
+{% extends "details.html" %}
+
+{% block assign_trainer %}
+    <form action='' method='POST'>
+        {{ form.hidden_tag() }}
+        {{ form.trainer }}
+        <input type="submit" value="Asignar">
+    </form>
+{% endblock %}
