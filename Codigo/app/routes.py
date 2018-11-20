@@ -1,6 +1,6 @@
-from flask import render_template, flash, redirect, url_for
+from flask import render_template, flash, redirect, url_for, request
 from app import app
-from app.forms import LoginForm, TrainingForm, TrainerForm
+from app.forms import LoginForm, TrainingForm, TrainerForm, LoginForm, UserForm
 from flask_login import current_user, login_user, logout_user
 from app.models import User, Training
 from app import db
@@ -119,22 +119,12 @@ def create():
         title='Crear capacitacion',
         form=form)
 
-# --------------------------------------------------------------------------------------------------------------
-# USARIOS
-
-
-@app.route('/users')
-def users():
-    return render_template(
-        'users.html',
-        title='Usuarios',
-        users=User.query.all())
 
 # --------------------------------------------------------------------------------------------------------------
 # ASIGNAR CAPACITACIONES
 
 
-@app.route('/assign')
+@app.route('/asignar')
 def assign():
     return render_template(
         'assign.html',
@@ -143,7 +133,7 @@ def assign():
     )
 
 
-@app.route('/assign/<int:id>', methods=['GET', 'POST'])
+@app.route('/asignar/<int:id>', methods=['GET', 'POST'])
 def select_trainer(id):
     form = TrainerForm()
     # TODO: Set users to avaialable users
@@ -160,3 +150,71 @@ def select_trainer(id):
         form=form,
         training=Training.query.get(id),
     )
+
+# --------------------------------------------------------------------------------------------------------------
+# USUARIOS
+
+@app.route('/usuarios')
+def users():
+    return render_template(
+        'users.html',
+        title='Usuarios',
+        users=User.query.all())
+
+
+@app.route('/usuarios/crear', methods=['GET', 'POST'])
+def user_create():
+    form = UserForm()
+    if form.validate_on_submit():
+        user = User(
+            username=form.username.data,
+            email=form.email.data)
+        user.set_password(form.password.data)
+        db.session.add(user)
+        db.session.commit()
+        return redirect((url_for('user_details', id=user.id)))
+    return render_template(
+        'user_create.html',
+        title='Crear usuario',
+        form=form)
+
+
+@app.route('/usuarios/<int:id>')
+def user_details(id):
+    return render_template(
+        'user_details.html',
+        user=User.query.get(id),
+        title='Detalles del usuario')
+
+
+@app.route('/usuarios/editar/<int:id>', methods=['GET', 'POST'])
+def user_edit(id):
+    user = User.query.get(id)
+    form = UserForm(
+        username=user.username,
+        email=user.email,
+    )
+    if form.validate_on_submit():
+        user.username=form.username.data
+        user.email=form.email.data
+        if(form.password.data is not None and form.data.password != ''):
+            user.set_password(form.password.data)
+        db.session.commit()
+        return redirect((url_for('user_details', id=user.id)))
+    return render_template(
+        'user_create.html',
+        title='Crear usuario',
+        form=form)
+
+
+@app.route('/usuarios/borrar/<int:id>', methods=['GET', 'POST'])
+def user_delete(id):
+    if request.method == 'POST':
+        user = User.query.get(id)
+        db.session.delete(user)
+        db.session.commit()
+        return redirect((url_for('users')))
+    return render_template(
+        'user_delete.html',
+        title='Borrar usuario',
+        user=User.query.get(id))

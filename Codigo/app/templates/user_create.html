@@ -1,0 +1,25 @@
+
+{% extends "base.html" %}
+
+{% block content %}
+    <form action="" method="post" novalidate>
+        {{ form.hidden_tag() }}
+        <div>
+            <b>{{ form.username.label }}</b>
+            {{ form.username }}
+        </div>
+        <div>
+            <b>{{ form.email.label }}</b>
+            {{ form.email }}
+        </div>
+        <div>
+            <b>{{ form.password.label }}</b>
+            {{ form.password }}
+        </div>
+        <div>
+            <b>{{ form.confirm.label }}</b>
+            {{ form.confirm }}
+        </div>
+        <input type="submit" value="Enviar">
+    </form>
+{% endblock %}
