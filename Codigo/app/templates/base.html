@@ -16,6 +16,11 @@
             <a href="{{ url_for('users') }}">Capacitaciones Usuario</a>
             <a href="{{ url_for('create')}} ">Alta capacitaciones</a>
             <a href="{{ url_for('assign')}} ">Asignar capacitaciones</a>
+            <a href="{{ url_for('newStudent')}} ">Alta estudiante</a>
+            <a href="{{ url_for('delStudent')}}">Eliminar estudiante</a>
+            <a href="{{ url_for('getStudent')}}">Modificar estudiante</a>
+            <a href="{{ url_for('searchStudent')}}">Ver estudiante</a>
+            <a href="{{ url_for('listStudents')}}">Listar estudiantes</a>
         </div>
         <hr>
         {% with messages = get_flashed_messages() %}

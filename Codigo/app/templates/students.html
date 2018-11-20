@@ -1,6 +1,26 @@
 {% extends "base.html" %}
+
 {% block content %}
+<table>
+    <thead>
+        <th>Legajo</th>
+        <th>Nombre</th>
+        <th>Apellido</th>
+        <th>Email</th>
+        <th>Carrera</th>
+        <th>Acciones</th>
+    </thead>
     {% for student in students %}
-        {{ student.file }} {{ student.surname }}, {{ student.surname }}</b> <a href="#">Capacitaciones</a></p></div>
+        <tr>
+            <td>{{ student.file }} </td>
+            <td>{{ student.name }} </td>
+            <td>{{ student.surname }} </td>
+            <td>{{ student.email }} </td>
+            <td>{{ student.degree }} </td>
+            <td><a class="button" href="{{ url_for('delStudent', xfile=student.file) }}">borrar </a>
+                <a class=button href="{{ url_for('updStudent', xfile=student.file) }}">editar</a></td>
+        </tr>
     {% endfor %}
+</table>
+<a class="button" href="{{ url_for('newStudent') }}">Agregar</a>
 {% endblock %}
