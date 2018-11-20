@@ -1,11 +1,13 @@
 from flask import render_template, flash, redirect, url_for, request
 from app import app
-from app.forms import LoginForm, TrainingForm, TrainerForm, LoginForm, UserForm
+from app.forms import LoginForm, TrainingForm, TrainerForm, LoginForm, UserForm, ClassForm
 from flask_login import current_user, login_user, logout_user
-from app.models import User, Training
+from app.models import User, Training, Class
 from app import db
+from sqlalchemy.sql.expression import func
 
 # --------------------------------------------------------------------------------------------------------------
+# INDEX
 
 
 @app.route('/')
@@ -121,6 +123,96 @@ def create():
 
 
 # --------------------------------------------------------------------------------------------------------------
+# SEGUIMIENTO
+
+@app.route('/capacitaciones/<int:training_id>/clases')
+def classes(training_id):
+    training=Training.query.get(training_id)
+    return render_template(
+        'classes.html',
+        title='Seguimiento',
+        classes=training.classes,
+        training_id=training_id,
+        finalizada=training.finalizada)
+
+
+@app.route('/capacitaciones/<int:training_id>/clases/agregar', methods=['GET', 'POST'])
+def class_create(training_id):
+    training = Training.query.get(training_id)
+    form = ClassForm()
+    if form.validate_on_submit():
+        new_class = Class(
+            date=form.date.data,
+            topics=form.topics.data,
+            topicsNext=form.topicsNext.data,
+            comments=form.comments.data)
+        if len(training.classes.all()) == 0:
+            new_class.number = 1
+        else:
+            new_class.number = db.session.query(func.max(Class.number)).filter(
+                Class.training_id == training_id).first()[0] + 1
+        new_class.training = training
+        db.session.add(new_class)
+        db.session.commit()
+        return redirect((url_for('classes', training_id=training.id)))
+    return render_template(
+        'class_create.html',
+        title='Crear clase',
+        form=form)
+
+
+@app.route('/capacitaciones/<int:training_id>/clases/<int:class_num>')
+def class_details(training_id, class_num):
+    training = Training.query.get(training_id)
+    return render_template(
+        'class_details.html',
+        class_entity=training.classes.filter_by(number=class_num).first(),
+        title='Detalles')
+
+
+@app.route('/capacitaciones/<int:training_id>/clases/<int:class_num>/editar', methods=['GET', 'POST'])
+def class_edit(training_id, class_num):
+    training = Training.query.get(training_id)
+    edit_class = training.classes.filter_by(number=class_num).first()
+    form = ClassForm(date=edit_class.date,
+                     topics=edit_class.topics,
+                     topicsNext=edit_class.topicsNext,
+                     comments=edit_class.comments)
+    if form.validate_on_submit():
+        edit_class.date = form.date.data
+        edit_class.topics = form.topics.data
+        edit_class.topicsNext = form.topicsNext.data
+        edit_class.comments = form.comments.data
+        db.session.commit()
+        return redirect((url_for('classes', training_id=training.id)))
+    return render_template(
+        'class_create.html',
+        title='Editar clase',
+        form=form)
+
+
+@app.route('/capacitaciones/<int:training_id>/clases/<int:class_num>/borrar', methods=['GET', 'POST'])
+def class_delete(training_id, class_num):
+    training = Training.query.get(training_id)
+    class_entity = training.classes.filter_by(number=class_num).first()
+    if request.method == 'POST':
+        if(class_entity.number < len(training.classes.all())):
+            next_classes = training.classes.filter(Class.number > class_num)
+            for next_class in next_classes:
+                next_class.number -= 1
+        db.session.delete(class_entity)
+        db.session.commit()
+        return redirect((url_for('classes', training_id=training.id)))
+    return render_template(
+        'class_delete.html',
+        title='Borrar clase',
+        training_id=training_id,
+        class_entity=class_entity)
+
+
+
+
+# --------------------------------------------------------------------------------------------------------------
 # ASIGNAR CAPACITACIONES
 
 
@@ -153,6 +245,7 @@ def select_trainer(id):
 
 # --------------------------------------------------------------------------------------------------------------
 # USUARIOS
+
 
 @app.route('/usuarios')
 def users():
@@ -195,8 +288,8 @@ def user_edit(id):
         email=user.email,
     )
     if form.validate_on_submit():
-        user.username=form.username.data
-        user.email=form.email.data
+        user.username = form.username.data
+        user.email = form.email.data
         if(form.password.data is not None and form.data.password != ''):
             user.set_password(form.password.data)
         db.session.commit()

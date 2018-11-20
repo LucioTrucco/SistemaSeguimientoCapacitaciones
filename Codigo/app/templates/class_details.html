@@ -1,0 +1,11 @@
+{% extends "base.html" %}
+
+{% block content %}
+    <b>Numero:</b> {{ class_entity.number }}  <br>
+    <b>Temas</b> {{ class_entity.topics }}<br>
+    <b>Temas Proxima</b> {{ class_entity.topicsNext }}<br>
+    <b>Comentarios</b> {{ class_entity.comments }}<br>
+    {% block confirm %} {% endblock %}
+{% endblock %}
+
+

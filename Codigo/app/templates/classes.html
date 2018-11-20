@@ -1,0 +1,31 @@
+{% extends "base.html" %}
+{% block content %}
+    <table>
+        <thead>
+            <th>Numero</th>
+            <th>Temas</th>
+            <th>Temas proxima</th>
+            <th>Comentarios</th>
+            <th>Fecha</th>
+            <th>Acciones</th>
+        </thead>
+        {% for training_class in classes %}
+            <tr>
+                <td>{{ training_class.number }} </td>
+                <td>{{ training_class.topics }} </td>
+                <td>{{ training_class.topicsNext }} </td>
+                <td>{{ training_class.comments }} </td>
+                <td>{{ training_class.date }} </td>
+                <td>
+                    <a href="{{ url_for('class_details', training_id=training_id, class_num=training_class.number) }}">Detalle</a> |
+                    <a href="{{ url_for('class_edit', training_id=training_id, class_num=training_class.number) }}">Editar</a> |
+                    <a href="{{ url_for('class_delete', training_id=training_id, class_num=training_class.number) }}">Borrar</a>
+                </td>
+            </tr>
+        </div>
+        {% endfor %}
+    </table>
+    {% if not finalizada %}
+        <a href="{{ url_for('class_create', training_id=training_id) }}">Agregar clase</a>
+    {% endif %}
+{% endblock %}
