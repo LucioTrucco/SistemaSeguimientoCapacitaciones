@@ -2,7 +2,7 @@ from flask_wtf import FlaskForm
 from wtforms import StringField, PasswordField, SubmitField
 from wtforms import BooleanField, SelectField, IntegerField
 from wtforms.fields.html5 import DateField
-from wtforms.validators import DataRequired
+from wtforms.validators import DataRequired, Length, EqualTo
 
 
 class LoginForm(FlaskForm):
@@ -37,3 +37,13 @@ class StudentForm(FlaskForm):
     surname = StringField('Apellido', validators=[DataRequired()])
     name = StringField('Nombre', validators=[DataRequired()])
     degree = StringField('Carreras', validators=[DataRequired()])
+
+
+class UserForm(FlaskForm):
+    username = StringField('Username', validators=[DataRequired(),Length(min=4, max=25)])
+    email = StringField('Email', validators=[DataRequired(),Length(min=6, max=35)])
+    password = PasswordField('Contrasena', validators=[
+        DataRequired(),
+        EqualTo('confirm', message='Las contrasenas no coinciden')
+    ])
+    confirm = PasswordField('Repetir contrasena')

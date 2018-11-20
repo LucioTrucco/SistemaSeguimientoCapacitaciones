@@ -1,6 +1,26 @@
 {% extends "base.html" %}
 {% block content %}
-    {% for user in users %}
-        {{ user.username }}</b> <a href="{{ url_for('trainings_user', username=user.username) }}">Capacitaciones</a></p></div>
-    {% endfor %}
+    
+
+    <table>
+        <thead>
+            <th>Nombre</th>
+            <th>Email</th>
+            <th>Capacitaciones</th>
+            <th>Acciones</th>
+        </thead>
+        {% for user in users %}
+            <tr>
+                <td>{{ user.username }} </td>
+                <td>{{ user.email }}</td>
+                <td><a href="{{ url_for('trainings_user', username=user.username) }}">Capacitaciones</a></td>
+                <td>
+                    <a href="{{ url_for('user_details', id=user.id) }}">Detalle</a> |
+                    <a href="{{ url_for('user_edit', id=user.id) }}">Editar</a> |
+                    <a href="{{ url_for('user_delete', id=user.id) }}">Borrar</a>
+                </td>
+            </tr>
+        </div>
+        {% endfor %}
+    </table>
 {% endblock %}

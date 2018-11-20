@@ -1,0 +1,9 @@
+{% extends "base.html" %}
+
+{% block content %}
+    <b>Nombre:</b> {{ user.username }}  <br>
+    <b>Email</b> {{ user.email }}<br>
+    {% block confirm %} {% endblock %}
+{% endblock %}
+
+
