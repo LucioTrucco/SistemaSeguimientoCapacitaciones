@@ -1,8 +1,8 @@
 from flask import render_template, flash, redirect, url_for, request
 from app import app
-from app.forms import LoginForm, TrainingForm, TrainerForm, LoginForm, UserForm, ClassForm
+from app.forms import LoginForm, TrainingForm, TrainerForm, LoginForm, UserForm, ClassForm, StudentForm
 from flask_login import current_user, login_user, logout_user
-from app.models import User, Training, Class
+from app.models import User, Training, Class, Student
 from app import db
 from sqlalchemy.sql.expression import func
 
@@ -311,3 +311,82 @@ def user_delete(id):
         'user_delete.html',
         title='Borrar usuario',
         user=User.query.get(id))
+
+
+# ESTUDIANTES
+
+@app.route('/alumnos/agregar', methods=['GET', 'POST'])
+def student_create():
+    form = StudentForm()
+    if form.validate_on_submit():
+        student = Student(
+            file=form.file.data,
+            email=form.email.data,
+            surname=form.surname.data,
+            name=form.name.data,
+            degree=form.degree.data)
+        db.session.add(student)
+        db.session.commit()
+        flash('Estudiante creado', 'success')
+        return redirect(url_for('index'))
+    return render_template(
+        'student_create.html',
+        title='Crear estudiante',
+        form=form)
+
+
+@app.route('/alumnos/<int:file>/borrar', methods=['GET', 'POST'])
+def student_delete(file):
+    student = Student.query.filter_by(file=file)
+    if request.method == 'POST':
+        db.session.delete(student)
+        db.session.commit()
+        return redirect((url_for('students')))
+    return render_template(
+        'student_delete.html',
+        title='Borrar estudiante',
+        student=student) 
+
+
+@app.route('/alumnos/<int:file>/editar', methods=['GET', 'POST'])
+def student_edit(file):
+    student = Student.query.filter_by(file=file).first()
+    form = StudentForm(
+        file=student.file,
+        name=student.name,
+        surname=student.surname,
+        email=student.email,
+        degree=student.degree
+    )   
+    if form.validate_on_submit():
+        student.name=form.name.data
+        student.surname=form.surname.data
+        student.email=form.email.data
+        student.degree=form.degree.data
+        db.session.commit()
+        return redirect(url_for('students'))
+    return render_template('student_create.html', title='Actualizar Estudiante',
+                            form=form)
+
+
+@app.route('/alumnos/buscar', methods=['GET', 'POST'])
+def searchStudent():
+    form = SearchStudentForm()
+    if form.validate_on_submit():
+        file = form.search.data
+        return redirect((url_for('student_details.html', file=file)))
+    return render_template('student_search.html', title='Buscar Estudiante', form=form)
+
+
+@app.route('/alumnos/<int:file>', methods=['GET', 'POST'])
+def student_detials(file):
+    return render_template('detailStudent.html', title='Detalles de Estudiante',
+                            student=Student.query.filter_by(file=file))
+
+
+@app.route('/alumnos')
+def students():
+    return render_template(
+        'students.html',
+        title='Todos los estudiantes',
+        students= Student.query.all())

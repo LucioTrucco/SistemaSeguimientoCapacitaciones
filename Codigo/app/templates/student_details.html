@@ -1,0 +1,12 @@
+{% extends "base.html" %}
+
+{% block content %}
+    <b>Legajo</b>{{ student.file }}<br>
+    <b>Email</b>{{ student.email }}<br>
+    <b>Apellido</b>{{ student.surname }}<br>
+    <b>Nombre</b>{{ student.name }}<br>
+    <b>Carrera</b>{{ student.degree }}<br>
+    {% block confirm %} {% endblock %}
+{% endblock %}
+
+

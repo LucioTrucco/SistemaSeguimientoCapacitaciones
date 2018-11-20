@@ -39,23 +39,10 @@ class StudentForm(FlaskForm):
     degree = StringField('Carreras', validators=[DataRequired()])
 
 
-class NewStudentForm(FlaskForm):
-    file = IntegerField('Legajo', validators=[DataRequired()])
-    email = StringField('Email', validators=[DataRequired()])
-    surname = StringField('Apellido', validators=[DataRequired()])
-    name = StringField('Nombre', validators=[DataRequired()])
-    degree = StringField('Carreras', validators=[DataRequired()])
-
-
-class DelStudentForm(FlaskForm):
-    file = IntegerField('Legajo', validators=[DataRequired()])
-
-
-class UpdateStudentForm(FlaskForm):
-    email = StringField('Email', validators=[DataRequired()])
-    surname = StringField('Apellido', validators=[DataRequired()])
-    name = StringField('Nombre', validators=[DataRequired()])
-    degree = StringField('Carreras', validators=[DataRequired()])
+class SearchStudentForm(FlaskForm):
+  search = StringField('search', [DataRequired()])
+  submit = SubmitField('Buscar',
+                       render_kw={'class': 'btn btn-success btn-block'})
 
     
 class UserForm(FlaskForm):

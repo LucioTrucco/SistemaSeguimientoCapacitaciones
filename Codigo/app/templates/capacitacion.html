@@ -9,17 +9,11 @@
     <form action="" method="post" novalidate >
         {{ form.hidden_tag() }}
         <div class="mdl-textfield mdl-js-textfield">
-     
             <div class="mdl-textfield__input">{{ form.name.label }} {{ form.name }}</div>
-       
             <div class="mdl-textfield__input" >{{ form.start.label }} {{ form.start }}</div>
-     
             <div class="mdl-textfield__input">{{ form.end.label }} {{ form.end }}</div>
-            
             <div class="mdl-textfield__input" >{{ form.description.label }} {{ form.description }}</div>
-          
             <div class="mdl-textfield__input" >{{ form.comments.label }} {{ form.comments }}</div>
-    
         </div>
         <input  class="mdl-button mdl-button--colored mdl-js-button mdl-js-ripple-effect" type="submit" value="Enviar">
     </form>

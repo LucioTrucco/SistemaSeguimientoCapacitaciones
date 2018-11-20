@@ -59,7 +59,7 @@ class Class(db.Model):
 
 class Student(db.Model):
     id = db.Column(db.Integer, primary_key=True)
-    file = db.Column(db.Integer, primary_key=True)
+    file = db.Column(db.Integer, unique=True)
     email = db.Column(db.String(120), index=True, unique=True)
     surname = db.Column(db.String(120))
     name = db.Column(db.String(120))

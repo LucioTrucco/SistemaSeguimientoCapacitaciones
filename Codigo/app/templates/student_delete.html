@@ -1,4 +1,4 @@
-{% extends "base.html" %}
+{% extends "student_details.html" %}
 {% block content %}
     <form action="" method="post">
         {{ form.hidden_tag() }}
@@ -7,6 +7,6 @@
             <b>Ingrese {{ form.file.label }} del estudiante</b>
             {{ form.file }}
         </div>
-        <input type="submit" value="eliminar">
+        <input type="submit" value="Eliminar">
     </form>
 {% endblock %}
