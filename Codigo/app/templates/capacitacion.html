@@ -2,28 +2,26 @@
 {% extends "base.html" %}
 
 {% block content %}
-    <form action="" method="post" novalidate>
+<div class="demo-card-wide mdl-card mdl-shadow--2dp" style="margin: 10px; padding: 20px;" >
+        <div class="mdl-card__title">
+                <h2 class="mdl-card__title-text">Alta Capacitacion</h2>
+        </div>
+    <form action="" method="post" novalidate >
         {{ form.hidden_tag() }}
-        <div>
-            <b>{{ form.name.label }}</b>
-            {{ form.name }}
+        <div class="mdl-textfield mdl-js-textfield">
+     
+            <div class="mdl-textfield__input">{{ form.name.label }} {{ form.name }}</div>
+       
+            <div class="mdl-textfield__input" >{{ form.start.label }} {{ form.start }}</div>
+     
+            <div class="mdl-textfield__input">{{ form.end.label }} {{ form.end }}</div>
+            
+            <div class="mdl-textfield__input" >{{ form.description.label }} {{ form.description }}</div>
+          
+            <div class="mdl-textfield__input" >{{ form.comments.label }} {{ form.comments }}</div>
+    
         </div>
-        <div>
-            <b>{{ form.start.label }}</b>
-            {{ form.start }}
-        </div>
-        <div>
-            <b>{{ form.end.label }}</b>
-            {{ form.end }}
-        </div>
-        <div>
-            <b>{{ form.description.label }}</b>
-            {{ form.description }}
-        </div>
-        <div>
-            <b>{{ form.comments.label }}</b>
-            {{ form.comments }}
-        </div>
-        <input type="submit" value="Enviar">
+        <input  class="mdl-button mdl-button--colored mdl-js-button mdl-js-ripple-effect" type="submit" value="Enviar">
     </form>
+</div>
 {% endblock %}

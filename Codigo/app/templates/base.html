@@ -1,37 +1,45 @@
 <html>
     <head>
-        {% if title %}
-        <title>{{ title }} - Seguimientos</title>
-        {% else %}
-        <title>Seguimiento</title>
-        {% endif %}
+            <link rel="stylesheet" href="{{ url_for('static', filename='css/styles.css') }}" >
+            <!--<link rel="stylesheet" href="{{ url_for('static', filename='css/material.css') }}">-->
+            <link rel="stylesheet" href="{{ url_for('static', filename='css/material.min.css') }}">
+            <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+            <script src="{{ url_for('static', filename='js/material.min.js') }}"></script>
+            {% if title %}
+            <title>{{ title }} - Seguimientos</title>
+            {% else %}
+            <title>Seguimiento</title>
+            {% endif %}
     </head>
     <body>
-        <div>
-            Seguimiento:
-            <a href="{{ url_for('index') }}">Home</a>
-            <a href="{{ url_for('login') }}">Login</a>
-            <a href="{{ url_for('logout') }}">Logout</a>
-            <a href="{{ url_for('trainings') }}">Capacitaciones</a>
-            <a href="{{ url_for('users') }}">Capacitaciones Usuario</a>
-            <a href="{{ url_for('create')}} ">Alta capacitaciones</a>
-            <a href="{{ url_for('assign')}} ">Asignar capacitaciones</a>
-            <a href="{{ url_for('newStudent')}} ">Alta estudiante</a>
-            <a href="{{ url_for('delStudent')}}">Eliminar estudiante</a>
-            <a href="{{ url_for('getStudent')}}">Modificar estudiante</a>
-            <a href="{{ url_for('searchStudent')}}">Ver estudiante</a>
-            <a href="{{ url_for('listStudents')}}">Listar estudiantes</a>
+            <div class="mdl-layout mdl-js-layout mdl-layout--fixed-header mdl-layout--fixed-tabs">
+          <header class="mdl-layout__header mdl-layout--fixed-drawer">
+            <div class="mdl-layout__header-row" id="barraPrincipal">
+              <a href="{{ url_for('index') }}" >
+                <img  id="logo-largo" src="{{ url_for('static', filename='i/logo-gestion.png') }}" alt="">
+               </a>
+               <div id="login-area">
+                    <a href="" id="login-button" class="mdl-button" data-upgraded=",MaterialButton">
+                                <img src="{{ url_for('static', filename='i/logout.png') }}" alt="">
+                    </a>        
+                </div>
+            </div>
+            <!-- Tabs -->
+            <div class="mdl-layout__tab-bar mdl-js-ripple-effect" id="barraSecundaria">
+            <a href="{{ url_for('index') }}" class="mdl-layout__tab is-active">Home</a>
+            <a href="{{ url_for('login') }}" class="mdl-layout__tab">Login</a>
+            <a href="{{ url_for('logout') }}" class="mdl-layout__tab">Logout</a>
+            <a href="{{ url_for('trainings') }}" class="mdl-layout__tab">Capacitaciones</a>
+            <a href="{{ url_for('users') }}" class="mdl-layout__tab">Capacitaciones Usuario</a>
+            <a href="{{ url_for('create')}} " class="mdl-layout__tab">Alta capacitaciones</a>
+            <a href="{{ url_for('assign')}} " class="mdl-layout__tab">Asignar capacitaciones</a>
+            <a href="{{ url_for('listStudents')}}" class="mdl-layout__tab">Listar estudiantes</a>
         </div>
-        <hr>
-        {% with messages = get_flashed_messages() %}
-        {% if messages %}
-        <ul>
-            {% for message in messages %}
-            <li>{{ message }}</li>
-            {% endfor %}
-        </ul>s
-        {% endif %}
-        {% endwith %}
-        {% block content %}{% endblock %}
+        </header> 
+        <main class="mdl-layout__content">
+             {% block content %}{% endblock %}
+        </main>
+        </div>
+
     </body>
 </html>

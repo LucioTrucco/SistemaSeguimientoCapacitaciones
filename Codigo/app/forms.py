@@ -13,7 +13,7 @@ class LoginForm(FlaskForm):
 
 
 class TrainingForm(FlaskForm):
-    name = StringField('Name', validators=[DataRequired()])
+    name = StringField('Nombre', validators=[DataRequired()])
     start = DateField('Inicio', format='%Y-%m-%d', validators=[DataRequired()])
     end = DateField('Fin', format='%Y-%m-%d', validators=[DataRequired()])
     description = StringField('Descripcion', validators=[DataRequired()])
@@ -33,6 +33,25 @@ class TrainerForm(FlaskForm):
 
 class StudentForm(FlaskForm):
     file = IntegerField('Legajo', validators=[DataRequired()])
+    email = StringField('Email', validators=[DataRequired()])
+    surname = StringField('Apellido', validators=[DataRequired()])
+    name = StringField('Nombre', validators=[DataRequired()])
+    degree = StringField('Carreras', validators=[DataRequired()])
+
+
+class NewStudentForm(FlaskForm):
+    file = IntegerField('Legajo', validators=[DataRequired()])
+    email = StringField('Email', validators=[DataRequired()])
+    surname = StringField('Apellido', validators=[DataRequired()])
+    name = StringField('Nombre', validators=[DataRequired()])
+    degree = StringField('Carreras', validators=[DataRequired()])
+
+
+class DelStudentForm(FlaskForm):
+    file = IntegerField('Legajo', validators=[DataRequired()])
+
+
+class UpdateStudentForm(FlaskForm):
     email = StringField('Email', validators=[DataRequired()])
     surname = StringField('Apellido', validators=[DataRequired()])
     name = StringField('Nombre', validators=[DataRequired()])
