@@ -5,8 +5,9 @@
     <b>Descripcion</b> {{ training.description }}<br>
     {% if training.classes.first() != None %}
     <b>Clases:</b><br>
-        {% for class in training.classes %}
-            <div><p>{{ class.number }}) {{ class.topics }}</b></p></div>
+        {% for training_class in training.classes %}
+            <a href="{{ url_for('class_details', training_id=training.id, class_num=training_class.number) }}">{{ training_class.number }}) {{ training_class.topics }}</a>
+            <br>
         {% endfor %}
     {% endif %}
     {% if training.trainer != None %}

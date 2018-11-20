@@ -1,0 +1,25 @@
+
+{% extends "base.html" %}
+
+{% block content %}
+    <form action="" method="post" novalidate>
+        {{ form.hidden_tag() }}
+        <div>
+            <b>{{ form.date.label }}</b>
+            {{ form.date }}
+        </div>
+        <div>
+            <b>{{ form.topics.label }}</b>
+            {{ form.topics }}
+        </div>
+        <div>
+            <b>{{ form.topicsNext.label }}</b>
+            {{ form.topicsNext }}
+        </div>
+        <div>
+            <b>{{ form.comments.label }}</b>
+            {{ form.comments }}
+        </div>
+        <input type="submit" value="Enviar">
+    </form>
+{% endblock %}
