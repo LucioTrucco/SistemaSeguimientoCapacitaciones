@@ -3,8 +3,10 @@ from app import app
 from app.forms import LoginForm, TrainingForm, TrainerForm, LoginForm, UserForm, ClassForm, StudentForm
 from flask_login import current_user, login_user, logout_user
 from app.models import User, Training, Class, Student
-from app import db
+from app import db, mail
 from sqlalchemy.sql.expression import func
+from flask_mail import Message
+from datetime import datetime
 
 # --------------------------------------------------------------------------------------------------------------
 # INDEX
@@ -234,6 +236,11 @@ def select_trainer(id):
         trainer = User.query.get(form.trainer.data)
         training = Training.query.get(id)
         training.trainer = trainer
+        msg= Message('Capacitacion Asignada',
+        sender='matiastorsello@gmail.com',
+        recipients=[trainer.email])
+        msg.html='<b>Capacitacion: </b>'+training.name+'<br><b>Comienza: </b>'+str(training.start)+'<br><b>Finaliza: </b>'+str(training.end)+'<br><b>Descripcion: </b>'+training.description
+        mail.send(msg)
         db.session.commit()
         return redirect((url_for('details', id=training.id)))
     return render_template(
