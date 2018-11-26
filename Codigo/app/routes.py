@@ -1,8 +1,8 @@
 from flask import render_template, flash, redirect, url_for, request
 from app import app
-from app.forms import LoginForm, TrainingForm, TrainerForm, LoginForm, UserForm, ClassForm, StudentForm
+from app.forms import LoginForm, TrainingForm, TrainerForm, LoginForm, UserForm, ClassForm, StudentForm, SearchStudentForm
 from flask_login import current_user, login_user, logout_user
-from app.models import User, Training, Class, Student
+from app.models import User, Training, Class, Student, Training_students
 from app import db, mail
 from sqlalchemy.sql.expression import func
 from flask_mail import Message
@@ -114,10 +114,11 @@ def create():
             end=form.end.data,
             finalizada=False,
             description=form.description.data,
-            comments=form.comments.data)
+            comments=form.comments.data
+            )
         db.session.add(training)
         db.session.commit()
-        return redirect((url_for('details', id=training.id)))
+        return redirect((url_for('select_students', id=training.id)))
     return render_template(
         'capacitacion.html',
         title='Crear capacitacion',
@@ -239,6 +240,7 @@ def select_trainer(id):
         msg= Message('Capacitacion Asignada',
         sender='matiastorsello@gmail.com',
         recipients=[trainer.email])
+        msg.add_recipient('trucco.lucioj@gmail.com')
         msg.html='<b>Capacitacion: </b>'+training.name+'<br><b>Comienza: </b>'+str(training.start)+'<br><b>Finaliza: </b>'+str(training.end)+'<br><b>Descripcion: </b>'+training.description
         mail.send(msg)
         db.session.commit()
@@ -249,6 +251,7 @@ def select_trainer(id):
         form=form,
         training=Training.query.get(id),
     )
+
 
 # --------------------------------------------------------------------------------------------------------------
 # USUARIOS
@@ -321,6 +324,26 @@ def user_delete(id):
 
 
 # ESTUDIANTES
+
+
+@app.route('/asignarEstudiante/<int:id>', methods=['GET', 'POST'])
+def select_students(id):
+    form = SearchStudentForm()
+    # TODO: Set users to avaialable users
+    form.search.choices = [(u.id, u.name) for u in Student.query.all()]
+    if form.validate_on_submit():
+        for xid in form.search.choices:
+            student = Student.query.get(xid)
+            student.lstTraining.append(Training.query.get(id))
+            db.session.commit()
+        return redirect((url_for('index')))
+    return render_template(
+        'select_students.html',
+        title='Asignacion',
+        form=form,
+        training=Training.query.get(id),
+    )
+
 
 @app.route('/alumnos/agregar', methods=['GET', 'POST'])
 def student_create():

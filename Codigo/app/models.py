@@ -3,7 +3,7 @@ from flask_login import UserMixin
 from werkzeug.security import generate_password_hash, check_password_hash
 
 
-training_students = db.Table('training_students',
+Training_students = db.Table('training_students',
                              db.Column('training_id',
                                        db.Integer,
                                        db.ForeignKey('training.id')),
@@ -39,7 +39,7 @@ class Training(db.Model):
     description = db.Column(db.String(64))
     comments = db.Column(db.String(120))
     classes = db.relationship('Class', backref='training', lazy='dynamic')
-    students = db.relationship('Student', secondary=training_students,backref=db.backref('lstTraining', lazy='dynamic'))
+    students = db.relationship('Student', secondary=Training_students,backref=db.backref('lstTraining', lazy='dynamic'))
     user_id = db.Column(db.Integer, db.ForeignKey('user.id'))
     def __repr__(self):
         return '<Training {}>'.format(self.name)

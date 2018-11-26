@@ -1,5 +1,5 @@
 from flask_wtf import FlaskForm
-from wtforms import StringField, PasswordField, SubmitField
+from wtforms import StringField, PasswordField, SubmitField, SelectMultipleField
 from wtforms import BooleanField, SelectField, IntegerField
 from wtforms.fields.html5 import DateField
 from wtforms.validators import DataRequired, Length, EqualTo
@@ -40,7 +40,7 @@ class StudentForm(FlaskForm):
 
 
 class SearchStudentForm(FlaskForm):
-  search = StringField('search', [DataRequired()])
+  search = SelectField('search', validators=[DataRequired()], coerce=int)
   submit = SubmitField('Buscar',
                        render_kw={'class': 'btn btn-success btn-block'})
 

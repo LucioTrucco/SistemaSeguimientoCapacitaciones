@@ -1,0 +1,10 @@
+{% extends "details.html" %}
+
+{% block assign_students %}
+    <form action='' method='POST'>
+        {{ form.hidden_tag() }}
+        <b>Estudiantes:</b><br>
+        {{ form.search(multiple=True) }}
+        <input type="submit" value="Asignar">
+    </form>
+{% endblock %}
