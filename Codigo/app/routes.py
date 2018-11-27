@@ -2,7 +2,7 @@ from flask import render_template, flash, redirect, url_for, request
 from app import app
 from app.forms import LoginForm, TrainingForm, TrainerForm, LoginForm, UserForm, ClassForm, StudentForm, SearchStudentForm
 from flask_login import current_user, login_user, logout_user
-from app.models import User, Training, Class, Student, Training_students
+from app.models import User, Training, Class, Student
 from app import db, mail
 from sqlalchemy.sql.expression import func
 from flask_mail import Message
@@ -331,8 +331,9 @@ def select_students(id):
     form = SearchStudentForm()
     # TODO: Set users to avaialable users
     form.search.choices = [(u.id, u.name) for u in Student.query.all()]
+
     if form.validate_on_submit():
-        for xid in form.search.choices:
+        for xid, name in form.search.choices:
             student = Student.query.get(xid)
             student.lstTraining.append(Training.query.get(id))
             db.session.commit()
@@ -420,3 +421,5 @@ def students():
         'students.html',
         title='Todos los estudiantes',
         students= Student.query.all())
+
+        

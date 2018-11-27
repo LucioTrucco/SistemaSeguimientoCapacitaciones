@@ -22,4 +22,26 @@
     {% endblock %} 
     {% block assign_students %}
     {% endblock %} 
+    <!-- IF TIENE ESTUDIANTES -->
+    <table style="width: 100%; margin: 10px;" id="tabla-capacitaciones" class="mdl-data-table mdl-js-data-table">
+        <tbody>
+            <tr>
+            <th style="text-align: left;">Legajo</th>
+            <th style="text-align: left;">Nombre</th>
+            <th style="text-align: left;">Apellido</th>
+            <th style="text-align: left;">Email</th>
+            <th style="text-align: left;">Carrera</th>
+            </tr>
+        {% for student in training.students %}
+            <tr>
+                <td style="text-align: left;">{{ student.file }} </td>
+                <td style="text-align: left;">{{ student.name }}</td>
+                <td style="text-align: left;">{{ student.surname }} </td>
+                <td style="text-align: left;">{{ student.email }}</td>
+                <td style="text-align: left;">{{ student.degree }}</td>
+            </tr>
+        </div>
+        {% endfor %}
+    </table>
+    <!-- END IF-->
 {% endblock %}
