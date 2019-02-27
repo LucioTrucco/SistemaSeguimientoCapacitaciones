@@ -40,7 +40,7 @@ class StudentForm(FlaskForm):
 
 
 class SearchStudentForm(FlaskForm):
-  search = SelectField('search', validators=[DataRequired()], coerce=int)
+  search = SelectMultipleField('search', validators=[DataRequired()], coerce=int)
   submit = SubmitField('Buscar',
                        render_kw={'class': 'btn btn-success btn-block'})
 

@@ -22,7 +22,7 @@
     {% endblock %} 
     {% block assign_students %}
     {% endblock %} 
-    <!-- IF TIENE ESTUDIANTES -->
+    {% if training.students|length %}
     <table style="width: 100%; margin: 10px;" id="tabla-capacitaciones" class="mdl-data-table mdl-js-data-table">
         <tbody>
             <tr>
@@ -43,5 +43,5 @@
         </div>
         {% endfor %}
     </table>
-    <!-- END IF-->
+    {% endif %}
 {% endblock %}
