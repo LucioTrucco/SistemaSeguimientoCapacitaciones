@@ -41,7 +41,12 @@ background-color: rgb(63,81,181);
 #tabla-capacitaciones {
 	font-family: "Helvetica","Arial",sans-serif;
 	border-collapse: collapse;
-	width: 100%;
+	width: 98%;
+	position: relative;
+	margin-top: 15px;
+	margin-bottom: 20px;
+	left:50%;
+	transform: translateX(-50%);
 }
 
 #tabla-capacitaciones td, #customers th {
@@ -58,7 +63,7 @@ background-color: rgb(63,81,181);
     padding-bottom: 12px;
     text-align: left;
     background-color: #5C6BC0;
-    color: white;
+	color: white;
 }
 
 .space-around {
