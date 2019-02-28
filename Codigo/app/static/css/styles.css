@@ -3,13 +3,13 @@ body,head{
 	padding: 0;
 	width: 100%;
 	height: 100%;
-}
-
-#header{
-background-color: rgb(63,81,181);	
+	position: absolute;
+	z-index: 0;
+	background: white;
 }
 
 #barraPrincipal{
+	background-color: rgb(63,81,181);	
 	position: relative;
 	width: 100%;
 	height: 60px;
@@ -18,7 +18,12 @@ background-color: rgb(63,81,181);
 }
 
 #barraSecundaria{
-    background: #5C6BC0;
+	position: relative;
+	background: #5C6BC0;
+	z-index: 800;
+	width: 100%;
+	height: 50px;
+	overflow: visible !important;
 }
 
 #login-button {
@@ -177,6 +182,14 @@ background-color: rgb(63,81,181);
 	border: none;
 }
 
+a:hover{
+	text-decoration: none;
+	color: whitesmoke;
+}
+
 .button:hover{
 	background-color: rgb(128, 128, 128,0.2);
 }
+
+
+

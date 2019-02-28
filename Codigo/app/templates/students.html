@@ -17,10 +17,12 @@
             <td>{{ student.surname }} </td>
             <td>{{ student.email }} </td>
             <td>{{ student.degree }} </td>
-            <td><a class="button" href="{{ url_for('student_delete', file=student.file) }}">borrar </a>
-                <a class=button href="{{ url_for('student_edit', file=student.file) }}">editar</a></td>
+            <td style="text-align: left;">
+                <a href="{{ url_for('student_delete', file=student.file) }}">borrar</a> |
+                <a href="{{ url_for('student_edit', file=student.file) }}">editar</a>
+            </td>
         </tr>
     {% endfor %}
 </table>
-<a class="button" href="{{ url_for('student_create') }}">Agregar alumno</a>
+<button class="button" href="{{ url_for('student_create') }}" style="color:#007bff; font-weight:500">Agregar alumno</button>
 {% endblock %}
