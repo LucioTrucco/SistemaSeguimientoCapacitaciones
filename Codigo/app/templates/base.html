@@ -46,8 +46,8 @@
                 </a>
                
                 <div class="dropdown-menu" aria-labelledby="dropdownMenuLink">
-                    <a class="dropdown-item" href="#">En curso</a>
-                    <a class="dropdown-item" href="#">Finalizadas</a>
+                    <a class="dropdown-item" href="{{url_for('ongoingTrainings')}}">En curso</a>
+                    <a class="dropdown-item" href="{{url_for('completedTrainings')}}">Finalizadas</a>
                     <a class="dropdown-item" href="{{ url_for('trainings') }}">Todas</a>
                </div>                
             </div>

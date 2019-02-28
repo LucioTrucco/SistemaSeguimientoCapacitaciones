@@ -53,6 +53,22 @@ def trainings():
         trainings=Training.query.all())
 
 
+@app.route('/capacitacionesFinalizadas')
+def completedTrainings():
+    return render_template(
+        'capacitacionesFinalizadas.html',
+        title='Capacitaciones finalizadas',
+        trainings=Training.query.filter_by(finalizada=1))
+
+
+@app.route('/capacitacionesEnCurso')
+def ongoingTrainings():
+    return render_template(
+        'capacitacionesEnCurso.html',
+        title='Capacitaciones en curso',
+        trainings=Training.query.filter_by(finalizada=0))
+
+
 @app.route('/capacitaciones/<string:username>')
 def trainings_user(username):
     return render_template(
