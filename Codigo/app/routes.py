@@ -11,15 +11,13 @@ from datetime import datetime
 # --------------------------------------------------------------------------------------------------------------
 # INDEX
 
-
-@app.route('/')
 @app.route('/index')
 def index():
     return render_template('index.html', title='Home')
 # --------------------------------------------------------------------------------------------------------------
 # LOGIN
 
-
+@app.route('/', methods=['GET', 'POST'])
 @app.route('/login', methods=['GET', 'POST'])
 def login():
     if current_user.is_authenticated:
@@ -41,7 +39,7 @@ def login():
 @app.route('/logout')
 def logout():
     logout_user()
-    return redirect(url_for('index'))
+    return redirect(url_for('login'))
 
 # --------------------------------------------------------------------------------------------------------------
 # CAPACITACIONES
@@ -331,6 +329,7 @@ def select_students(id):
     form = SearchStudentForm()
     # TODO: Set users to avaialable users
     form.search.choices = [(u.id, u.name) for u in Student.query.all()]
+   
     if form.validate_on_submit():
         xstudents=form.search.data
         for xid in xstudents:
