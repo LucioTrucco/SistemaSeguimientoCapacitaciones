@@ -3,6 +3,7 @@ from wtforms import StringField, PasswordField, SubmitField, SelectMultipleField
 from wtforms import BooleanField, SelectField, IntegerField
 from wtforms.fields.html5 import DateField
 from wtforms.validators import DataRequired, Length, EqualTo
+from werkzeug.datastructures import FileMultiDict;
 
 
 class LoginForm(FlaskForm):

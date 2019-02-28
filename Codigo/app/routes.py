@@ -331,9 +331,9 @@ def select_students(id):
     form = SearchStudentForm()
     # TODO: Set users to avaialable users
     form.search.choices = [(u.id, u.name) for u in Student.query.all()]
-
     if form.validate_on_submit():
-        for xid, name in form.search.choices:
+        xstudents=form.search.data
+        for xid in xstudents:
             student = Student.query.get(xid)
             student.lstTraining.append(Training.query.get(id))
             db.session.commit()
