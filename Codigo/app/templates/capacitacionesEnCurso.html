@@ -1,6 +1,7 @@
 {% extends "base.html" %}
 
 {% block content %}
+<div class="conteiner-tabla">
 <table id="tabla-capacitaciones" class="mdl-data-table mdl-js-data-table">
     <tbody>
         <tr>
@@ -26,8 +27,10 @@
     </div>
     {% endfor %}
 </table>
-<div class="contenedor-canvas-encurso">
+
+<div class="contenedor-canvas">
     <canvas id="mycanvas" width="100" height="100"></canvas>
+</div>
 </div>
 <script>
         var oilData = {

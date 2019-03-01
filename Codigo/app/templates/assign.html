@@ -14,8 +14,15 @@
                 <td>{{ training.name }} </td>
                 <td>{{ training.description }}</td>
                 <td><a href="{{ url_for('details', id=training.id) }}">Detalle</a> </td>
-                <td><a href="{{ url_for('select_trainer', id=training.id) }}">Asignar</a></td>
-                <td><a href="{{url_for('select_students',id=training.id)}}">Asignar</a></td>
+                <td>
+                    {% if training.finalizada != 1 %}
+                    <a href="{{ url_for('select_trainer', id=training.id) }}">Asignar</a></td>
+                    {%endif%}
+                <td>
+                    {% if training.finalizada != 1 %}
+                    <a href="{{url_for('select_students',id=training.id)}}">Asignar</a>
+                    {%endif%}
+                </td>
             </tr>
         </div>
         {% endfor %}
