@@ -47,7 +47,7 @@ body,head{
 	font-family: "Helvetica","Arial",sans-serif;
 	border-collapse: collapse;
 	width: 98%;
-	position: relative;
+	position: absolute;
 	margin-top: 15px;
 	margin-bottom: 20px;
 	left:50%;
@@ -216,6 +216,16 @@ a:hover{
 	display: inline;
 	position: relative;
 }
+
+.contenedor-canvas-encurso{
+	position: absolute;
+	width: 250px;
+	height: 250px;
+	left:50%;
+	transform: translateX(-50%);
+}
+
+
 
 
 

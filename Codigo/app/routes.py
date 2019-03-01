@@ -7,6 +7,7 @@ from app import db, mail
 from sqlalchemy.sql.expression import func
 from flask_mail import Message
 from datetime import datetime
+import json
 
 # --------------------------------------------------------------------------------------------------------------
 # INDEX
@@ -63,10 +64,13 @@ def completedTrainings():
 
 @app.route('/capacitacionesEnCurso')
 def ongoingTrainings():
+    datax=[Training.query.filter_by(finalizada=1).count(), Training.query.filter_by(finalizada=0).count() ]
+    print datax
     return render_template(
         'capacitacionesEnCurso.html',
         title='Capacitaciones en curso',
-        trainings=Training.query.filter_by(finalizada=0))
+        trainings=Training.query.filter_by(finalizada=0),
+        datax=map(json.dumps,datax))
 
 
 @app.route('/capacitaciones/<string:username>')
@@ -356,7 +360,6 @@ def select_students(id):
     form = SearchStudentForm()
     # TODO: Set users to avaialable users
     form.search.choices = [(u.id, u.name) for u in Student.query.all()]
-   
     if form.validate_on_submit():
         xstudents=form.search.data
         for xid in xstudents:
