@@ -171,7 +171,7 @@ body,head{
 }
 
 .button{
-	position: absolute;
+	position: relative;
 	margin: 0;
 	padding: 8;
 	margin-left: 10px;
@@ -180,6 +180,23 @@ body,head{
 	left: 0;
 	background: none;
 	border: none;
+	color:#007bff; 
+	font-weight:500;
+}
+
+.buttonlgn{
+	position: absolute;
+	margin: 0;
+	padding: 8;
+	margin-left: 10px;
+	margin-bottom: 8px;
+	bottom: 0;
+	right: 50%;
+	transform: translateX(50%);
+	background: none;
+	border: none;
+	color:#007bff; 
+	font-weight:500;
 }
 
 a:hover{
@@ -190,6 +207,16 @@ a:hover{
 .button:hover{
 	background-color: rgb(128, 128, 128,0.2);
 }
+
+.buttonlgn:hover{
+	background-color: rgb(128, 128, 128,0.2);
+}
+
+.conteinerbotones{
+	display: inline;
+	position: relative;
+}
+
 
 
 

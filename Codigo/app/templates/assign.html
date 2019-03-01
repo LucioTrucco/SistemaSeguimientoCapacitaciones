@@ -7,6 +7,7 @@
             <th>Descripcion</th>
             <th>Mas info</th>
             <th>Asignar capacitador</th>
+            <th>Asignar estudiantes</th>
         </thead>
         {% for training in trainings %}
             <tr>
@@ -14,6 +15,7 @@
                 <td>{{ training.description }}</td>
                 <td><a href="{{ url_for('details', id=training.id) }}">Detalle</a> </td>
                 <td><a href="{{ url_for('select_trainer', id=training.id) }}">Asignar</a></td>
+                <td><a href="{{url_for('select_students',id=training.id)}}">Asignar</a></td>
             </tr>
         </div>
         {% endfor %}

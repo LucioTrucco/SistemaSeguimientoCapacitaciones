@@ -23,7 +23,7 @@
     {% block assign_students %}
     {% endblock %} 
     {% if training.students|length %}
-    <table style="width: 100%; margin: 10px;" id="tabla-capacitaciones" class="mdl-data-table mdl-js-data-table">
+    <table id="tabla-capacitaciones" class="mdl-data-table mdl-js-data-table">
         <tbody>
             <tr>
             <th style="text-align: left;">Legajo</th>
@@ -44,5 +44,7 @@
         {% endfor %}
     </table>
     {% endif %}
-    <a class="button" type="button" href="{{ url_for('deleteTraining', id=training.id) }}">ELIMINAR</a>
+    <div class="conteinerbotones">
+    <a class="button" href="{{ url_for('deleteTraining', id=training.id) }}">ELIMINAR</a>
+    </div>
 {% endblock %}

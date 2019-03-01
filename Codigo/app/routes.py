@@ -2,7 +2,7 @@ from flask import render_template, flash, redirect, url_for, request
 from app import app
 from app.forms import LoginForm, TrainingForm, TrainerForm, LoginForm, UserForm, ClassForm, StudentForm, SearchStudentForm
 from flask_login import current_user, login_user, logout_user
-from app.models import User, Training, Class, Student
+from app.models import User, Training, Class, Student, Training_students
 from app import db, mail
 from sqlalchemy.sql.expression import func
 from flask_mail import Message
@@ -124,7 +124,7 @@ def finish(id):
     training = Training.query.get(id)
     training.finalizada = True
     db.session.commit()
-    return redirect((url_for('details', id=training.id)))
+    return redirect((url_for('completedTrainings')))
 
 
 @app.route('/capacitaciones/crear', methods=['GET', 'POST'])
