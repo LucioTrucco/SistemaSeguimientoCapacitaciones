@@ -85,6 +85,15 @@ def details(id):
         title='Detalles')
 
 
+@app.route('/capacitaciones/<int:id>/borrar', methods=['GET', 'POST'])
+def deleteTraining(id):
+    training = Training.query.get(id)
+    db.session.delete(training)
+    db.session.commit()
+    return redirect(url_for('index'))
+    
+
+
 @app.route('/capacitaciones/editar/<int:id>', methods=['GET', 'POST'])
 def edit(id):
     training = Training.query.get(id)
@@ -137,6 +146,8 @@ def create():
         'capacitacion.html',
         title='Crear capacitacion',
         form=form)
+
+
 
 
 # --------------------------------------------------------------------------------------------------------------

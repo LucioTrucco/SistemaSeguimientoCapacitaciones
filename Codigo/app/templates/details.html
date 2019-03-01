@@ -44,4 +44,5 @@
         {% endfor %}
     </table>
     {% endif %}
+    <a class="button" type="button" href="{{ url_for('deleteTraining', id=training.id) }}">ELIMINAR</a>
 {% endblock %}
