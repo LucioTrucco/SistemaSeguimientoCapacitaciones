@@ -2,6 +2,9 @@
 
 {% block content %}
     {% if current_user.is_authenticated %}
-        <h1>Hi, {{ current_user.username }}!</h1>
+        <div class="contenedor-bienvenida">
+            <img class="img-avatar" src="../static/i/img_avatar.png" alt="imgbienvenida">
+            <p class="bienvenida-msg">Welcome, {{ current_user.username }}!</p>
+        </div>
     {% endif %}
 {% endblock %}
