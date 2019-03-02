@@ -46,6 +46,7 @@ def login():
 @app.route('/logout')
 def logout():
     session.pop('username', None)
+    session.pop('role',None)
     logout_user()
     return redirect(url_for('login'))
 
@@ -57,7 +58,7 @@ def logout():
 def trainings():
     if 'username' in session:
         username = session['username']
-        if session['role'] == 'admin':
+        if session['role'] == 'admin': ##COMPROBAR SI ES ADMIN PARA ENTRAR
             datax=[Training.query.filter_by(finalizada=1).count(), Training.query.filter_by(finalizada=0).count() ]
             return render_template(
                 'capacitaciones.html',
