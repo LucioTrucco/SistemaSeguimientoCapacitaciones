@@ -44,7 +44,7 @@
             <!-- Tabs -->
             <div class="mdl-layout__tab-bar mdl-js-ripple-effect" id="barraSecundaria">
             <a href="{{ url_for('index') }}" class="mdl-layout__tab">Home</a>
-           
+            {% if session['role'] == 'admin'%}
             <div class="dropdown show">
                 <a href="#" class="mdl-layout__tab dropdown-toggle" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                     Capacitaciones
@@ -56,7 +56,7 @@
                     <a class="dropdown-item" href="{{ url_for('trainings') }}">Todas</a>
                </div>                
             </div>
-
+            {% endif %} 
             <a href="{{ url_for('users') }}" class="mdl-layout__tab">Capacitaciones Usuario</a>
             <a href="{{ url_for('create')}} " class="mdl-layout__tab">Alta capacitaciones</a>
             <a href="{{ url_for('assign')}} " class="mdl-layout__tab">Asignar capacitaciones</a>

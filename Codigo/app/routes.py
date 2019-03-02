@@ -34,6 +34,7 @@ def login():
             flash('Invalid username or password')
             return redirect(url_for('login'))
         session['username'] = form.username.data
+        session['role'] = user.role
         login_user(user, remember=form.remember_me.data)
         return redirect(url_for('index'))
     return render_template(
@@ -56,12 +57,13 @@ def logout():
 def trainings():
     if 'username' in session:
         username = session['username']
-        datax=[Training.query.filter_by(finalizada=1).count(), Training.query.filter_by(finalizada=0).count() ]
-        return render_template(
-            'capacitaciones.html',
-            title='Todas las capacitaciones',
-            trainings=Training.query.all(),
-            datax=map(json.dumps,datax))
+        if session['role'] == 'admin':
+            datax=[Training.query.filter_by(finalizada=1).count(), Training.query.filter_by(finalizada=0).count() ]
+            return render_template(
+                'capacitaciones.html',
+                title='Todas las capacitaciones',
+                trainings=Training.query.all(),
+                datax=map(json.dumps,datax))
     return redirect(url_for('login'))
 
 

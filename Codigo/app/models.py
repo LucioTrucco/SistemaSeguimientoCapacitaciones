@@ -1,6 +1,7 @@
-from app import db, login
+from app import db, login,app
 from flask_login import UserMixin
 from werkzeug.security import generate_password_hash, check_password_hash
+
 
 
 Training_students = db.Table('training_students',
@@ -19,6 +20,7 @@ class User(UserMixin, db.Model):
     email = db.Column(db.String(120), index=True, unique=True)
     password_hash = db.Column(db.String(128))
     trainings = db.relationship('Training', backref='trainer', lazy='dynamic')
+    role = db.Column(db.String(64))
 
     def __repr__(self):
         return '<User {}>'.format(self.username)

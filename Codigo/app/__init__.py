@@ -13,4 +13,5 @@ migrate = Migrate(app, db)
 login = LoginManager(app)
 mail= Mail(app)
 
+
 from app import routes
