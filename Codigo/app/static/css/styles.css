@@ -262,6 +262,29 @@ a:hover{
 	color: #374A67;
 }
 
+.conteinerimglogout{
+	margin: 0;
+	padding: 0;
+	position: absolute;
+	background: transparent;
+	right: 3%;
+	top: 25%;
+	width: 30px;
+	height: 30px;
+}
+
+.conteinerimglogout:hover{
+	border-radius: 60%;
+	background-color: #5261B1;	 
+}
+
+.imglogout{
+	position: relative;
+	top: 50%;
+	transform: translateY(-50%);
+	width: 24px;
+	height: 24px;	
+}
 
 
 
