@@ -34,7 +34,7 @@ def login():
             flash('Invalid username or password')
             return redirect(url_for('login'))
         session['username'] = form.username.data
-        session['role'] = user.role
+        session['role'] = user.role_id
         login_user(user, remember=form.remember_me.data)
         return redirect(url_for('index'))
     return render_template(

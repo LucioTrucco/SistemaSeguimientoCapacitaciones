@@ -44,7 +44,7 @@
             <!-- Tabs -->
             <div class="mdl-layout__tab-bar mdl-js-ripple-effect" id="barraSecundaria">
             <a href="{{ url_for('index') }}" class="mdl-layout__tab">Home</a>
-            {% if session['role'] == '2' %} <!-- CHECK ROLES PARA MOSTRAR-->
+            {% if session['role'] == 4 %} <!-- CHECK ROLES PARA MOSTRAR-->
             <div class="dropdown show">
                 <a href="#" class="mdl-layout__tab dropdown-toggle" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                     Capacitaciones
