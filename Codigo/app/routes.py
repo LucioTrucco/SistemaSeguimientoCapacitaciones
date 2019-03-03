@@ -58,7 +58,7 @@ def logout():
 def trainings():
     if 'username' in session:
         username = session['username']
-        if session['role'] == '2': ##COMPROBAR SI ES ADMIN PARA ENTRAR
+        if session['role'] == 4: ##COMPROBAR SI ES ADMIN PARA ENTRAR
             datax=[Training.query.filter_by(finalizada=1).count(), Training.query.filter_by(finalizada=0).count() ]
             return render_template(
                 'capacitaciones.html',
