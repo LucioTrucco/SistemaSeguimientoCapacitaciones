@@ -477,15 +477,10 @@ def student_create():
 def student_delete(file):
     if 'username' in session:
         username = session['username']
-        student = Student.query.filter_by(file=file)
-        if request.method == 'POST':
-            db.session.delete(student)
-            db.session.commit()
-            return redirect((url_for('students')))
-        return render_template(
-            'student_delete.html',
-            title='Borrar estudiante',
-            student=student) 
+        student = Student.query.filter_by(file=file).first()
+        db.session.delete(student)
+        db.session.commit()
+        return redirect(url_for('students'))
     return redirect(url_for('login'))
 
 

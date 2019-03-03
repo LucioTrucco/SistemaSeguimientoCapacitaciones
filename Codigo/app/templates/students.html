@@ -1,6 +1,7 @@
 {% extends "base.html" %}
 
 {% block content %}
+{% if students|length %}
 <table id="tabla-capacitaciones" class="mdl-data-table mdl-js-data-table">
     <thead>
         <th>Legajo</th>
@@ -24,5 +25,6 @@
         </tr>
     {% endfor %}
 </table>
+{% endif %}
 <a class="button" href="{{ url_for('student_create') }}" >Agregar alumno</a>
 {% endblock %}
