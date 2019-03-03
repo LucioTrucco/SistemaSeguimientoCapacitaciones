@@ -14,13 +14,19 @@ Training_students = db.Table('training_students',
                              )
 
 
+class Role(db.Model):
+    id = db.Column(db.Integer, primary_key=True)
+    name = db.Column(db.String(50), nullable=False)
+    user = db.relationship('User', backref='role', uselist=False)
+
+
 class User(UserMixin, db.Model):
     id = db.Column(db.Integer, primary_key=True)
     username = db.Column(db.String(64), index=True, unique=True)
     email = db.Column(db.String(120), index=True, unique=True)
     password_hash = db.Column(db.String(128))
     trainings = db.relationship('Training', backref='trainer', lazy='dynamic')
-    role = db.Column(db.String(64))
+    role_id = db.Column(db.Integer, db.ForeignKey('role.id'))
 
     def __repr__(self):
         return '<User {}>'.format(self.username)
