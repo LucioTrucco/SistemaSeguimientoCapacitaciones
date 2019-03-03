@@ -30,6 +30,54 @@
     {% endif %}
 </div>
     {% if not finalizada %}
-        <a class="button" href="{{ url_for('class_create', training_id=training_id) }}">Agregar clase</a>
+        <a class="button" id="opn-modal" href="#">Agregar clase</a>
+        
     {% endif %}
+<div class="bg-form">
+    <div class="contenedorcard-modal">
+        <div class="carta-modal" >
+                <div class="mdl-card__title">
+                        <h2 class="mdl-card__title-text titulo">Clase</h2>
+                </div>
+                <div class="close-modal">
+                    <a class="btn-close-modal" id="close-modal">+</a>
+                </div>
+        <form action="" method="post" novalidate>
+            {{ form.hidden_tag() }}
+        <div class="mdl-textfield mdl-js-textfield">
+            <div class="mdl-textfield__input">
+                <b>{{ form.date.label }}</b>
+                {{ form.date(class="rectangulos") }}
+            </div>
+            <div class="mdl-textfield__input">
+                <b>{{ form.topics.label }}</b>
+                {{ form.topics(class="rectangulos") }}
+            </div>
+            <div class="mdl-textfield__input">
+                <b>{{ form.topicsNext.label }}</b>
+                {{ form.topicsNext(class="rectangulos") }}
+            </div>
+            <div class="mdl-textfield__input">
+                <b>{{ form.comments.label }}</b>
+                {{ form.comments(class="rectangulos") }}
+            </div>
+        </div>
+            <input class="mdl-button mdl-button--colored mdl-js-button mdl-js-ripple-effect btn-modal" type="submit" value="Enviar">
+        </form>
+    </div>
+</div>
+</div>
+
+<script>
+
+        document.getElementById('opn-modal').addEventListener('click',
+            function () {
+                document.querySelector('.bg-form').style.display = "flex";
+            });
+        
+        document.getElementById('close-modal').addEventListener('click',
+        function(){
+            document.querySelector('.bg-form').style.display = "none";
+        });
+</script>
 {% endblock %}
