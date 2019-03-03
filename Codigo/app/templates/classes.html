@@ -30,6 +30,6 @@
     {% endif %}
 </div>
     {% if not finalizada %}
-        <a href="{{ url_for('class_create', training_id=training_id) }}">Agregar clase</a>
+        <a class="button" href="{{ url_for('class_create', training_id=training_id) }}">Agregar clase</a>
     {% endif %}
 {% endblock %}
