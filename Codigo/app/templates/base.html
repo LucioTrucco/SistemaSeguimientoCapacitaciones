@@ -29,12 +29,9 @@
                 <img  id="logo-largo" src="{{ url_for('static', filename='i/logo-gestion.png') }}" alt="">
                </a>
                <div id="login-area">
-                    <!-- <a href="" id="login-button" class="mdl-button" data-upgraded=",MaterialButton">
-                                <img src="{{ url_for('static', filename='i/logout.png') }}" alt="">
-                    </a> -->
                     {% if current_user.is_authenticated %}
                         <a href="{{ url_for('logout') }}" class="mdl-layout__tab conteinerimglogout">
-                            <img src="../static/i/logout.png" alt="imglogout" class="imglogout">
+                            <img src="{{ url_for('static', filename='i/logout.png') }}" alt="imglogout" class="imglogout">
                         </a>
                     {% else %}
                         <a href="{{ url_for('login') }}" class="mdl-layout__tab" style="text-align: right;width: 100%;">Login</a>

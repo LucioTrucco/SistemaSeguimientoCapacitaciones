@@ -465,7 +465,7 @@ def student_create():
             db.session.add(student)
             db.session.commit()
             flash('Estudiante creado', 'success')
-            return redirect(url_for('index'))
+            return redirect(url_for('students'))
         return render_template(
             'student_create.html',
             title='Crear estudiante',

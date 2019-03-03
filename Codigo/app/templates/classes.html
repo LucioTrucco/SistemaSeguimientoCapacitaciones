@@ -1,5 +1,7 @@
 {% extends "base.html" %}
 {% block content %}
+<div class="conteiner-tabla">
+    {% if classes.count() > 0 %}
     <table style="width: 100%; margin: 10px;" id="tabla-capacitaciones" class="mdl-data-table mdl-js-data-table">
         <thead>
             <th>Numero</th>
@@ -25,6 +27,8 @@
         </div>
         {% endfor %}
     </table>
+    {% endif %}
+</div>
     {% if not finalizada %}
         <a href="{{ url_for('class_create', training_id=training_id) }}">Agregar clase</a>
     {% endif %}
