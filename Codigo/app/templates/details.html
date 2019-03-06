@@ -1,50 +1,53 @@
 {% extends "base.html" %}
 
 {% block content %}
-    <b>Nombre:</b> {{ training.name }}  <br>
-    <b>Descripcion</b> {{ training.description }}<br>
-    {% if training.classes.first() != None %}
-    <b>Clases:</b><br>
-        {% for training_class in training.classes %}
-            <a href="{{ url_for('class_details', training_id=training.id, class_num=training_class.number) }}">{{ training_class.number }}) {{ training_class.topics }}</a>
-            <br>
-        {% endfor %}
-    {% endif %}
-    {% if training.trainer != None %}
-    <b>Capacitador:</b>
-        {{ training.trainer.username }}
-    {% endif %}
-    <br>
-    <b>Comentarios:</b>
-        {{ training.comments }}
-    <br>
-    {% block assign_trainer %}
-    {% endblock %} 
-    {% block assign_students %}
-    {% endblock %} 
-    {% if training.students|length %}
-    <table id="tabla-capacitaciones" class="mdl-data-table mdl-js-data-table">
-        <tbody>
-            <tr>
+<b>Nombre:</b> {{ training.name }} <br>
+<b>Descripcion</b> {{ training.description }}<br>
+{% if training.classes.first() != None %}
+<b>Clases:</b><br>
+{% for training_class in training.classes %}
+<a href="{{ url_for('class_details', training_id=training.id, class_num=training_class.number) }}">{{ training_class.number }})
+    {{ training_class.topics }}</a>
+<br>
+{% endfor %}
+{% endif %}
+{% if training.trainer != None %}
+<b>Capacitador:</b>
+{{ training.trainer.username }}
+<br>
+{% endif %}
+<b>Comentarios:</b>
+{{ training.comments }}
+<br>
+{% block assign_trainer %}
+{% endblock %}
+{% block assign_students %}
+{% endblock %}
+{% if training.students|length %}
+<table id="tabla-capacitaciones" class="mdl-data-table mdl-js-data-table">
+    <tbody>
+        <tr>
             <th style="text-align: left;">Legajo</th>
             <th style="text-align: left;">Nombre</th>
             <th style="text-align: left;">Apellido</th>
             <th style="text-align: left;">Email</th>
             <th style="text-align: left;">Carrera</th>
-            </tr>
+        </tr>
         {% for student in training.students %}
-            <tr>
-                <td style="text-align: left;">{{ student.file }} </td>
-                <td style="text-align: left;">{{ student.name }}</td>
-                <td style="text-align: left;">{{ student.surname }} </td>
-                <td style="text-align: left;">{{ student.email }}</td>
-                <td style="text-align: left;">{{ student.degree }}</td>
-            </tr>
-        </div>
-        {% endfor %}
-    </table>
-    {% endif %}
-    <div class="conteinerbotones">
+        <tr>
+            <td style="text-align: left;">{{ student.file }} </td>
+            <td style="text-align: left;">{{ student.name }}</td>
+            <td style="text-align: left;">{{ student.surname }} </td>
+            <td style="text-align: left;">{{ student.email }}</td>
+            <td style="text-align: left;">{{ student.degree }}</td>
+        </tr>
+    </tbody>
+    {% endfor %}
+</table>
+{% endif %}
+{% if request.path==url_for('details', id=training.id) %}
+<div class="conteinerbotones">
     <a class="button" href="{{ url_for('deleteTraining', id=training.id) }}">ELIMINAR</a>
-    </div>
+</div>
+{% endif %}
 {% endblock %}

@@ -238,7 +238,8 @@ a:hover{
 	width: 100%;
 	text-align: center;
 	position: relative;
-	top: 50%;
+	top: 50%; 
+	transform:translateY(50%);
 }
 
 .img-avatar{
@@ -247,8 +248,7 @@ a:hover{
 	position: relative;
 	left: 50%;
 	width: 125px;
-	transform: translateX(-50%);
-	
+	transform: translateX(-50%);	
 }
 
 .bienvenida-msg{

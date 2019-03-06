@@ -1,10 +1,14 @@
 {% extends "details.html" %}
 
 {% block assign_students %}
+{% if students|length %}
     <form action='' method='POST'>
         {{ form.hidden_tag() }}
         <b>Estudiantes:</b><br>
         {{ form.search(multiple=True) }}
         <input type="submit" value="Asignar">
     </form>
+{% else %}
+<b>Estudiantes: </b> <p>No se encuentran estudiantes registrados.</p>
+{% endif %}
 {% endblock %}

@@ -1,7 +1,7 @@
 {% extends "base.html" %}
 {% block content %}
+{% if trainings|length %}
 <table id="tabla-capacitaciones" class="mdl-data-table mdl-js-data-table">
-
         <thead>
             <th>Nombre</th>
             <th>Descripcion</th>
@@ -27,4 +27,5 @@
         </div>
         {% endfor %}
     </table>
+    {%endif%}
 {% endblock %}

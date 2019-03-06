@@ -58,7 +58,7 @@ def logout():
 def trainings():
     if 'username' in session:
         username = session['username']
-        if session['role'] == 4: ##COMPROBAR SI ES ADMIN PARA ENTRAR
+        if session['role'] == 1: ##COMPROBAR SI ES ADMIN PARA ENTRAR
             datax=[Training.query.filter_by(finalizada=1).count(), Training.query.filter_by(finalizada=0).count() ]
             return render_template(
                 'capacitaciones.html',
@@ -457,12 +457,13 @@ def select_students(id):
                 student = Student.query.get(xid)
                 student.lstTraining.append(Training.query.get(id))
                 db.session.commit()
-            return redirect((url_for('index')))
+            return redirect((url_for('trainings')))
         return render_template(
             'select_students.html',
             title='Asignacion',
             form=form,
             training=Training.query.get(id),
+            students=Student.query.all()
         )
     return redirect(url_for('login'))
 
