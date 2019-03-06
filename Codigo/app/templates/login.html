@@ -22,31 +22,18 @@
 
       <form action="" class="formlogin" method="POST" novalidate>
         {{ form.hidden_tag() }}
-        <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label inputlogin1" >
-                    <!-- <input type="text" placeholder="Usuario" name="username" class="inputlogin">-->
-          <input
-            class="mdl-textfield__input "
-            type="text"
-            id="sample1"
-            name="username"
-          />
-          <label class="mdl-textfield__label" for="sample1">Usuario</label>
+        <div
+          class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label inputlogin1"
+        >
+          {{form.username(class="mdl-textfield__input", id="username")}}
+          {{form.username.label(class="mdl-textfield__label", for="username")}}
         </div>
-        <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label inputlogin2">
-        <!--<input
-          type="password"
-          placeholder="Contraseña"
-          class="inputlogin"
-          name="password"
-        />-->
-        <input
-        class="mdl-textfield__input "
-        type="password"
-        id="sample2"
-        name="password"
-      />
-      <label class="mdl-textfield__label" for="sample2">Password</label>
-      </div>
+        <div
+          class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label inputlogin2"
+        >
+          {{form.password(class="mdl-textfield__input", id="pass")}}
+          {{form.password.label(class="mdl-textfield__label", for="sample2")}}
+        </div>
         <input type="submit" class="buttonlgn" value="INGRESAR" />
       </form>
     </div>

@@ -7,8 +7,8 @@ from werkzeug.datastructures import FileMultiDict;
 
 
 class LoginForm(FlaskForm):
-    username = StringField('Username', validators=[DataRequired()])
-    password = PasswordField('Password', validators=[DataRequired()])
+    username = StringField('Username')
+    password = PasswordField('Password')
     submit = SubmitField('INGRESAR')
     remember_me = BooleanField('Remember Me')
 
