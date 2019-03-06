@@ -156,20 +156,6 @@ body,head{
 	background: white;
 }
 
-.inputlogin{
-	padding: 0;
-	font-size: 20px;
-	width: 98%;
-	height: 30px;
-	position: relative;
-	margin-top: 10px;
-	margin-bottom: 10px;
-	top: 20%;
-	border: 0;
-	font-weight: lighter;
-	border-bottom: 1px solid #D0D0D0;
-}
-
 .button{
 	position: relative;
 	margin: 0;
@@ -345,4 +331,14 @@ a:hover{
 .btn-close-modal:hover{
 	cursor: pointer;
 	color: grey;
+}
+
+.inputlogin1{
+	position: relative;
+	top:10%;
+}
+
+.inputlogin2{
+	position: relative;
+	top:10%;
 }
