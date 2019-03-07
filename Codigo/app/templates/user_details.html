@@ -1,8 +1,17 @@
 {% extends "base.html" %}
 
 {% block content %}
-    <b>Nombre:</b> {{ user.username }}  <br>
-    <b>Email</b> {{ user.email }}<br>
+<div class="contenedorcard">
+    <div class="demo-card-wide mdl-card carta" >
+            <div class="mdl-card__title">
+                    <h2 class="mdl-card__title-text titulo">Usuario</h2>
+            </div>
+            <div class="mdl-textfield mdl-js-textfield contenido">
+            <div class="user"><b>Nombre: </b> {{ user.username }}</div>
+            <div class="user"><b>Email: </b> {{ user.email }}</div>
+            </div>
+    </div>
+</div>
     {% block confirm %} {% endblock %}
 {% endblock %}
 
