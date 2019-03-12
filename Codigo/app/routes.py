@@ -2,7 +2,7 @@ from flask import render_template, flash, redirect, url_for, request, session
 from app import app
 from app.forms import LoginForm, TrainingForm, TrainerForm, LoginForm, UserForm, ClassForm, StudentForm, SearchStudentForm
 from flask_login import current_user, login_user, logout_user
-from app.models import User, Training, Class, Student, Training_students
+from app.models import User, Training, Class, Student, Training_students, Role
 from app import db, mail
 from sqlalchemy.sql.expression import func
 from flask_mail import Message
@@ -376,10 +376,12 @@ def user_create():
     if 'username' in session:
         username = session['username']
         form = UserForm()
+        form.role.choices = [(u.id, u.name) for u in Role.query.all()]
         if form.validate_on_submit():
             user = User(
                 username=form.username.data,
-                email=form.email.data)
+                email=form.email.data,
+                Role = Role.query.get(form.role.data))
             user.set_password(form.password.data)
             db.session.add(user)
             db.session.commit()
@@ -411,9 +413,11 @@ def user_edit(id):
             username=user.username,
             email=user.email,
         )
+        form.role.choices = [(u.id, u.name) for u in Role.query.all()]
         if form.validate_on_submit():
             user.username = form.username.data
             user.email = form.email.data
+            user.Role = Role.query.get(form.role.data)
             if(form.password.data is not None and form.data.password != ''):
                 user.set_password(form.password.data)
             db.session.commit()

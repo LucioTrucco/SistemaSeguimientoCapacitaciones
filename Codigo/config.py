@@ -19,3 +19,4 @@ class Config(object):
     MAIL_USE_SSL= True
     MAIL_USERNAME = 'matiastorsello@gmail.com' 
     MAIL_PASSWORD = 'tslhruuhnnwmbslh'
+    

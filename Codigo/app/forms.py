@@ -54,3 +54,4 @@ class UserForm(FlaskForm):
         EqualTo('confirm', message='Las contrasenas no coinciden')
     ])
     confirm = PasswordField('Repetir contrasena')
+    role = SelectField('Rol', validators=[DataRequired()], coerce=int)
