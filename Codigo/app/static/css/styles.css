@@ -114,7 +114,8 @@ body,head{
 	padding: 0;
 	width: 320px;
 	height: 400px;
-	border: 1px solid #BFBFBF;
+	border: 1px solid transparent;
+	box-shadow: 0px 0px 4px 0px rgba(0,0,0,0.75);
 	text-align: center;
 	top: 50%;
 	left: 50%;

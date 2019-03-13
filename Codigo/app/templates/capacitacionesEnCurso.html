@@ -16,7 +16,7 @@
             <td style="text-align: left;">{{ training.name }} </td>
             <td style="text-align: left;">{{ training.description }}</td>
             <td style="text-align: left;"><a href="{{ url_for('trainings_user', username=training.trainer.username) }}">{{training.trainer.username}}</a> </td>
-            <td style="text-align: left;">
+            <td style="text-align:center;">
                 <a href="{{ url_for('details', id=training.id) }}">Detalle</a> |
                 <a href="{{ url_for('edit', id=training.id) }}">Editar</a> |
                 <a href="{{ url_for('classes', training_id=training.id) }}">Seguimiento</a>
