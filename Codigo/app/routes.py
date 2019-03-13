@@ -98,6 +98,7 @@ def ongoingTrainings():
 def trainings_user(username):
     if 'username' in session:
         username = session['username']
+        ##TODO: SOLUCIONAR PROBLEMA AL MOSTRAR CAPACITACIONES POR USUARIO
         return render_template(
             'capacitaciones.html',
             title='Capcitaciones en Curso',
