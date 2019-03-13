@@ -98,7 +98,10 @@ body,head{
 	position: absolute;
 	right: 0;
 	width: 150px;
-	
+}
+
+.center{
+	margin-top: 5px;
 }
 
 .titulo{

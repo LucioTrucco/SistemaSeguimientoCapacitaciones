@@ -396,7 +396,8 @@ def user_edit(id):
         return render_template(
             'user_create.html',
             title='Crear usuario',
-            form=form)
+            form=form,
+            id=user.id)
     return redirect(url_for('login'))
 
 

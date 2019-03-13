@@ -18,17 +18,19 @@
             <b>{{ form.email.label }}</b>
             {{ form.email(class="rectangulos") }}
         </div>
-        <div class="mdl-textfield__input">
-            <b>{{ form.password.label }}</b>
-            {{ form.password(class="rectangulos") }}
-        </div>
-        <div class="mdl-textfield__input">
-            <b>{{ form.confirm.label }}</b>
-            {{ form.confirm(class="rectangulos") }}
-        </div>
+        {% if request.path!=url_for('user_edit', id=id) %}
+            <div class="mdl-textfield__input">
+                <b>{{ form.password.label }}</b>
+                {{ form.password(class="rectangulos") }}
+            </div>
+            <div class="mdl-textfield__input">
+                <b>{{ form.confirm.label }}</b>
+                {{ form.confirm(class="rectangulos") }}
+            </div>
+        {% endif %}
         <div class="mdl-textfield__input">
             <b>{{ form.role.label }}</b>
-            {{form.role(class="rectangulos")}}
+            {{form.role(class="rectangulos center")}}
         </div>
         </div>
         <input class="mdl-button mdl-button--colored mdl-js-button mdl-js-ripple-effect" type="submit" value="Enviar">
