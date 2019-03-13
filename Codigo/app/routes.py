@@ -342,7 +342,6 @@ def select_trainer(id):
             msg= Message('Capacitacion Asignada',
             sender='matiastorsello@gmail.com',
             recipients=[trainer.email])
-            msg.add_recipient('trucco.lucioj@gmail.com')
             msg.html='<b>Capacitacion: </b>'+training.name+'<br><b>Comienza: </b>'+str(training.start)+'<br><b>Finaliza: </b>'+str(training.end)+'<br><b>Descripcion: </b>'+training.description
             mail.send(msg)
             db.session.commit()
