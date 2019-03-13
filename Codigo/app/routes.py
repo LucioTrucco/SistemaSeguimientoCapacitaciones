@@ -100,8 +100,8 @@ def trainings_user(username):
         username = session['username']
         ##TODO: SOLUCIONAR PROBLEMA AL MOSTRAR CAPACITACIONES POR USUARIO
         return render_template(
-            'capacitaciones.html',
-            title='Capcitaciones en Curso',
+            'capacitacionesPorUsuario.html',
+            title='Capcitaciones por Usuario',
             trainings=User.query.filter_by(username=username).first().trainings)
     return redirect(url_for('login'))
 
