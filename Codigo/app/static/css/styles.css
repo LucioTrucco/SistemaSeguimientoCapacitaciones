@@ -370,6 +370,10 @@ a:hover{
 	margin-top: 10px;	
 }
 
+.tabla-detalles{
+	position: absolute;
+	bottom:0;
+}
 .contenedor-detalles{
 	position: absolute;
 	width: 600px;
