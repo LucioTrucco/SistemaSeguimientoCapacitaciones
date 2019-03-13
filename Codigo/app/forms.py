@@ -49,9 +49,9 @@ class SearchStudentForm(FlaskForm):
 class UserForm(FlaskForm):
     username = StringField('Username', validators=[DataRequired(),Length(min=4, max=25)])
     email = StringField('Email', validators=[DataRequired(),Length(min=6, max=35)])
-    password = PasswordField('Contrasena', validators=[
+    password = PasswordField('Contrase&ntildea', validators=[
         DataRequired(),
-        EqualTo('confirm', message='Las contrasenas no coinciden')
+        EqualTo('confirm', message='Las contrase&ntildeas no coinciden')
     ])
-    confirm = PasswordField('Repetir contrasena')
+    confirm = PasswordField('Repetir contrase&ntildea')
     role = SelectField('Rol', validators=[DataRequired()], coerce=int)
