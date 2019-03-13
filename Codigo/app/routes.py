@@ -360,7 +360,8 @@ def user_create():
         return render_template(
             'user_create.html',
             title='Crear usuario',
-            form=form)
+            form=form,
+            id=0)
     return redirect(url_for('login'))
 
 
