@@ -224,8 +224,9 @@ a:hover{
 .contenedor-bienvenida{
 	width: 100%;
 	text-align: center;
-	position: relative;
+	position: absolute;
 	top: 50%; 
+	transform: translateY(-50%);
 }
 
 .img-avatar{
