@@ -224,34 +224,6 @@ def classes(training_id):
             form=form)
     return redirect(url_for('login'))
 
-"""
-@app.route('/capacitaciones/<int:training_id>/clases/agregar', methods=['GET', 'POST'])
-def class_create(training_id):
-    if 'username' in session:
-        username = session['username']
-        training = Training.query.get(training_id)
-        form = ClassForm()
-        if form.validate_on_submit():
-            new_class = Class(
-                date=form.date.data,
-                topics=form.topics.data,
-                topicsNext=form.topicsNext.data,
-                comments=form.comments.data)
-            if len(training.classes.all()) == 0:
-                new_class.number = 1
-            else:
-                new_class.number = db.session.query(func.max(Class.number)).filter(
-                    Class.training_id == training_id).first()[0] + 1
-            new_class.training = training
-            db.session.add(new_class)
-            db.session.commit()
-            return redirect((url_for('classes', training_id=training.id)))
-        return render_template(
-            'class_create.html',
-            title='Crear clase',
-            form=form)
-    return redirect(url_for('login'))
-"""
 
 @app.route('/capacitaciones/<int:training_id>/clases/<int:class_num>')
 def class_details(training_id, class_num):
