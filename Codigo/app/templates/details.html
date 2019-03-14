@@ -2,23 +2,36 @@
 
 {% block content %}
 <div class="contenedor-detalles">
-<b>Nombre:</b> {{ training.name }} <br>
-<b>Descripcion</b> {{ training.description }}<br>
-{% if training.classes.first() != None %}
-<b>Clases:</b><br>
-{% for training_class in training.classes %}
-<a href="{{ url_for('class_details', training_id=training.id, class_num=training_class.number) }}">{{ training_class.number }})
-    {{ training_class.topics }}</a>
-<br>
-{% endfor %}
-{% endif %}
-{% if training.trainer != None %}
-<b>Capacitador:</b>
-{{ training.trainer.username }}
-<br>
-{% endif %}
-<b>Comentarios:</b>
-{{ training.comments }}
+    <div class="detalles__titulo"> {{ training.name }}</div>
+    <div class="detalles__desc">
+        <p>Descripción</p>
+        {{ training.description }}
+    </div>
+    {% if training.classes.first() != None %}
+    <div class="detalles__class">
+        <p>Clases</p>
+        <ul>
+        {% for training_class in training.classes %}
+        <li>
+        <a href="{{ url_for('class_details', training_id=training.id, class_num=training_class.number) }}">
+            {{ training_class.topics }}</a>
+        </li>
+        {% endfor %}
+    </ul>
+    </div>
+    {% endif %}
+    {% if training.trainer != None %}
+    <div class="detalles__trainer">
+    <p>Capacitador</p>
+    <ul>
+    <li><a href="{{ url_for('user_details', id=training.trainer.id) }}">{{ training.trainer.username }}</a></li>
+    </ul>
+    </div>
+    {% endif %}
+    <div class="detalles__comments">
+    <p>Comentarios:</p>
+    {{ training.comments }}
+    </div>
 </div>
 <br>
 {% block assign_trainer %}
