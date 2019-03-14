@@ -91,6 +91,7 @@ body,head{
 	text-align: center;
 	border: 1px solid #BFBFBF;
 	box-shadow: 3px 3px #888888;
+	height: auto;
 }
 
 .rectangulos{
@@ -473,4 +474,13 @@ a:hover{
 	font-weight: bold;
 	margin-bottom: 5;
 	font-size: 1.1rem;
+}
+
+.user__box{
+	position: absolute;
+	width: 300px;
+}
+
+.user__center{
+	text-align: center;
 }
