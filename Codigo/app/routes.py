@@ -58,7 +58,7 @@ def logout():
 def trainings():
     if 'username' in session:
         username = session['username']
-        if session['role'] == 4: ##COMPROBAR SI ES ADMIN PARA ENTRAR
+        if session['role'] == 1: ##COMPROBAR SI ES ADMIN PARA ENTRAR
             datax=[Training.query.filter_by(finalizada=1).count(), Training.query.filter_by(finalizada=0).count() ]
             return render_template(
                 'capacitaciones.html',
@@ -468,7 +468,7 @@ def student_create():
     return redirect(url_for('login'))
 
 
-@app.route('/alumnos/<int:file>/borrar', methods=['GET', 'POST'])
+@app.route('/alumnos/<string:file>/borrar', methods=['GET', 'POST'])
 def student_delete(file):
     if 'username' in session:
         username = session['username']

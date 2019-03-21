@@ -1,6 +1,7 @@
 {% extends "base.html" %}
 
 {% block content %}
+<div class="conteiner-tabla">
 {% if students|length %}
 <table id="tabla-capacitaciones" class="mdl-data-table mdl-js-data-table">
     <thead>
@@ -19,12 +20,38 @@
             <td>{{ student.email }} </td>
             <td>{{ student.degree }} </td>
             <td style="text-align: left;">
-                <a href="{{ url_for('student_delete', file=student.file) }}">borrar</a> |
-                <a href="{{ url_for('student_edit', file=student.file) }}">editar</a>
+                <a href="{{ url_for('student_edit', file=student.file) }}">Editar</a>
+                | <a id="opn-modal" href="#">Eliminar</a>
+                <input type="hidden" name="" id="idStudent" value={{student.file}}>
             </td>
         </tr>
     {% endfor %}
 </table>
 {% endif %}
+</div>
 <a class="button" href="{{ url_for('student_create') }}" >Agregar alumno</a>
+
+<div class="confirm__bg">
+    <div class="confirm__card">
+        <p>Desea eliminar estudiante?</p>
+        <a class="confirm" href="#" id="confirm">SI</a>
+        <a id='close-modal' class="cancel" href="#">Cancelar</a>
+    </div>
+</div>
+
+<script>
+    document.getElementById('opn-modal').addEventListener('click',
+        function () {
+            var val = document.getElementById('idStudent').value;
+            var href=  "{{ url_for('student_delete', file='x') }}".replace("x",val);
+            document.getElementById('confirm').setAttribute("href",href);
+            document.querySelector('.confirm__bg').style.display = "flex";
+        });
+    
+    document.getElementById('close-modal').addEventListener('click',
+    function(){
+        document.querySelector('.confirm__bg').style.display = "none";
+    });
+</script>
+
 {% endblock %}
