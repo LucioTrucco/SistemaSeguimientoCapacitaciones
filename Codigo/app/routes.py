@@ -352,7 +352,7 @@ def user_create():
             user = User(
                 username=form.username.data,
                 email=form.email.data,
-                Role = Role.query.get(form.role.data))
+                role = Role.query.get(form.role.data))
             user.set_password(form.password.data)
             db.session.add(user)
             db.session.commit()
@@ -402,19 +402,14 @@ def user_edit(id):
     return redirect(url_for('login'))
 
 
-@app.route('/usuarios/borrar/<int:id>', methods=['GET', 'POST'])
+@app.route('/usuarios/borrar/<string:id>', methods=['GET', 'POST'])
 def user_delete(id):
     if 'username' in session:
         username = session['username']
-        if request.method == 'POST':
-            user = User.query.get(id)
-            db.session.delete(user)
-            db.session.commit()
-            return redirect((url_for('users')))
-        return render_template(
-            'user_delete.html',
-            title='Borrar usuario',
-            user=User.query.get(id))
+        user = User.query.get(id)
+        db.session.delete(user)
+        db.session.commit()
+        return redirect((url_for('users')))
     return redirect(url_for('login'))
 
 

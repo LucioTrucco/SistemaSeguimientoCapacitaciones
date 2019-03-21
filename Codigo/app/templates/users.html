@@ -14,11 +14,38 @@
                 <td><a href="{{ url_for('trainings_user', username=user.username) }}">Capacitaciones</a></td>
                 <td>
                     <a href="{{ url_for('user_details', id=user.id) }}">Detalle</a> |
-                    <a href="{{ url_for('user_edit', id=user.id) }}">Editar</a> |
-                    <a href="{{ url_for('user_delete', id=user.id) }}">Borrar</a>
+                    <a href="{{ url_for('user_edit', id=user.id) }}">Editar</a> 
+                    | <a id="opn-modal" href="#">Eliminar</a>
+                    <input type="hidden" name="" id="idUsuario" value={{user.id}}>
+
                 </td>
             </tr>
         </div>
+        <div class="confirm__bg">
+            <div class="confirm__card">
+                <p>Desea eliminar usuario?</p>
+                <a class="confirm" href="#" id="confirm">SI</a>
+                <a id='close-modal' class="cancel" href="#">Cancelar</a>
+            </div>
+        </div>
         {% endfor %}
     </table>
+
+    
+    
+    <script>
+        document.getElementById('opn-modal').addEventListener('click',
+            function () {
+                var val = document.getElementById('idUsuario').value;
+                var href=  "{{ url_for('user_delete', id='x') }}".replace("x",val);
+                document.getElementById('confirm').setAttribute("href",href);
+                document.querySelector('.confirm__bg').style.display = "flex";
+            });
+        
+        document.getElementById('close-modal').addEventListener('click',
+        function(){
+            document.querySelector('.confirm__bg').style.display = "none";
+        });
+    </script>
+    
 {% endblock %}
