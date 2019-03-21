@@ -24,7 +24,7 @@
                     | <a href="{{ url_for('finish', id=training.id) }}">Finalizar</a>
                 {% endif %}
                 | <a id="opn-modal" href="#">Eliminar</a>
-                <!--{{ url_for('deleteTraining', id=training.id) }}-->
+                  <input type="hidden" name="" id="idCapacitacion" value={{training.id}}>
             </td>
         </tr>
     </tbody>
@@ -39,7 +39,7 @@
 <div class="confirm__bg">
     <div class="confirm__card">
         <p>Desea eliminar capacitacion?</p>
-        <a class="confirm" href="#">SI</a>
+        <a class="confirm" href="#" id="confirm">SI</a>
         <a id='close-modal' class="cancel" href="#">Cancelar</a>
     </div>
 </div>
@@ -47,6 +47,9 @@
 <script>
         document.getElementById('opn-modal').addEventListener('click',
             function () {
+                var val = document.getElementById('idCapacitacion').value;
+                var href=  "{{ url_for('deleteTraining', id='x') }}".replace("x",val);
+                document.getElementById('confirm').setAttribute("href",href);
                 document.querySelector('.confirm__bg').style.display = "flex";
             });
         

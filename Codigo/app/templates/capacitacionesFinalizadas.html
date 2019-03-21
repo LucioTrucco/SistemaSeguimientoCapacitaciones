@@ -25,7 +25,8 @@
                 {% if not training.finalizada %}
                     | <a href="{{ url_for('finish', id=training.id) }}">Finalizar</a>
                 {% endif %}
-                | <a href="{{ url_for('deleteTraining', id=training.id) }}">Eliminar</a>
+                | <a id="opn-modal" href="#">Eliminar</a>
+                <input type="hidden" name="" id="idCapacitacion" value={{training.id}}>
             </td>
         </tr>
     </tbody>
@@ -36,6 +37,30 @@
     <canvas id="mycanvas" width="100" height="100"></canvas>
 </div>
 </div>
+
+<div class="confirm__bg">
+    <div class="confirm__card">
+        <p>Desea eliminar capacitacion?</p>
+        <a class="confirm" href="#" id="confirm">SI</a>
+        <a id='close-modal' class="cancel" href="#">Cancelar</a>
+    </div>
+</div>
+
+<script>
+    document.getElementById('opn-modal').addEventListener('click',
+        function () {
+            var val = document.getElementById('idCapacitacion').value;
+            var href=  "{{ url_for('deleteTraining', id='x') }}".replace("x",val);
+            document.getElementById('confirm').setAttribute("href",href);
+            document.querySelector('.confirm__bg').style.display = "flex";
+        });
+    
+    document.getElementById('close-modal').addEventListener('click',
+    function(){
+        document.querySelector('.confirm__bg').style.display = "none";
+    });
+</script>
+
 <script>
         var oilData = {
             labels: [
