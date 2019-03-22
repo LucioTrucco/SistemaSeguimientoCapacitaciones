@@ -348,7 +348,7 @@ def user_create():
         username = session['username']
         form = UserForm()
         form.role.choices = [(u.id, u.name) for u in Role.query.all()]
-        if form.validate_on_submit():
+        if request.method == 'POST':
             user = User(
                 username=form.username.data,
                 email=form.email.data,
@@ -381,22 +381,26 @@ def user_edit(id):
     if 'username' in session:
         username = session['username']
         user = User.query.get(id)
+        print(user.username)
         form = UserForm(
             username=user.username,
             email=user.email,
         )
         form.role.choices = [(u.id, u.name) for u in Role.query.all()]
-        if form.validate_on_submit():
+        if request.method == 'POST':
             user.username = form.username.data
             user.email = form.email.data
             user.Role = Role.query.get(form.role.data)
+            print(user.username)
+            print(user.email)
+            print(user.Role)
             if(form.password.data is not None and form.data.password != ''):
-                user.set_password(form.password.data)
+               user.set_password(form.password.data)
             db.session.commit()
             return redirect((url_for('user_details', id=user.id)))
         return render_template(
             'user_create.html',
-            title='Crear usuario',
+            title='Editar usuario',
             form=form,
             id=user.id)
     return redirect(url_for('login'))
