@@ -58,7 +58,7 @@ def logout():
 def trainings():
     if 'username' in session:
         username = session['username']
-        if session['role'] == 1: ##COMPROBAR SI ES ADMIN PARA ENTRAR
+        if session['role'] == 4: ##COMPROBAR SI ES ADMIN PARA ENTRAR
             datax=[Training.query.filter_by(finalizada=1).count(), Training.query.filter_by(finalizada=0).count() ]
             return render_template(
                 'capacitaciones.html',
@@ -123,7 +123,29 @@ def deleteTraining(id):
         training = Training.query.get(id)
         db.session.delete(training)
         db.session.commit()
-        return redirect(url_for('index'))
+        return redirect(url_for('trainings'))
+    return redirect(url_for('login'))
+
+
+@app.route('/capacitacionesEnCurso/<string:id>/borrar', methods=['GET', 'POST'])
+def deleteOnGoingTraining(id):
+    if 'username' in session:
+        username = session['username']
+        training = Training.query.get(id)
+        db.session.delete(training)
+        db.session.commit()
+        return redirect(url_for('ongoingTrainings'))
+    return redirect(url_for('login'))
+
+
+@app.route('/capacitacionesFinalizadas/<string:id>/borrar', methods=['GET', 'POST'])
+def deleteCompletedTraining(id):
+    if 'username' in session:
+        username = session['username']
+        training = Training.query.get(id)
+        db.session.delete(training)
+        db.session.commit()
+        return redirect(url_for('completedTrainings'))
     return redirect(url_for('login'))
 
 
