@@ -21,10 +21,26 @@
                 <td>
                     <a href="{{ url_for('class_details', training_id=training_id, class_num=training_class.number) }}">Detalle</a> |
                     <a href="{{ url_for('class_edit', training_id=training_id, class_num=training_class.number) }}">Editar</a> |
-                    <a href="{{ url_for('class_delete', training_id=training_id, class_num=training_class.number) }}">Borrar</a>
+                    <a href="#" data-toggle="modal" data-target='#confirm{{training_id}}{{training_class.number}}'>Eliminar</a>
                 </td>
             </tr>
-        </div>
+            <div class="modal fade" id="confirm{{training_id}}{{training_class.number}}" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" data-backdrop="false">
+                    <div class="modal-dialog" >
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <h5 class="modal-title">Desea eliminar usuario?</h5>
+                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">&times;</button>
+                                </div>
+                                <div class="modal-footer">
+                                    <a class="confirm" href="{{ url_for('class_delete', training_id=training_id, class_num=training_class.number) }}">SI</a>
+                                    <a class="cancel" href="javascript.void(0)" data-dismiss="modal" aria-label="Close">Cancelar</a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </tbody>
         {% endfor %}
     </table>
     {% endif %}

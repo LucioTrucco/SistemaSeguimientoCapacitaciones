@@ -289,19 +289,13 @@ def class_delete(training_id, class_num):
         username = session['username']
         training = Training.query.get(training_id)
         class_entity = training.classes.filter_by(number=class_num).first()
-        if request.method == 'POST':
-            if(class_entity.number < len(training.classes.all())):
-                next_classes = training.classes.filter(Class.number > class_num)
-                for next_class in next_classes:
-                    next_class.number -= 1
-            db.session.delete(class_entity)
-            db.session.commit()
-            return redirect((url_for('classes', training_id=training.id)))
-        return render_template(
-            'class_delete.html',
-            title='Borrar clase',
-            training_id=training_id,
-            class_entity=class_entity)
+        if(class_entity.number < len(training.classes.all())):
+            next_classes = training.classes.filter(Class.number > class_num)
+            for next_class in next_classes:
+                next_class.number -= 1
+        db.session.delete(class_entity)
+        db.session.commit()
+        return redirect((url_for('classes', training_id=training.id)))
     return redirect(url_for('login'))
 
 
