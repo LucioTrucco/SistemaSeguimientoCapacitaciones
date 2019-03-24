@@ -21,37 +21,31 @@
             <td>{{ student.degree }} </td>
             <td style="text-align: left;">
                 <a href="{{ url_for('student_edit', file=student.file) }}">Editar</a>
-                | <a id="opn-modal" href="#">Eliminar</a>
-                <input type="hidden" name="" id="idStudent" value={{student.file}}>
+                | <a href="#" data-toggle="modal" data-target='#confirm{{student.file}}'>Eliminar</a>
             </td>
         </tr>
+        <div class="modal fade" id="confirm{{student.file}}" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" data-backdrop="false">
+                <div class="modal-dialog" >
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-title">Desea eliminar alumno?</h5>
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">&times;</button>
+                            </div>
+                            <div class="modal-footer">
+                                <a class="confirm" href="{{ url_for('student_delete', file=student.file) }}">SI</a>
+                                <a class="cancel" href="javascript.void(0)" data-dismiss="modal" aria-label="Close">Cancelar</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </tbody>
     {% endfor %}
 </table>
 {% endif %}
 </div>
 <a class="button" href="{{ url_for('student_create') }}" >Agregar alumno</a>
 
-<div class="confirm__bg">
-    <div class="confirm__card">
-        <p>Desea eliminar estudiante?</p>
-        <a class="confirm" href="#" id="confirm">SI</a>
-        <a id='close-modal' class="cancel" href="#">Cancelar</a>
-    </div>
-</div>
-
-<script>
-    document.getElementById('opn-modal').addEventListener('click',
-        function () {
-            var val = document.getElementById('idStudent').value;
-            var href=  "{{ url_for('student_delete', file='x') }}".replace("x",val);
-            document.getElementById('confirm').setAttribute("href",href);
-            document.querySelector('.confirm__bg').style.display = "flex";
-        });
-    
-    document.getElementById('close-modal').addEventListener('click',
-    function(){
-        document.querySelector('.confirm__bg').style.display = "none";
-    });
-</script>
 
 {% endblock %}
