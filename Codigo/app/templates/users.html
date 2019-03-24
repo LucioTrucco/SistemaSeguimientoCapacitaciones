@@ -15,37 +15,26 @@
                 <td>
                     <a href="{{ url_for('user_details', id=user.id) }}">Detalle</a> |
                     <a href="{{ url_for('user_edit', id=user.id) }}">Editar</a> 
-                    | <a id="opn-modal" href="#">Eliminar</a>
-                    <input type="hidden" name="" id="idUsuario" value={{user.id}}>
-
+                    | <a href="#" data-toggle="modal" data-target='#confirm{{user.id}}'>Eliminar</a>
                 </td>
             </tr>
-        </div>
-        <div class="confirm__bg">
-            <div class="confirm__card">
-                <p>Desea eliminar usuario?</p>
-                <a class="confirm" href="#" id="confirm">SI</a>
-                <a id='close-modal' class="cancel" href="#">Cancelar</a>
+            <div class="modal fade" id="confirm{{user.id}}" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+                    <div class="modal-dialog" >
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <h5 class="modal-title">Desea eliminar usuario?</h5>
+                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">&times;</button>
+                                </div>
+                                <div class="modal-footer">
+                                    <a class="confirm" href="{{ url_for('user_delete', id=user.id) }}">SI</a>
+                                    <a class="cancel" href="javascript.void(0)" data-dismiss="modal" aria-label="Close">Cancelar</a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
             </div>
-        </div>
+        </tbody>
         {% endfor %}
     </table>
-
-    
-    
-    <script>
-        document.getElementById('opn-modal').addEventListener('click',
-            function () {
-                var val = document.getElementById('idUsuario').value;
-                var href=  "{{ url_for('user_delete', id='x') }}".replace("x",val);
-                document.getElementById('confirm').setAttribute("href",href);
-                document.querySelector('.confirm__bg').style.display = "flex";
-            });
-        
-        document.getElementById('close-modal').addEventListener('click',
-        function(){
-            document.querySelector('.confirm__bg').style.display = "none";
-        });
-    </script>
-    
 {% endblock %}
