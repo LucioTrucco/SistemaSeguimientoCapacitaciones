@@ -441,8 +441,19 @@ def select_students(id):
     if 'username' in session:
         username = session['username']
         form = SearchStudentForm()
-        # TODO: Set users to avaialable users
-        form.search.choices = [(u.id, u.name) for u in Student.query.all()]
+        usedStudents = Training.query.get(id).students
+        allStudents = [(u.id) for u in Student.query.all()]
+        list1 = []
+        
+        for x in usedStudents:
+            list1.append(x.id)
+
+        list3= [item for item in allStudents if item not in list1]
+
+        for x in range(len(list3)-1,-1,-1):
+            print(list3[x])
+            form.search.choices =[(u.id, u.name) for u in Student.query.filter_by(id=list3[x])]
+
         if form.validate_on_submit():
             xstudents=form.search.data
             for xid in xstudents:
