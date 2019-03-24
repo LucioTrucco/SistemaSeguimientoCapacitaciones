@@ -16,7 +16,9 @@
                 <td><a href="{{ url_for('details', id=training.id) }}">Detalle</a> </td>
                 <td>
                     {% if training.finalizada != 1 %}
-                    <a href="{{ url_for('select_trainer', id=training.id) }}">Asignar</a></td>
+                    {% if training.user_id == None%}
+                        <a href="{{ url_for('select_trainer', id=training.id) }}">Asignar</a></td>
+                    {%endif%}
                     {%endif%}
                 <td>
                     {% if training.finalizada != 1 %}

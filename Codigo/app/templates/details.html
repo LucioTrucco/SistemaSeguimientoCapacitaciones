@@ -1,6 +1,7 @@
 {% extends "base.html" %}
 
 {% block content %}
+<div class="contenedor__detallesgral">
 <div class="contenedor-detalles">
     <div class="detalles__titulo"> {{ training.name }}</div>
     <div class="detalles__desc">
@@ -59,5 +60,6 @@
     </tbody>
     {% endfor %}
 </table>
+</div>
 {% endif %}
 {% endblock %}
