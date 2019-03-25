@@ -1,8 +1,9 @@
 {% extends "details.html" %}
 
 {% block assign_students %}
+{% if list|length %}
 {% if students|length %}
-    <form action='' method='POST'>
+    <form action='' method='POST' class="form_select_students">
         {{ form.hidden_tag() }}
         <b>Estudiantes:</b><br>
         {{ form.search(multiple=True,class="selectpicker select_students") }}
@@ -11,4 +12,7 @@
 {% else %}
 <b>Estudiantes: </b> <p>No se encuentran estudiantes registrados.</p>
 {% endif %}
+{%else%}
+<b>Estudiantes: </b> <p>Todos los estudiantes se encuentran estudiantes registrados.</p>
+{%endif%}
 {% endblock %}

@@ -406,6 +406,7 @@ a:hover{
 	top: 50%;
 	left: 50%;
 	transform: translate(-50%,-50%);
+	margin-bottom:15px;
 }
 
 .detalles__titulo{
@@ -579,6 +580,7 @@ a:hover{
 	position:absolute;
 	top:50%;
 	padding:0;
+	margin-top:35px;
 }
 
 .uldetails li{
@@ -588,11 +590,14 @@ a:hover{
 	width: 100%;
 	padding: 0px;
 	margin: 0px;
-	margin-top: 10px;
 }
 
 .select_students{
 	width:100px;
 	height:50px;
 	margin-bottom: 0;
+}
+
+.form_select_students{
+	margin-bottom:0;
 }

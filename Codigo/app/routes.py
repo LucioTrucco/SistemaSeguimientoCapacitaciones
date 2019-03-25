@@ -453,12 +453,18 @@ def select_students(id):
         list3= [item for item in allStudents if item not in list1]
 
         print(list3)
+        xchoices=[]
 
         for x in range(len(list3)-1,-1,-1):
             print(list3[x])
-            form.search.choices =[(u.id, u.name) for u in Student.query.filter_by(id=list3[x])]
+            xchoices.extend([(u.id, u.name) for u in Student.query.filter_by(id=list3[x])])
+            print (xchoices)
+            
 
+        form.search.choices=xchoices
+    
         print(form.search.choices)
+        
         if form.validate_on_submit():
             xstudents=form.search.data
             for xid in xstudents:
@@ -471,7 +477,8 @@ def select_students(id):
             title='Asignacion',
             form=form,
             training=Training.query.get(id),
-            students=Student.query.all()
+            students=Student.query.all(),
+            list=form.search.choices
         )
     return redirect(url_for('login'))
 
