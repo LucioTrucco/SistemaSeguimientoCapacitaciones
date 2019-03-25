@@ -1,6 +1,6 @@
 from flask_wtf import FlaskForm
 from wtforms import StringField, PasswordField, SubmitField, SelectMultipleField
-from wtforms import BooleanField, SelectField, IntegerField
+from wtforms import BooleanField, SelectField, IntegerField, DateTimeField
 from wtforms.fields.html5 import DateField
 from wtforms.validators import DataRequired, Length, EqualTo
 from werkzeug.datastructures import FileMultiDict;
@@ -15,8 +15,8 @@ class LoginForm(FlaskForm):
 
 class TrainingForm(FlaskForm):
     name = StringField('Nombre', validators=[DataRequired()])
-    start = DateField('Inicio', format='%Y-%m-%d', validators=[DataRequired()])
-    end = DateField('Fin', format='%Y-%m-%d', validators=[DataRequired()])
+    start = DateTimeField('Inicio', format='%Y-%m-%d %H:%M:%S', validators=[DataRequired()])
+    end = DateTimeField('Fin', format='%Y-%m-%d %H:%M:%S', validators=[DataRequired()])
     description = StringField('Descripcion', validators=[DataRequired()])
     comments = StringField('Comentarios')
 
