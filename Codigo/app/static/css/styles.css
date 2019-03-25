@@ -186,7 +186,7 @@ body,head{
 	left: 0;
 	background: none;
 	border: none;
-	background-color:rgb(102, 113, 175); 
+	background-color:rgb(93, 102, 148); 
 	color:white;
 	font-weight:500;
 }
@@ -589,4 +589,10 @@ a:hover{
 	padding: 0px;
 	margin: 0px;
 	margin-top: 10px;
+}
+
+.select_students{
+	width:100px;
+	height:50px;
+	margin-bottom: 0;
 }
