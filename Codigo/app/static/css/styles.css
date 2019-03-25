@@ -377,7 +377,7 @@ a:hover{
 	bottom:0;
 }
 .contenedor-detalles{
-	position: absolute;
+	position: relative;
 	width: 600px;
 	background-color: #fff;
 	box-shadow: 0px 0px 4px 0px rgba(0,0,0,0.75);
@@ -547,4 +547,25 @@ a:hover{
 	padding-top: 5px;
 	padding-bottom: 5px;
 	border-radius:4px;
+}
+
+.uldetails{
+	width: 100%;
+	max-width: 100%;
+	margin:0;
+	min-height: 280px;
+	list-style: none outside none;
+	position:absolute;
+	top:50%;
+	padding:0;
+}
+
+.uldetails li{
+	position: relative;
+	float: center;
+	display: inline-block;
+	width: 100%;
+	padding: 0px;
+	margin: 0px;
+	margin-top: 10px;
 }

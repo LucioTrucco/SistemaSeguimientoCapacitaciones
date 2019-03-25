@@ -2,6 +2,8 @@
 
 {% block content %}
 <div class="contenedor__detallesgral">
+<ul class="uldetails">
+    <li>
 <div class="contenedor-detalles">
     <div class="detalles__titulo"> {{ training.name }}</div>
     <div class="detalles__desc">
@@ -34,12 +36,14 @@
     {{ training.comments }}
     </div>
 </div>
+</li>
 <br>
 {% block assign_trainer %}
 {% endblock %}
 {% block assign_students %}
 {% endblock %}
 {% if training.students|length %}
+<li>
 <table id="tabla-capacitaciones" class="mdl-data-table mdl-js-data-table tabla-detalles">
     <tbody>
         <tr>
@@ -60,6 +64,8 @@
     </tbody>
     {% endfor %}
 </table>
+</li>
+</ul>
 </div>
 {% endif %}
 {% endblock %}
