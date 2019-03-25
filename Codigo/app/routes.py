@@ -452,24 +452,25 @@ def select_students(id):
 
         list3= [item for item in allStudents if item not in list1]
 
-        print(list3)
         xchoices=[]
 
         for x in range(len(list3)-1,-1,-1):
-            print(list3[x])
             xchoices.extend([(u.id, u.name) for u in Student.query.filter_by(id=list3[x])])
-            print (xchoices)
-            
-
+          
         form.search.choices=xchoices
-    
-        print(form.search.choices)
         
         if form.validate_on_submit():
             xstudents=form.search.data
             for xid in xstudents:
                 student = Student.query.get(xid)
                 student.lstTraining.append(Training.query.get(id))
+                training=Training.query.get(id)
+                #ENVIAR MAIL A ESTUDIANTE
+                msg= Message('Capacitacion Asignada',
+                sender='matiastorsello@gmail.com',
+                recipients=[student.email])
+                msg.html='<b>Capacitacion: </b>'+training.name+'<br><b>Comienza: </b>'+str(training.start)+'<br><b>Finaliza: </b>'+str(training.end)+'<br><b>Descripcion: </b>'+training.description
+                mail.send(msg)
                 db.session.commit()
             return redirect((url_for('trainings')))
         return render_template(
