@@ -1,0 +1,3 @@
+manual usuario capacitador y admin.
+gant - actualizado con iteraciones.
+actualizacion en versionado de documento.
