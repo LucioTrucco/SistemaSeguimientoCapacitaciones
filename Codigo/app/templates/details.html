@@ -31,6 +31,17 @@
     </ul>
     </div>
     {% endif %}
+    {%if training.trainer == None%}
+    <div class="detalles__trainer">
+    <p>Capacitador</p>
+    <ul>
+    <li>
+    {% block assign_trainer %}
+    {% endblock %}
+    </li>
+    </ul>
+    </div>
+    {% endif %}
     <div class="detalles__comments">
     <p>Comentarios:</p>
     {{ training.comments }}
@@ -38,8 +49,6 @@
 </div>
 </li>
 <br>
-{% block assign_trainer %}
-{% endblock %}
 {% block assign_students %}
 {% endblock %}
 {% if training.students|length %}
