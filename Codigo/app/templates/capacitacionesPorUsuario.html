@@ -25,36 +25,28 @@
                 {% if not training.finalizada %}
                     | <a href="{{ url_for('finish', id=training.id) }}">Finalizar</a>
                 {% endif %}
-                | <a id="opn-modal" href="#">Eliminar</a>
-                <input type="hidden" name="" id="idCapacitacion" value={{training.id}}>
+                | <a href="#" data-toggle="modal" data-target='#confirm{{training.id}}'>Eliminar</a>
             </td>
         </tr>
+        <div class="modal fade" id="confirm{{training.id}}" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" data-backdrop="false">
+                <div class="modal-dialog">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <p>Desea eliminar capacitacion?</p>
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">&times;</button>
+                            </div>
+                            <div class="modal-body">
+                                <a class="confirm" href="{{ url_for('deleteOnGoingTraining', id=training.id) }}" id="confirm">SI</a>
+                                <a class="cancel" href="javascript.void(0)" data-dismiss="modal" aria-label="Close">Cancelar</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
     </tbody>
     {% endfor %}
 </table>
 {% endif %}
-
-<div class="confirm__bg">
-    <div class="confirm__card">
-        <p>Desea eliminar capacitacion?</p>
-        <a class="confirm" href="#" id="confirm">SI</a>
-        <a id='close-modal' class="cancel" href="#">Cancelar</a>
-    </div>
-</div>
-
-<script>
-    document.getElementById('opn-modal').addEventListener('click',
-        function () {
-            var val = document.getElementById('idCapacitacion').value;
-            var href=  "{{ url_for('deleteTraining', id='x') }}".replace("x",val);
-            document.getElementById('confirm').setAttribute("href",href);
-            document.querySelector('.confirm__bg').style.display = "flex";
-        });
-    
-    document.getElementById('close-modal').addEventListener('click',
-    function(){
-        document.querySelector('.confirm__bg').style.display = "none";
-    });
-</script>
 
 {% endblock %}
