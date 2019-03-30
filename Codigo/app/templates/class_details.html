@@ -1,0 +1,23 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+<div class="contenedor-detalles user__box">
+    <div class="detalles__titulo user__center">
+         {{ class_entity.number }} 
+    </div>
+    <div class="detalles__desc user__center">
+    <p>Temas</p> {{ class_entity.topics }}
+    </div>
+    <div class="detalles__desc user__center">
+    <p>Temas Proxima</p> {{ class_entity.topicsNext }}
+</div>
+    <div class="detalles__desc user__center">
+    <p>Comentarios</p> {{ class_entity.comments }}
+</div>
+</div>
+
+    {% block confirm %} {% endblock %}
+{% endblock %}
+
+

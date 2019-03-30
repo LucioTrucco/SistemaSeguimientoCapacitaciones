@@ -1,0 +1,99 @@
+{% extends "base.html" %}
+{% block content %}
+<div class="conteiner-tabla">
+    {% if classes.count() > 0 %}
+    <table id="tabla-capacitaciones" class="mdl-data-table mdl-js-data-table">
+        <thead>
+            <th>Numero</th>
+            <th>Temas</th>
+            <th>Temas proxima</th>
+            <th>Comentarios</th>
+            <th>Fecha</th>
+            <th>Acciones</th>
+        </thead>
+        {% for training_class in classes %}
+            <tr>
+                <td>{{ training_class.number }} </td>
+                <td>{{ training_class.topics }} </td>
+                <td>{{ training_class.topicsNext }} </td>
+                <td>{{ training_class.comments }} </td>
+                <td>{{ training_class.date }} </td>
+                <td>
+                    <a href="{{ url_for('class_details', training_id=training_id, class_num=training_class.number) }}">Detalle</a> |
+                    <a href="{{ url_for('class_edit', training_id=training_id, class_num=training_class.number) }}">Editar</a> |
+                    <a href="#" data-toggle="modal" data-target='#confirm{{training_id}}{{training_class.number}}'>Eliminar</a>
+                </td>
+            </tr>
+            <div class="modal fade" id="confirm{{training_id}}{{training_class.number}}" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" data-backdrop="false">
+                    <div class="modal-dialog" >
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <h5 class="modal-title">Desea eliminar clase?</h5>
+                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">&times;</button>
+                                </div>
+                                <div class="modal-footer">
+                                    <a class="confirm" href="{{ url_for('class_delete', training_id=training_id, class_num=training_class.number) }}">SI</a>
+                                    <a class="cancel" href="javascript.void(0)" data-dismiss="modal" aria-label="Close">Cancelar</a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </tbody>
+        {% endfor %}
+    </table>
+    {% endif %}
+</div>
+    {% if not finalizada %}
+        <a class="button" id="opn-modal" href="#">Agregar clase</a>
+        
+    {% endif %}
+
+<div class="bg-form">
+    <div class="contenedorcard-modal">
+        <div class="carta-modal">
+                <div class="mdl-card__title">
+                        <h2 class="mdl-card__title-text titulo">Clase</h2>
+                </div>
+                <div class="close-modal">
+                    <a class="btn-close-modal" id="close-modal">+</a>
+                </div>
+        <form action="" method="post" novalidate>
+            {{ form.hidden_tag() }}
+        <div class="mdl-textfield mdl-js-textfield">
+            <div class="mdl-textfield__input">
+                <b>{{ form.date.label }}</b>
+                {{ form.date(class="rectangulos") }}
+            </div>
+            <div class="mdl-textfield__input">
+                <b>{{ form.topics.label }}</b>
+                {{ form.topics(class="rectangulos") }}
+            </div>
+            <div class="mdl-textfield__input">
+                <b>{{ form.topicsNext.label }}</b>
+                {{ form.topicsNext(class="rectangulos") }}
+            </div>
+            <div class="mdl-textfield__input">
+                <b>{{ form.comments.label }}</b>
+                {{ form.comments(class="rectangulos") }}
+            </div>
+        </div>
+            <input class="mdl-button mdl-button--colored mdl-js-button mdl-js-ripple-effect btn-modal" type="submit" value="Enviar">
+        </form>
+    </div>
+</div>
+</div>
+
+<script>
+        document.getElementById('opn-modal').addEventListener('click',
+            function () {
+                document.querySelector('.bg-form').style.display = "flex";
+            });
+        
+        document.getElementById('close-modal').addEventListener('click',
+        function(){
+            document.querySelector('.bg-form').style.display = "none";
+        });
+</script>
+{% endblock %}

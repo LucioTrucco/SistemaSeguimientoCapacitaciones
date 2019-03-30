@@ -1,0 +1,12 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="contenedor-detalles user__box">
+            <div class="detalles__titulo user__center">
+                    {{ user.username }}
+            </div>
+            <div class="detalles__desc user__center"><p>Email </p> {{ user.email }}</div>
+</div>
+{% endblock %}
+
+

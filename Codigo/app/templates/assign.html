@@ -1,20 +1,46 @@
 {% extends "base.html" %}
 {% block content %}
-<table>
+{% if trainings|length %}
+<table id="tabla-capacitaciones" class="mdl-data-table mdl-js-data-table">
         <thead>
             <th>Nombre</th>
             <th>Descripcion</th>
             <th>Mas info</th>
             <th>Asignar capacitador</th>
+            <th>Asignar estudiantes</th>
         </thead>
         {% for training in trainings %}
             <tr>
                 <td>{{ training.name }} </td>
                 <td>{{ training.description }}</td>
                 <td><a href="{{ url_for('details', id=training.id) }}">Detalle</a> </td>
-                <td><a href="{{ url_for('select_trainer', id=training.id) }}">Asignar</a></td>
+                <td>
+                    {% if training.finalizada != 1 %}
+                   
+                    {% if training.user_id == None %}
+                        <a href="{{ url_for('select_trainer', id=training.id) }}">Asignar</a></td>
+                    {%endif%}
+                   
+                    {% if training.user_id != None %}
+                                         <p>Capacitador asignado.</p>
+                    {%endif%}
+
+                    {%endif%}
+                    {% if training.finalizada == 1 %}
+                        <p>Capacitacion finalizada.</p>
+                    {%endif%}
+
+                <td>
+                    {% if training.finalizada != 1 %}
+                    <a href="{{url_for('select_students',id=training.id)}}">Asignar</a>
+                    {%endif%}
+                    {% if training.finalizada == 1 %}
+                        <p>Capacitacion finalizada.</p>
+                    {%endif%}
+                </td>
             </tr>
         </div>
         {% endfor %}
     </table>
+    {%endif%}
 {% endblock %}

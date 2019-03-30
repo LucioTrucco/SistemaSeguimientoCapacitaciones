@@ -1,7 +1,9 @@
 {% extends "base.html" %}
 
 {% block content %}
-<table>
+<div class="conteiner-tabla">
+{% if students|length %}
+<table id="tabla-capacitaciones" class="mdl-data-table mdl-js-data-table">
     <thead>
         <th>Legajo</th>
         <th>Nombre</th>
@@ -17,10 +19,33 @@
             <td>{{ student.surname }} </td>
             <td>{{ student.email }} </td>
             <td>{{ student.degree }} </td>
-            <td><a class="button" href="{{ url_for('delStudent', xfile=student.file) }}">borrar </a>
-                <a class=button href="{{ url_for('updStudent', xfile=student.file) }}">editar</a></td>
+            <td style="text-align: left;">
+                <a href="{{ url_for('student_edit', file=student.file) }}">Editar</a>
+                | <a href="#" data-toggle="modal" data-target='#confirm{{student.file}}'>Eliminar</a>
+            </td>
         </tr>
+        <div class="modal fade" id="confirm{{student.file}}" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" data-backdrop="false">
+                <div class="modal-dialog" >
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-title">Desea eliminar alumno?</h5>
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">&times;</button>
+                            </div>
+                            <div class="modal-footer">
+                                <a class="confirm" href="{{ url_for('student_delete', file=student.file) }}">SI</a>
+                                <a class="cancel" href="javascript.void(0)" data-dismiss="modal" aria-label="Close">Cancelar</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </tbody>
     {% endfor %}
 </table>
-<a class="button" href="{{ url_for('newStudent') }}">Agregar</a>
+{% endif %}
+</div>
+<a class="button" href="{{ url_for('student_create') }}" >Agregar alumno</a>
+
+
 {% endblock %}

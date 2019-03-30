@@ -2,7 +2,7 @@
 
 {% block content %}
 <div class="conteiner-tabla">
-{% if trainings|length %}
+{% if trainings.count() >0 %}
 <table id="tabla-capacitaciones" class="mdl-data-table mdl-js-data-table">
     <tbody>
         <tr>
@@ -28,15 +28,15 @@
                 | <a href="#" data-toggle="modal" data-target='#confirm{{training.id}}'>Eliminar</a>
             </td>
         </tr>
-        <div class="modal fade" id="confirm{{training.id}}" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" data-backdrop="false">
-                <div class="modal-dialog" >
+        <div class="modal fade" id="confirm{{training.id}}" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" data-backdrop="false">
+                <div class="modal-dialog">
                     <div class="modal-content">
                         <div class="modal-header">
-                            <h5 class="modal-title">Desea eliminar capacitacion?</h5>
+                            <p>Desea eliminar capacitacion?</p>
                             <button type="button" class="close" data-dismiss="modal" aria-label="Close">&times;</button>
                             </div>
-                            <div class="modal-footer">
-                                <a class="confirm" href="{{ url_for('deleteTraining', id=training.id) }}" id="confirm">SI</a>
+                            <div class="modal-body">
+                                <a class="confirm" href="{{ url_for('deleteCompletedTraining', id=training.id) }}">SI</a>
                                 <a class="cancel" href="javascript.void(0)" data-dismiss="modal" aria-label="Close">Cancelar</a>
                             </div>
                         </div>

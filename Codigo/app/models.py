@@ -1,9 +1,10 @@
-from app import db, login
+from app import db, login,app
 from flask_login import UserMixin
 from werkzeug.security import generate_password_hash, check_password_hash
 
 
-training_students = db.Table('training_students',
+
+Training_students = db.Table('training_students',
                              db.Column('training_id',
                                        db.Integer,
                                        db.ForeignKey('training.id')),
@@ -13,12 +14,19 @@ training_students = db.Table('training_students',
                              )
 
 
+class Role(db.Model):
+    id = db.Column(db.Integer, primary_key=True)
+    name = db.Column(db.String(50), nullable=False)
+    user = db.relationship('User', backref='role', uselist=False)
+
+
 class User(UserMixin, db.Model):
     id = db.Column(db.Integer, primary_key=True)
     username = db.Column(db.String(64), index=True, unique=True)
     email = db.Column(db.String(120), index=True, unique=True)
     password_hash = db.Column(db.String(128))
     trainings = db.relationship('Training', backref='trainer', lazy='dynamic')
+    role_id = db.Column(db.Integer, db.ForeignKey('role.id'))
 
     def __repr__(self):
         return '<User {}>'.format(self.username)
@@ -39,7 +47,7 @@ class Training(db.Model):
     description = db.Column(db.String(64))
     comments = db.Column(db.String(120))
     classes = db.relationship('Class', backref='training', lazy='dynamic')
-    students = db.relationship('Student', secondary=training_students,backref=db.backref('lstTraining', lazy='dynamic'))
+    students = db.relationship('Student', secondary=Training_students,backref=db.backref('lstTraining', lazy='dynamic'))
     user_id = db.Column(db.Integer, db.ForeignKey('user.id'))
     def __repr__(self):
         return '<Training {}>'.format(self.name)
@@ -59,7 +67,7 @@ class Class(db.Model):
 
 class Student(db.Model):
     id = db.Column(db.Integer, primary_key=True)
-    file = db.Column(db.Integer, primary_key=True)
+    file = db.Column(db.Integer, unique=True)
     email = db.Column(db.String(120), index=True, unique=True)
     surname = db.Column(db.String(120))
     name = db.Column(db.String(120))

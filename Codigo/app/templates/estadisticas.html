@@ -1,0 +1,116 @@
+{% extends "base.html" %}
+
+{% block content %}
+    {% if current_user.is_authenticated %}
+        <div class="contenedor-bienvenida">
+            <!--Estadisticas, Capacitaciones finalizadas / en curso, estudiantes en curso/no (inscriptos), capacitadores con capacitaciones/no-->
+            <div class="row">
+                <div class="col">
+                    <h3>Capacitaciones</h3>
+                    <div class="contenedor-canvas">
+                            <canvas id="capacitacion" width="100" height="100"></canvas>
+                    </div>
+                </div>
+                <div class="col">
+                    <h3>Estudiantes</h3>
+                    <div class="contenedor-canvas">
+                            <canvas id="estudiantes" width="100" height="100"></canvas>
+                    </div>
+                </div>
+                <div class="col">
+                    <h3>Capacitadores</h3>
+                    <div class="contenedor-canvas">
+                            <canvas id="capacitadores" width="100" height="100"></canvas>
+                    </div>
+                </div>
+            </div>
+        </div>
+    
+        <script>
+                var oilData = {
+                    labels: [
+                        "Capacitaciones terminadas",
+                        "Capacitaciones en curso"                    
+                      ],
+                    datasets: [
+                        {
+                            data: [ "{{statsCapacitaciones[0]}}" , "{{statsCapacitaciones[1]}}" ],
+                            backgroundColor: [
+                                "#3F51B5",
+                                "#848C8E"
+                            ]
+                        }]
+                };
+                //draw
+                var ctx=document.getElementById("capacitacion");
+        
+                var chartOptions = {
+                    
+                  };
+        
+                  var pieChart = new Chart(ctx, {
+                    type: 'pie',
+                    data: oilData,
+                    options: chartOptions
+                  });
+        </script>
+
+        <script>
+                var oilData = {
+                    labels: [
+                        "Estudiantes cursando",
+                        "Estudiantes sin cursar"                    
+                      ],
+                    datasets: [
+                        {
+                            data: [ "{{statsEstudiantes[0]}}" , "{{statsEstudiantes[1]}}" ],
+                            backgroundColor: [
+                                "#3F51B5",
+                                "#848C8E"
+                            ]
+                        }]
+                };
+                //draw
+                var ctx=document.getElementById("estudiantes");
+        
+                var chartOptions = {
+                    
+                  };
+        
+                  var pieChart = new Chart(ctx, {
+                    type: 'pie',
+                    data: oilData,
+                    options: chartOptions
+                  });
+        </script>
+
+        <script>
+                var oilData = {
+                    labels: [
+                        "Capacitadores capacitando",
+                        "Capacitadores sin capacitar"                    
+                      ],
+                    datasets: [
+                        {
+                            data: [ "{{statsCapacitadores[0]}}" , "{{statsCapacitadores[1]}}" ],
+                            backgroundColor: [
+                                "#3F51B5",
+                                "#848C8E"
+                            ]
+                        }]
+                };
+                //draw
+                var ctx=document.getElementById("capacitadores");
+        
+                var chartOptions = {
+                    
+                  };
+        
+                  var pieChart = new Chart(ctx, {
+                    type: 'pie',
+                    data: oilData,
+                    options: chartOptions
+                  });
+        </script>
+    {% endif %}
+{% endblock %}
