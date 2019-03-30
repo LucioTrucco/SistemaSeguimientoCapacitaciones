@@ -244,7 +244,6 @@ a:hover{
 	width: 250px;
 	height: 250px;
 	left:50%;
-	bottom: 100%;
 	transform: translateX(-50%);
 }
 

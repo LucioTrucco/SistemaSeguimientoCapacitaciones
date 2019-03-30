@@ -433,6 +433,7 @@ def user_delete(id):
     return redirect(url_for('login'))
 
 
+# --------------------------------------------------------------------------------------------------------------
 # ESTUDIANTES
 
 
@@ -489,7 +490,7 @@ def student_create():
     if 'username' in session:
         username = session['username']
         form = StudentForm()
-        if form.validate_on_submit():
+        if request.method == 'POST':
             student = Student(
                 file=form.file.data,
                 email=form.email.data,
@@ -573,4 +574,62 @@ def students():
             students= Student.query.all())
     return redirect(url_for('login'))
 
+
+# --------------------------------------------------------------------------------------------------------------
+#ESTADISTICAS
+
+@app.route('/estadisticas')
+def estadisticas():
+    if 'username' in session:
+        username = session['username']
         
+        #variables
+        cantCursando=0
+        cantEstudiantes=0
+        cantNoCursando=0
+        cantCapacitando=0
+        cantCapacitadores=0
+        cantNoCapacitando=0
+
+        #Stats Capacitaciones
+        statsCapacitaciones=[Training.query.filter_by(finalizada=1).count(), Training.query.filter_by(finalizada=0).count() ]
+        
+        #Stats Estudiantes
+        queryCursando = db.session.query(Student.id.distinct()).join(Training_students, Student.id == Training_students.c.student_id).join(Training, Training_students.c.training_id == Training.id).filter(Training.finalizada==0).all()
+        queryEstudiantes = db.session.query(Student.id).all()
+        
+        for result in queryCursando:
+            cantCursando+=1
+        
+        for result in queryEstudiantes:
+            cantEstudiantes+=1
+        
+        cantNoCursando=cantEstudiantes-cantCursando
+
+        statsEstudiantes = [cantCursando, cantNoCursando]
+        
+        #Stats Capacitadores
+        queryCapacitando = db.session.query(User.id.distinct()).join(Training, User.id == Training.user_id).filter(Training.finalizada==0).filter(User.role_id!=2).all()
+        queryCapacitadores = db.session.query(User.id).filter(User.role_id!=2).all()
+        
+        for result in queryCapacitando:
+            cantCapacitando+=1
+
+        print(cantCapacitando)
+
+        for result in queryCapacitadores:
+            cantCapacitadores+=1
+        
+        cantNoCapacitando=cantCapacitadores-cantCapacitando
+
+        statsCapacitadores = [cantCapacitando, cantNoCapacitando]
+
+
+        return render_template(
+            'estadisticas.html',
+            title='Estadisticas',
+            statsCapacitaciones=map(json.dumps,statsCapacitaciones),
+            statsEstudiantes= map(json.dumps,statsEstudiantes),
+            statsCapacitadores=map(json.dumps, statsCapacitadores)
+        )
+    return redirect(url_for('login'))
