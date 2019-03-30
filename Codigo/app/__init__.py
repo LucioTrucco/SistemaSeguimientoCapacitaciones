@@ -12,6 +12,6 @@ db = SQLAlchemy(app)
 migrate = Migrate(app, db)
 login = LoginManager(app)
 mail= Mail(app)
-
+#crear roles
 
 from app import routes

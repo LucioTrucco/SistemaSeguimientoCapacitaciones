@@ -35,6 +35,7 @@ def login():
             return redirect(url_for('login'))
         session['username'] = form.username.data
         session['role'] = user.role_id
+        session['idUser'] = user.id
         login_user(user, remember=form.remember_me.data)
         return redirect(url_for('index'))
     return render_template(
@@ -59,12 +60,22 @@ def trainings():
     if 'username' in session:
         username = session['username']
         if session['role'] == 2: ##COMPROBAR SI ES ADMIN PARA ENTRAR
-            datax=[Training.query.filter_by(finalizada=1).count(), Training.query.filter_by(finalizada=0).count() ]
             return render_template(
                 'capacitaciones.html',
                 title='Todas las capacitaciones',
-                trainings=Training.query.all(),
-                datax=map(json.dumps,datax))
+                trainings=Training.query.all())
+    return redirect(url_for('login'))
+
+
+@app.route('/misCapacitaciones')
+def myTrainings():
+    if 'username' in session:
+        username = session['username']
+        idUser = session['idUser']  
+        return render_template(
+            'misCapacitaciones.html',
+            title='Mis capacitaciones',
+            trainings=Training.query.filter_by(user_id=idUser).filter_by())
     return redirect(url_for('login'))
 
 
@@ -72,12 +83,10 @@ def trainings():
 def completedTrainings():
     if 'username' in session:
         username = session['username']
-        datax=[Training.query.filter_by(finalizada=1).count(), Training.query.filter_by(finalizada=0).count() ]
         return render_template(
             'capacitacionesFinalizadas.html',
             title='Capacitaciones finalizadas',
-            trainings=Training.query.filter_by(finalizada=1),
-            datax=map(json.dumps,datax))
+            trainings=Training.query.filter_by(finalizada=1))
     return redirect(url_for('login'))
 
 
@@ -85,12 +94,10 @@ def completedTrainings():
 def ongoingTrainings():
     if 'username' in session:
         username = session['username']
-        datax=[Training.query.filter_by(finalizada=1).count(), Training.query.filter_by(finalizada=0).count() ]
         return render_template(
             'capacitacionesEnCurso.html',
             title='Capacitaciones en curso',
-            trainings=Training.query.filter_by(finalizada=0),
-            datax=map(json.dumps,datax))
+            trainings=Training.query.filter_by(finalizada=0))
     return redirect(url_for('login'))
 
 
