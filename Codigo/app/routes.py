@@ -9,6 +9,18 @@ from flask_mail import Message
 from datetime import datetime
 import json
 
+##
+@app.before_first_request
+def setRoles():
+    roles=["Capacitador","Admin","Direccion"]
+    
+    for x in roles:
+        if( Role.query.filter_by(name=x).count() == 0 ):
+            db.session.add(Role(name=x))
+    
+    db.session.commit()
+
+
 # --------------------------------------------------------------------------------------------------------------
 # INDEX
 
