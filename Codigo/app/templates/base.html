@@ -45,19 +45,23 @@
                 <a href="#" class="mdl-layout__tab dropdown-toggle" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                     Capacitaciones
                 </a>
-               
                 <div class="dropdown-menu" aria-labelledby="dropdownMenuLink">
                     <a class="dropdown-item" href="{{url_for('ongoingTrainings')}}">En curso</a>
                     <a class="dropdown-item" href="{{url_for('completedTrainings')}}">Finalizadas</a>
                     <a class="dropdown-item" href="{{ url_for('trainings') }}">Todas</a>
                </div>                
             </div>
-            {% endif %} 
+            {% endif %}
+            {% if session['role'] == 2 %}
             <a href="{{ url_for('users') }}" class="mdl-layout__tab">Capacitaciones Usuario</a>
             <a href="{{ url_for('create')}} " class="mdl-layout__tab">Alta capacitaciones</a>
             <a href="{{ url_for('assign')}} " class="mdl-layout__tab">Asignar capacitaciones</a>
             <a href="{{ url_for('students')}}" class="mdl-layout__tab">Listar estudiantes</a>
             <a href="{{ url_for('estadisticas')}}" class="mdl-layout__tab">Estadisticas</a>
+            {% endif %}
+            {% if session['role'] == 1 %}
+            <a href="{{ url_for('myTrainings')}}" class="mdl-layout__tab">Mis Capacitaciones</a>
+            {% endif %}
         </div>
         </header>
         <div class="">
