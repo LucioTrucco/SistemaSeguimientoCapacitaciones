@@ -9,7 +9,7 @@ from flask_mail import Message
 from datetime import datetime
 import json
 
-##
+## INICIO DE APP
 @app.before_first_request
 def setRoles():
     roles=["Capacitador","Admin","Direccion"]
@@ -79,15 +79,27 @@ def trainings():
     return redirect(url_for('login'))
 
 
-@app.route('/misCapacitaciones')
-def myTrainings():
+@app.route('/misCapacitacionesEnCurso')
+def myOngoingTrainings():
     if 'username' in session:
         username = session['username']
         idUser = session['idUser']  
         return render_template(
-            'misCapacitaciones.html',
+            'misCapacitacionesEnCurso.html',
             title='Mis capacitaciones',
-            trainings=Training.query.filter_by(user_id=idUser).filter_by())
+            trainings=Training.query.filter_by(user_id=idUser).filter_by(finalizada=0).all())
+    return redirect(url_for('login'))
+
+
+@app.route('/misCapacitacionesFinalizadas')
+def myCompletedTrainings():
+    if 'username' in session:
+        username = session['username']
+        idUser = session['idUser']  
+        return render_template(
+            'misCapacitacionesFinalizadas.html',
+            title='Mis capacitaciones',
+            trainings=Training.query.filter_by(user_id=idUser).filter_by(finalizada=1).all())
     return redirect(url_for('login'))
 
 
@@ -296,7 +308,7 @@ def class_edit(training_id, class_num):
             db.session.commit()
             return redirect((url_for('classes', training_id=training.id)))
         return render_template(
-            'class_create.html',
+            'class_edit.html',
             title='Editar clase',
             form=form)
     return redirect(url_for('login'))

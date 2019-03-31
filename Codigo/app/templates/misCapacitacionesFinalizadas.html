@@ -1,0 +1,47 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="conteiner-tabla">
+{% if trainings|length %}
+<table id="tabla-capacitaciones" class="mdl-data-table mdl-js-data-table">
+    <tbody>
+        <tr>
+        <th style="text-align: left;">Nombre</th>
+        <th style="text-align: left;">Descripcion</th>
+        <th style="text-align: left;">Acciones</th>
+        </tr>
+    {% for training in trainings %}
+        <tr>
+            <td style="text-align: left;">{{ training.name }} </td>
+            <td style="text-align: left;">{{ training.description }}</td>
+            <td style="text-align:center;">
+                <a href="{{ url_for('details', id=training.id) }}">Detalle</a> |
+                <a href="{{ url_for('edit', id=training.id) }}">Editar</a> |
+                <a href="{{ url_for('classes', training_id=training.id) }}">Seguimiento</a>
+                {% if not training.finalizada %}
+                    | <a href="{{ url_for('finish', id=training.id) }}">Finalizar</a>
+                {% endif %}
+            </td>
+        </tr>
+        <div class="modal fade" id="confirm{{training.id}}" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" data-backdrop="false">
+                <div class="modal-dialog">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <p>Desea eliminar capacitacion?</p>
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">&times;</button>
+                            </div>
+                            <div class="modal-body">
+                                <a class="confirm" href="{{ url_for('deleteOnGoingTraining', id=training.id) }}" id="confirm">SI</a>
+                                <a class="cancel" href="javascript.void(0)" data-dismiss="modal" aria-label="Close">Cancelar</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </tbody>
+    {% endfor %}
+</table>
+{% endif %}
+</div>
+{% endblock %}
