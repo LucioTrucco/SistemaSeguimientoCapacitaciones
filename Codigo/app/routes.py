@@ -428,10 +428,11 @@ def user_edit(id):
     if 'username' in session:
         username = session['username']
         user = User.query.get(id)
-        print(user.username)
         form = UserForm(
             username=user.username,
             email=user.email,
+            password=user.password_hash,
+            confirm=user.password_hash
         )
         form.role.choices = [(u.id, u.name) for u in Role.query.all()]
         if request.method == 'POST':
