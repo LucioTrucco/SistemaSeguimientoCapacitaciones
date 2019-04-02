@@ -40,7 +40,7 @@
             <!-- Tabs -->
             <div class="mdl-layout__tab-bar mdl-js-ripple-effect" id="barraSecundaria">
             <a href="{{ url_for('index') }}" class="mdl-layout__tab">Home</a>
-            {% if session['role'] == 2 %} <!-- CHECK ROLES PARA MOSTRAR-->
+            {% if session['role'] == 2 or session['role']==3%} <!-- CHECK ROLES PARA MOSTRAR-->
             <div class="dropdown show">
                 <a href="#" class="mdl-layout__tab dropdown-toggle" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                     Capacitaciones
@@ -53,10 +53,12 @@
             </div>
             {% endif %}
             <!--ROL ADMIN-->
-            {% if session['role'] == 2 %}
+            {% if session['role'] == 2 or session['role']==3 %}
             <a href="{{ url_for('users') }}" class="mdl-layout__tab">Capacitaciones Usuario</a>
+            {% if session['role']==2%}
             <a href="{{ url_for('create')}} " class="mdl-layout__tab">Alta capacitaciones</a>
             <a href="{{ url_for('assign')}} " class="mdl-layout__tab">Asignar capacitaciones</a>
+            {%endif%}
             <a href="{{ url_for('students')}}" class="mdl-layout__tab">Listar estudiantes</a>
             <a href="{{ url_for('estadisticas')}}" class="mdl-layout__tab">Estadisticas</a>
             {% endif %}
