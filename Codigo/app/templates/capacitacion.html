@@ -10,10 +10,14 @@
     <form action="" method="post" novalidate >
         {{ form.hidden_tag() }}
         <div class="mdl-textfield mdl-js-textfield">
+            {% if session['role'] == 2 %}
             <div class="mdl-textfield__input">{{ form.name.label }} {{ form.name(class="rectangulos") }}</div>
+            {%endif%}
             <div class="mdl-textfield__input" >{{ form.start.label }} {{ form.start(class="rectangulos") }}</div>
             <div class="mdl-textfield__input">{{ form.end.label }} {{ form.end(class="rectangulos") }}</div>
+            {% if session['role'] == 2 %}
             <div class="mdl-textfield__input" >{{ form.description.label }} {{ form.description(class="rectangulos") }}</div>
+            {%endif%}
             <div class="mdl-textfield__input" >{{ form.comments.label }} {{ form.comments(class="rectangulos") }}</div>
         </div>
         <input  class="mdl-button mdl-button--colored mdl-js-button mdl-js-ripple-effect" type="submit" value="Enviar">
