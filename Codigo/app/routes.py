@@ -224,7 +224,10 @@ def create():
     if 'username' in session:
         username = session['username']
         form = TrainingForm()
-        if form.validate_on_submit():
+        if request.method == 'POST':
+            fechaStart= form.start.data
+            fechaStart.replace('/', '-', 2) 
+            print(fechaStart)
             training = Training(
                 name=form.name.data,
                 start=form.start.data,
