@@ -192,7 +192,7 @@ def edit(id):
             description=training.description,
             comments=training.comments,
         )
-        if form.validate_on_submit():
+        if request.method == 'POST':
             training.name = form.name.data
             training.start = form.start.data
             training.end = form.end.data
