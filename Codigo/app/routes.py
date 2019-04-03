@@ -192,10 +192,17 @@ def edit(id):
             description=training.description,
             comments=training.comments,
         )
+    
         if request.method == 'POST':
             training.name = form.name.data
             training.start = form.start.data
             training.end = form.end.data
+            #---------
+            training.start=training.start.replace('/', '-') 
+            training.end= training.end.replace('/','-')
+            training.start=training.start+':00'
+            training.end=training.end+':00'
+            #-----
             training.finalizada = False
             training.description = form.description.data
             training.comments = form.comments.data
@@ -225,13 +232,17 @@ def create():
         username = session['username']
         form = TrainingForm()
         if request.method == 'POST':
-            fechaStart= form.start.data
-            fechaStart.replace('/', '-', 2) 
-            print(fechaStart)
+            fechaStart = form.start.data
+            fechaEnd= form.end.data
+            fechaStart=fechaStart.replace('/', '-') 
+            fechaEnd= fechaEnd.replace('/','-')
+            fechaStart=fechaStart+':00'
+            fechaEnd=fechaEnd+':00'
+            
             training = Training(
                 name=form.name.data,
-                start=form.start.data,
-                end=form.end.data,
+                start=fechaStart,
+                end=fechaEnd,
                 finalizada=False,
                 description=form.description.data,
                 comments=form.comments.data

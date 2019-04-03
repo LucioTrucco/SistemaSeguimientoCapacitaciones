@@ -15,8 +15,8 @@ class LoginForm(FlaskForm):
 
 class TrainingForm(FlaskForm):
     name = StringField('Nombre', validators=[DataRequired()])
-    start = DateTimeField('Inicio', format='%Y-%m-%d %H:%M:%S', validators=[DataRequired()])
-    end = DateTimeField('Fin', format='%Y-%m-%d %H:%M:%S', validators=[DataRequired()])
+    start = StringField('Inicio', validators=[DataRequired()])
+    end = StringField('Fin', validators=[DataRequired()])
     description = StringField('Descripcion', validators=[DataRequired()])
     comments = StringField('Comentarios')
 
