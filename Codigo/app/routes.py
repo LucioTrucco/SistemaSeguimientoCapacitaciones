@@ -9,6 +9,7 @@ from flask_mail import Message
 from datetime import datetime
 import json
 
+
 ## INICIO DE APP
 @app.before_first_request
 def setRoles():
@@ -76,6 +77,90 @@ def trainings():
                 'capacitaciones.html',
                 title='Todas las capacitaciones',
                 trainings=Training.query.all())
+    return redirect(url_for('login'))
+
+
+@app.route('/8a13')
+def ochoatrece():
+    if 'username' in session:
+        username = session['username']
+        if session['role'] == 2: ##COMPROBAR SI ES ADMIN PARA ENTRAR
+            return render_template(
+                '8a13.html',
+                title='Capacitaciones de 8 a 13',
+                trainings=Training.query.filter_by(times=1))
+    return redirect(url_for('login'))      
+
+
+@app.route('/13a18')
+def trecea18():
+    if 'username' in session:
+        username = session['username']
+        if session['role'] == 2: ##COMPROBAR SI ES ADMIN PARA ENTRAR
+            return render_template(
+                '13a18.html',
+                title='Capacitaciones de 13 a 18',
+                trainings=Training.query.filter_by(times=2))
+    return redirect(url_for('login'))
+
+
+@app.route('/18a22')
+def diecia22():
+    if 'username' in session:
+        username = session['username']
+        if session['role'] == 2: ##COMPROBAR SI ES ADMIN PARA ENTRAR
+            return render_template(
+                '18a22.html',
+                title='Capacitaciones de 18 a 22',
+                trainings=Training.query.filter_by(times=3))
+    return redirect(url_for('login'))
+
+
+@app.route('/DDPyT')
+def DDPyT():
+    if 'username' in session:
+        username = session['username']
+        if session['role'] == 2: ##COMPROBAR SI ES ADMIN PARA ENTRAR
+            return render_template(
+                '18a22.html',
+                title='Capacitaciones DDPyT',
+                trainings=Training.query.filter_by(department=1))
+    return redirect(url_for('login'))
+
+
+@app.route('/DPyPP')
+def DPyPP():
+    if 'username' in session:
+        username = session['username']
+        if session['role'] == 2: ##COMPROBAR SI ES ADMIN PARA ENTRAR
+            return render_template(
+                '18a22.html',
+                title='Capacitaciones DPyPP',
+                trainings=Training.query.filter_by(department=2))
+    return redirect(url_for('login'))
+
+
+@app.route('/DHyA')
+def DHyA():
+    if 'username' in session:
+        username = session['username']
+        if session['role'] == 2: ##COMPROBAR SI ES ADMIN PARA ENTRAR
+            return render_template(
+                '18a22.html',
+                title='Capacitaciones DHyA',
+                trainings=Training.query.filter_by(department=3))
+    return redirect(url_for('login'))
+
+
+@app.route('/DeSaCo')
+def DeSaCo():
+    if 'username' in session:
+        username = session['username']
+        if session['role'] == 2: ##COMPROBAR SI ES ADMIN PARA ENTRAR
+            return render_template(
+                '18a22.html',
+                title='Capacitaciones DeSaCo',
+                trainings=Training.query.filter_by(department=4))
     return redirect(url_for('login'))
 
 
@@ -191,8 +276,11 @@ def edit(id):
             end=training.end,
             description=training.description,
             comments=training.comments,
+            times=training.times,
+            department=training.department
         )
     
+        
         if request.method == 'POST':
             training.name = form.name.data
             training.start = form.start.data
@@ -200,12 +288,16 @@ def edit(id):
             #---------
             training.start=training.start.replace('/', '-') 
             training.end= training.end.replace('/','-')
-            training.start=training.start+':00'
-            training.end=training.end+':00'
+            if len(training.start) == 16:
+                training.start=training.start+':00'
+            if len(training.end) == 16:
+                training.end=training.end+':00'
             #-----
             training.finalizada = False
             training.description = form.description.data
             training.comments = form.comments.data
+            training.times= form.times.data
+            training.department= form.department.data
             db.session.commit()
             return redirect((url_for('details', id=training.id)))
         return render_template(
@@ -245,7 +337,9 @@ def create():
                 end=fechaEnd,
                 finalizada=False,
                 description=form.description.data,
-                comments=form.comments.data
+                comments=form.comments.data,
+                times=form.times.data,
+                department=form.department.data
                 )
             db.session.add(training)
             db.session.commit()
@@ -444,9 +538,7 @@ def user_edit(id):
         user = User.query.get(id)
         form = UserForm(
             username=user.username,
-            email=user.email,
-            password=user.password_hash,
-            confirm=user.password_hash
+            email=user.email
         )
         form.role.choices = [(u.id, u.name) for u in Role.query.all()]
         if request.method == 'POST':
@@ -670,12 +762,28 @@ def estadisticas():
 
         statsCapacitadores = [cantCapacitando, cantNoCapacitando]
 
+        #Stats capacitaciones por horario
+        canth1 = Training.query.filter_by(times=1).count()
+        canth2 = Training.query.filter_by(times=2).count()
+        canth3 = Training.query.filter_by(times=3).count()
+
+        statsCapacitacionesTime=[canth1,canth2,canth3]
+
+        #Stats capacitaciones por sector
+        cants1 = Training.query.filter_by(department=1).count()
+        cants2 = Training.query.filter_by(department=2).count()
+        cants3 = Training.query.filter_by(department=3).count()
+        cants4 = Training.query.filter_by(department=4).count()
+
+        statsCapacitacionesDpto=[cants1,cants2,cants3,cants4]
 
         return render_template(
             'estadisticas.html',
             title='Estadisticas',
             statsCapacitaciones=map(json.dumps,statsCapacitaciones),
             statsEstudiantes= map(json.dumps,statsEstudiantes),
-            statsCapacitadores=map(json.dumps, statsCapacitadores)
+            statsCapacitadores=map(json.dumps, statsCapacitadores),
+            statsCapacitacionesTime=map(json.dumps, statsCapacitacionesTime),
+            statsCapacitacionesDpto=map(json.dumps, statsCapacitacionesDpto)
         )
     return redirect(url_for('login'))

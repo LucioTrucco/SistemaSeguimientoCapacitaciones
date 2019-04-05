@@ -52,6 +52,16 @@
                     <a class="dropdown-item" href="{{url_for('ongoingTrainings')}}">En curso</a>
                     <a class="dropdown-item" href="{{url_for('completedTrainings')}}">Finalizadas</a>
                     <a class="dropdown-item" href="{{ url_for('trainings') }}">Todas</a>
+                    <div class="dropdown-divider"></div>
+                    <a class="dropdown-item" href="{{ url_for('ochoatrece') }}">8 a 13</a>
+                    <a class="dropdown-item" href="{{ url_for('trecea18') }}">13 a 18</a>
+                    <a class="dropdown-item" href="{{ url_for('diecia22') }}">18 a 22</a>
+                    <div class="dropdown-divider"></div>
+                    <a class="dropdown-item" href="{{ url_for('DDPyT') }}">DDPyT</a>
+                    <a class="dropdown-item" href="{{ url_for('DPyPP') }}">DPyPP</a>
+                    <a class="dropdown-item" href="{{ url_for('DHyA') }}">DHyA</a>
+                    <a class="dropdown-item" href="{{ url_for('DeSaCo') }}">DeSaCo</a>
+
                </div>                
             </div>
             {% endif %}

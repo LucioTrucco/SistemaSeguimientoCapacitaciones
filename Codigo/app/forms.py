@@ -19,6 +19,8 @@ class TrainingForm(FlaskForm):
     end = StringField('Fin', validators=[DataRequired()])
     description = StringField('Descripcion', validators=[DataRequired()])
     comments = StringField('Comentarios')
+    times = SelectField('Horarios', choices=[(1, '8 a 13'), (2, '13 a 18'), (3, '18 a 22')])
+    department = SelectField('Sector', choices=[(1, 'DDPyT'), (2, 'DPyPP'), (3, 'DHyA'),(4,'DeSaCo')])
 
 
 class ClassForm(FlaskForm):

@@ -604,3 +604,11 @@ a:hover{
 .dropdown_miscaps{
 	margin-right:25%;
 }
+
+.select{
+	height:30px;
+}
+
+.corrector__stats{
+	top:65%
+}
