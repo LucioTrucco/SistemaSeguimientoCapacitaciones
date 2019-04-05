@@ -81,11 +81,13 @@ def logout():
 def trainings():
     if 'username' in session:
         username = session['username']
-        if session['role'] == 2: ##COMPROBAR SI ES ADMIN PARA ENTRAR
+        if session['role'] == 2 or session['role'] == 3: ##COMPROBAR SI ES ADMIN PARA ENTRAR
             return render_template(
                 'capacitaciones.html',
                 title='Todas las capacitaciones',
                 trainings=Training.query.all())
+        else: 
+            return redirect(url_for('forbidden'))
     return redirect(url_for('login'))
 
 
@@ -93,11 +95,13 @@ def trainings():
 def ochoatrece():
     if 'username' in session:
         username = session['username']
-        if session['role'] == 2: ##COMPROBAR SI ES ADMIN PARA ENTRAR
+        if session['role'] == 2 or session['role'] == 3: ##COMPROBAR SI ES ADMIN PARA ENTRAR
             return render_template(
                 '8a13.html',
                 title='Capacitaciones de 8 a 13',
                 trainings=Training.query.filter_by(times=1))
+        else: 
+            return redirect(url_for('forbidden'))
     return redirect(url_for('login'))      
 
 
@@ -105,11 +109,13 @@ def ochoatrece():
 def trecea18():
     if 'username' in session:
         username = session['username']
-        if session['role'] == 2: ##COMPROBAR SI ES ADMIN PARA ENTRAR
+        if session['role'] == 2 or session['role'] == 3: ##COMPROBAR SI ES ADMIN PARA ENTRAR
             return render_template(
                 '13a18.html',
                 title='Capacitaciones de 13 a 18',
                 trainings=Training.query.filter_by(times=2))
+        else: 
+            return redirect(url_for('forbidden'))
     return redirect(url_for('login'))
 
 
@@ -117,11 +123,13 @@ def trecea18():
 def diecia22():
     if 'username' in session:
         username = session['username']
-        if session['role'] == 2: ##COMPROBAR SI ES ADMIN PARA ENTRAR
+        if session['role'] == 2 or session['role'] == 3: ##COMPROBAR SI ES ADMIN PARA ENTRAR
             return render_template(
                 '18a22.html',
                 title='Capacitaciones de 18 a 22',
                 trainings=Training.query.filter_by(times=3))
+        else: 
+            return redirect(url_for('forbidden'))
     return redirect(url_for('login'))
 
 
@@ -129,11 +137,13 @@ def diecia22():
 def DDPyT():
     if 'username' in session:
         username = session['username']
-        if session['role'] == 2: ##COMPROBAR SI ES ADMIN PARA ENTRAR
+        if session['role'] == 2 or session['role'] == 3: ##COMPROBAR SI ES ADMIN PARA ENTRAR
             return render_template(
                 '18a22.html',
                 title='Capacitaciones DDPyT',
                 trainings=Training.query.filter_by(department=1))
+        else: 
+            return redirect(url_for('forbidden'))
     return redirect(url_for('login'))
 
 
@@ -141,11 +151,13 @@ def DDPyT():
 def DPyPP():
     if 'username' in session:
         username = session['username']
-        if session['role'] == 2: ##COMPROBAR SI ES ADMIN PARA ENTRAR
+        if session['role'] == 2 or session['role'] == 3: ##COMPROBAR SI ES ADMIN PARA ENTRAR
             return render_template(
                 '18a22.html',
                 title='Capacitaciones DPyPP',
                 trainings=Training.query.filter_by(department=2))
+        else: 
+            return redirect(url_for('forbidden'))
     return redirect(url_for('login'))
 
 
@@ -153,11 +165,13 @@ def DPyPP():
 def DHyA():
     if 'username' in session:
         username = session['username']
-        if session['role'] == 2: ##COMPROBAR SI ES ADMIN PARA ENTRAR
+        if session['role'] == 2 or session['role'] == 3: ##COMPROBAR SI ES ADMIN PARA ENTRAR
             return render_template(
                 '18a22.html',
                 title='Capacitaciones DHyA',
                 trainings=Training.query.filter_by(department=3))
+        else: 
+            return redirect(url_for('forbidden'))
     return redirect(url_for('login'))
 
 
@@ -165,11 +179,13 @@ def DHyA():
 def DeSaCo():
     if 'username' in session:
         username = session['username']
-        if session['role'] == 2: ##COMPROBAR SI ES ADMIN PARA ENTRAR
+        if session['role'] == 2 or session['role'] == 3: ##COMPROBAR SI ES ADMIN PARA ENTRAR
             return render_template(
                 '18a22.html',
                 title='Capacitaciones DeSaCo',
                 trainings=Training.query.filter_by(department=4))
+        else: 
+            return redirect(url_for('forbidden'))
     return redirect(url_for('login'))
 
 
@@ -178,10 +194,13 @@ def myOngoingTrainings():
     if 'username' in session:
         username = session['username']
         idUser = session['idUser']  
-        return render_template(
-            'misCapacitacionesEnCurso.html',
-            title='Mis capacitaciones',
-            trainings=Training.query.filter_by(user_id=idUser).filter_by(finalizada=0).all())
+        if session['role'] == 1: ##COMPROBAR SI ES ADMIN PARA ENTRAR
+            return render_template(
+                'misCapacitacionesEnCurso.html',
+                title='Mis capacitaciones',
+                trainings=Training.query.filter_by(user_id=idUser).filter_by(finalizada=0).all())
+        else:
+            return redirect(url_for('forbidden'))
     return redirect(url_for('login'))
 
 
@@ -190,10 +209,13 @@ def myCompletedTrainings():
     if 'username' in session:
         username = session['username']
         idUser = session['idUser']  
-        return render_template(
-            'misCapacitacionesFinalizadas.html',
-            title='Mis capacitaciones',
-            trainings=Training.query.filter_by(user_id=idUser).filter_by(finalizada=1).all())
+        if session['role'] == 1: ##COMPROBAR SI ES ADMIN PARA ENTRAR
+            return render_template(
+                'misCapacitacionesFinalizadas.html',
+                title='Mis capacitaciones',
+                trainings=Training.query.filter_by(user_id=idUser).filter_by(finalizada=1).all())
+        else:
+            return redirect(url_for('forbidden'))
     return redirect(url_for('login'))
 
 
@@ -201,10 +223,13 @@ def myCompletedTrainings():
 def completedTrainings():
     if 'username' in session:
         username = session['username']
-        return render_template(
-            'capacitacionesFinalizadas.html',
-            title='Capacitaciones finalizadas',
-            trainings=Training.query.filter_by(finalizada=1))
+        if session['role'] == 2 or session['role'] == 3: ##COMPROBAR SI ES ADMIN PARA ENTRAR
+            return render_template(
+                'capacitacionesFinalizadas.html',
+                title='Capacitaciones finalizadas',
+                trainings=Training.query.filter_by(finalizada=1))
+        else:
+            return redirect(url_for('forbidden'))
     return redirect(url_for('login'))
 
 
@@ -212,10 +237,13 @@ def completedTrainings():
 def ongoingTrainings():
     if 'username' in session:
         username = session['username']
-        return render_template(
-            'capacitacionesEnCurso.html',
-            title='Capacitaciones en curso',
-            trainings=Training.query.filter_by(finalizada=0))
+        if session['role'] == 2 or session['role'] == 3: ##COMPROBAR SI ES ADMIN PARA ENTRAR
+            return render_template(
+                'capacitacionesEnCurso.html',
+                title='Capacitaciones en curso',
+                trainings=Training.query.filter_by(finalizada=0))
+        else:
+            return redirect(url_for('forbidden'))
     return redirect(url_for('login'))
 
 
@@ -223,10 +251,13 @@ def ongoingTrainings():
 def trainings_user(username):
     if 'username' in session:
         username = session['username']
-        return render_template(
-            'capacitacionesPorUsuario.html',
-            title='Capcitaciones por Usuario',
-            trainings=User.query.filter_by(username=username).first().trainings)
+        if session['role'] == 2 or session['role'] == 3: ##COMPROBAR SI ES ADMIN PARA ENTRAR
+            return render_template(
+                'capacitacionesPorUsuario.html',
+                title='Capcitaciones por Usuario',
+                trainings=User.query.filter_by(username=username).first().trainings)
+        else:
+            return redirect(url_for('forbidden'))
     return redirect(url_for('login'))
 
 
@@ -245,10 +276,13 @@ def details(id):
 def deleteTraining(id):
     if 'username' in session:
         username = session['username']
-        training = Training.query.get(id)
-        db.session.delete(training)
-        db.session.commit()
-        return redirect(url_for('trainings'))
+        if session['role'] == 2 or session['role'] == 3: ##COMPROBAR SI ES ADMIN PARA ENTRAR
+            training = Training.query.get(id)
+            db.session.delete(training)
+            db.session.commit()
+            return redirect(url_for('trainings'))
+        else:
+            return redirect(url_for('forbidden'))
     return redirect(url_for('login'))
 
 
@@ -256,10 +290,13 @@ def deleteTraining(id):
 def deleteOnGoingTraining(id):
     if 'username' in session:
         username = session['username']
-        training = Training.query.get(id)
-        db.session.delete(training)
-        db.session.commit()
-        return redirect(url_for('ongoingTrainings'))
+        if session['role'] == 2 or session['role'] == 3: ##COMPROBAR SI ES ADMIN PARA ENTRAR
+            training = Training.query.get(id)
+            db.session.delete(training)
+            db.session.commit()
+            return redirect(url_for('ongoingTrainings'))
+        else:
+            return redirect(url_for('forbidden'))
     return redirect(url_for('login'))
 
 
@@ -267,10 +304,13 @@ def deleteOnGoingTraining(id):
 def deleteCompletedTraining(id):
     if 'username' in session:
         username = session['username']
-        training = Training.query.get(id)
-        db.session.delete(training)
-        db.session.commit()
-        return redirect(url_for('completedTrainings'))
+        if session['role'] == 2 or session['role'] == 3: ##COMPROBAR SI ES ADMIN PARA ENTRAR
+            training = Training.query.get(id)
+            db.session.delete(training)
+            db.session.commit()
+            return redirect(url_for('completedTrainings'))
+        else:
+            return redirect(url_for('forbidden'))
     return redirect(url_for('login'))
 
 
@@ -323,7 +363,10 @@ def finish(id):
         training = Training.query.get(id)
         training.finalizada = True
         db.session.commit()
-        return redirect((url_for('completedTrainings')))
+        if session['role'] == 2 or session['role'] == 3:
+            return redirect((url_for('completedTrainings')))
+        else:
+            return redirect((url_for('myCompletedTrainings')))
     return redirect(url_for('login'))
 
 
@@ -331,33 +374,37 @@ def finish(id):
 def create():
     if 'username' in session:
         username = session['username']
-        form = TrainingForm()
-        if request.method == 'POST':
-            fechaStart = form.start.data
-            fechaEnd= form.end.data
-            fechaStart=fechaStart.replace('/', '-') 
-            fechaEnd= fechaEnd.replace('/','-')
-            fechaStart=fechaStart+':00'
-            fechaEnd=fechaEnd+':00'
-            
-            training = Training(
-                name=form.name.data,
-                start=fechaStart,
-                end=fechaEnd,
-                finalizada=False,
-                description=form.description.data,
-                comments=form.comments.data,
-                times=form.times.data,
-                department=form.department.data
-                )
-            db.session.add(training)
-            db.session.commit()
-            return redirect((url_for('select_students', id=training.id)))
-        return render_template(
-            'capacitacion.html',
-            title='Crear capacitacion',
-            form=form)
+        if session['role'] == 2 or session['role'] == 3: ##COMPROBAR SI ES ADMIN PARA ENTRAR
+            form = TrainingForm()
+            if request.method == 'POST':
+                fechaStart = form.start.data
+                fechaEnd= form.end.data
+                fechaStart=fechaStart.replace('/', '-') 
+                fechaEnd= fechaEnd.replace('/','-')
+                fechaStart=fechaStart+':00'
+                fechaEnd=fechaEnd+':00'
+                
+                training = Training(
+                    name=form.name.data,
+                    start=fechaStart,
+                    end=fechaEnd,
+                    finalizada=False,
+                    description=form.description.data,
+                    comments=form.comments.data,
+                    times=form.times.data,
+                    department=form.department.data
+                    )
+                db.session.add(training)
+                db.session.commit()
+                return redirect((url_for('select_students', id=training.id)))
+            return render_template(
+                'capacitacion.html',
+                title='Crear capacitacion',
+                form=form)
+        else:
+            return redirect(url_for('forbidden'))
     return redirect(url_for('login'))
+        
 
 
 
@@ -368,30 +415,33 @@ def create():
 def classes(training_id):
     if 'username' in session:
         username = session['username']
-        training=Training.query.get(training_id)
-        form = ClassForm()
-        if form.validate_on_submit():
-            new_class = Class(
-                date=form.date.data,
-                topics=form.topics.data,
-                topicsNext=form.topicsNext.data,
-                comments=form.comments.data)
-            if len(training.classes.all()) == 0:
-                new_class.number = 1
-            else:
-                new_class.number = db.session.query(func.max(Class.number)).filter(
-                    Class.training_id == training_id).first()[0] + 1
-            new_class.training = training
-            db.session.add(new_class)
-            db.session.commit()
-            #return redirect((url_for('classes', training_id=training.id)))
-        return render_template(
-            'classes.html',
-            title='Seguimiento',
-            classes=training.classes,
-            training_id=training_id,
-            finalizada=training.finalizada,
-            form=form)
+        if session['role'] == 1 or session['role'] == 2: ##COMPROBAR SI ES ADMIN PARA ENTRAR
+            training=Training.query.get(training_id)
+            form = ClassForm()
+            if form.validate_on_submit():
+                new_class = Class(
+                    date=form.date.data,
+                    topics=form.topics.data,
+                    topicsNext=form.topicsNext.data,
+                    comments=form.comments.data)
+                if len(training.classes.all()) == 0:
+                    new_class.number = 1
+                else:
+                    new_class.number = db.session.query(func.max(Class.number)).filter(
+                        Class.training_id == training_id).first()[0] + 1
+                new_class.training = training
+                db.session.add(new_class)
+                db.session.commit()
+                #return redirect((url_for('classes', training_id=training.id)))
+            return render_template(
+                'classes.html',
+                title='Seguimiento',
+                classes=training.classes,
+                training_id=training_id,
+                finalizada=training.finalizada,
+                form=form)
+        else:
+            return redirect(url_for('forbidden'))
     return redirect(url_for('login'))
 
 
@@ -411,23 +461,26 @@ def class_details(training_id, class_num):
 def class_edit(training_id, class_num):
     if 'username' in session:
         username = session['username']
-        training = Training.query.get(training_id)
-        edit_class = training.classes.filter_by(number=class_num).first()
-        form = ClassForm(date=edit_class.date,
-                        topics=edit_class.topics,
-                        topicsNext=edit_class.topicsNext,
-                        comments=edit_class.comments)
-        if form.validate_on_submit():
-            edit_class.date = form.date.data
-            edit_class.topics = form.topics.data
-            edit_class.topicsNext = form.topicsNext.data
-            edit_class.comments = form.comments.data
-            db.session.commit()
-            return redirect((url_for('classes', training_id=training.id)))
-        return render_template(
-            'class_edit.html',
-            title='Editar clase',
-            form=form)
+        if session['role'] == 1 or session['role'] == 2: ##COMPROBAR SI ES ADMIN PARA ENTRAR
+            training = Training.query.get(training_id)
+            edit_class = training.classes.filter_by(number=class_num).first()
+            form = ClassForm(date=edit_class.date,
+                            topics=edit_class.topics,
+                            topicsNext=edit_class.topicsNext,
+                            comments=edit_class.comments)
+            if form.validate_on_submit():
+                edit_class.date = form.date.data
+                edit_class.topics = form.topics.data
+                edit_class.topicsNext = form.topicsNext.data
+                edit_class.comments = form.comments.data
+                db.session.commit()
+                return redirect((url_for('classes', training_id=training.id)))
+            return render_template(
+                'class_edit.html',
+                title='Editar clase',
+                form=form)
+        else:
+            return redirect(url_for('forbidden'))
     return redirect(url_for('login'))
 
 
@@ -435,15 +488,18 @@ def class_edit(training_id, class_num):
 def class_delete(training_id, class_num):
     if 'username' in session:
         username = session['username']
-        training = Training.query.get(training_id)
-        class_entity = training.classes.filter_by(number=class_num).first()
-        if(class_entity.number < len(training.classes.all())):
-            next_classes = training.classes.filter(Class.number > class_num)
-            for next_class in next_classes:
-                next_class.number -= 1
-        db.session.delete(class_entity)
-        db.session.commit()
-        return redirect((url_for('classes', training_id=training.id)))
+        if session['role'] == 1 or session['role'] == 2: ##COMPROBAR SI ES ADMIN PARA ENTRAR
+            training = Training.query.get(training_id)
+            class_entity = training.classes.filter_by(number=class_num).first()
+            if(class_entity.number < len(training.classes.all())):
+                next_classes = training.classes.filter(Class.number > class_num)
+                for next_class in next_classes:
+                    next_class.number -= 1
+            db.session.delete(class_entity)
+            db.session.commit()
+            return redirect((url_for('classes', training_id=training.id)))
+        else:
+            return redirect(url_for('forbidden'))
     return redirect(url_for('login'))
 
 
@@ -456,11 +512,14 @@ def class_delete(training_id, class_num):
 def assign():
     if 'username' in session:
         username = session['username']
-        return render_template(
-            'assign.html',
-            title='Capacitaciones solicitadas',
-            #trainings=Training.query.filter_by(trainer=None)
-            trainings=Training.query.all())
+        if session['role'] == 2: ##COMPROBAR SI ES ADMIN PARA ENTRAR
+            return render_template(
+                'assign.html',
+                title='Capacitaciones solicitadas',
+                #trainings=Training.query.filter_by(trainer=None)
+                trainings=Training.query.all())
+        else:
+            return redirect(url_for('forbidden'))
     return redirect(url_for('login'))
     
 
@@ -468,26 +527,29 @@ def assign():
 def select_trainer(id):
     if 'username' in session:
         username = session['username']
-        form = TrainerForm()
-        # TODO: Set users to avaialable users
-        form.trainer.choices = [(u.id, u.username) for u in User.query.all()]
-        if form.validate_on_submit():
-            trainer = User.query.get(form.trainer.data)
-            training = Training.query.get(id)
-            training.trainer = trainer
-            msg= Message('Capacitacion Asignada',
-            sender='matiastorsello@gmail.com',
-            recipients=[trainer.email])
-            msg.html='<b>Capacitacion: </b>'+training.name+'<br><b>Comienza: </b>'+str(training.start)+'<br><b>Finaliza: </b>'+str(training.end)+'<br><b>Descripcion: </b>'+training.description
-            mail.send(msg)
-            db.session.commit()
-            return redirect((url_for('details', id=training.id)))
-        return render_template(
-            'select_trainer.html',
-            title='Asignacion',
-            form=form,
-            training=Training.query.get(id),
-        )
+        if session['role'] == 2: ##COMPROBAR SI ES ADMIN PARA ENTRAR
+            form = TrainerForm()
+            # TODO: Set users to avaialable users
+            form.trainer.choices = [(u.id, u.username) for u in User.query.all()]
+            if form.validate_on_submit():
+                trainer = User.query.get(form.trainer.data)
+                training = Training.query.get(id)
+                training.trainer = trainer
+                msg= Message('Capacitacion Asignada',
+                sender='matiastorsello@gmail.com',
+                recipients=[trainer.email])
+                msg.html='<b>Capacitacion: </b>'+training.name+'<br><b>Comienza: </b>'+str(training.start)+'<br><b>Finaliza: </b>'+str(training.end)+'<br><b>Descripcion: </b>'+training.description
+                mail.send(msg)
+                db.session.commit()
+                return redirect((url_for('details', id=training.id)))
+            return render_template(
+                'select_trainer.html',
+                title='Asignacion',
+                form=form,
+                training=Training.query.get(id),
+            )
+        else:
+            return redirect(url_for('forbidden'))
     return redirect(url_for('login'))
 
 
@@ -499,10 +561,13 @@ def select_trainer(id):
 def users():
     if 'username' in session:
         username = session['username']
-        return render_template(
-            'users.html',
-            title='Usuarios',
-            users=User.query.all())
+        if session['role'] == 2 or session['role'] == 3:
+            return render_template(
+                'users.html',
+                title='Usuarios',
+                users=User.query.all())
+        else:
+            return redirect(url_for('forbidden'))
     return redirect(url_for('login'))
 
 
@@ -510,22 +575,25 @@ def users():
 def user_create():
     if 'username' in session:
         username = session['username']
-        form = UserForm()
-        form.role.choices = [(u.id, u.name) for u in Role.query.all()]
-        if request.method == 'POST':
-            user = User(
-                username=form.username.data,
-                email=form.email.data,
-                role = Role.query.get(form.role.data))
-            user.set_password(form.password.data)
-            db.session.add(user)
-            db.session.commit()
-            return redirect((url_for('user_details', id=user.id)))
-        return render_template(
-            'user_create.html',
-            title='Crear usuario',
-            form=form,
-            id=0)
+        if session['role'] == 2 or session['role'] == 3:
+            form = UserForm()
+            form.role.choices = [(u.id, u.name) for u in Role.query.all()]
+            if request.method == 'POST':
+                user = User(
+                    username=form.username.data,
+                    email=form.email.data,
+                    role = Role.query.get(form.role.data))
+                user.set_password(form.password.data)
+                db.session.add(user)
+                db.session.commit()
+                return redirect((url_for('user_details', id=user.id)))
+            return render_template(
+                'user_create.html',
+                title='Crear usuario',
+                form=form,
+                id=0)
+        else:
+            return redirect(url_for('forbidden'))
     return redirect(url_for('login'))
 
 
@@ -533,10 +601,13 @@ def user_create():
 def user_details(id):
     if 'username' in session:
         username = session['username']
-        return render_template(
-            'user_details.html',
-            user=User.query.get(id),
-            title='Detalles del usuario')
+        if session['role'] == 2 or session['role'] == 3:
+            return render_template(
+                'user_details.html',
+                user=User.query.get(id),
+                title='Detalles del usuario')
+        else:
+            return redirect(url_for('forbidden'))
     return redirect(url_for('login'))
 
 
@@ -544,28 +615,31 @@ def user_details(id):
 def user_edit(id):
     if 'username' in session:
         username = session['username']
-        user = User.query.get(id)
-        form = UserForm(
-            username=user.username,
-            email=user.email
-        )
-        form.role.choices = [(u.id, u.name) for u in Role.query.all()]
-        if request.method == 'POST':
-            user.username = form.username.data
-            user.email = form.email.data
-            user.Role = Role.query.get(form.role.data)
-            print(user.username)
-            print(user.email)
-            print(user.Role)
-            if(form.password.data is not None and form.data.password != ''):
-               user.set_password(form.password.data)
-            db.session.commit()
-            return redirect((url_for('user_details', id=user.id)))
-        return render_template(
-            'user_create.html',
-            title='Editar usuario',
-            form=form,
-            id=user.id)
+        if session['role'] == 2 or session['role'] == 3:
+            user = User.query.get(id)
+            form = UserForm(
+                username=user.username,
+                email=user.email
+            )
+            form.role.choices = [(u.id, u.name) for u in Role.query.all()]
+            if request.method == 'POST':
+                user.username = form.username.data
+                user.email = form.email.data
+                user.Role = Role.query.get(form.role.data)
+                print(user.username)
+                print(user.email)
+                print(user.Role)
+                if(form.password.data is not None and form.data.password != ''):
+                    user.set_password(form.password.data)
+                db.session.commit()
+                return redirect((url_for('user_details', id=user.id)))
+            return render_template(
+                'user_create.html',
+                title='Editar usuario',
+                form=form,
+                id=user.id)
+        else:
+            return redirect(url_for('forbidden'))
     return redirect(url_for('login'))
 
 
@@ -573,10 +647,13 @@ def user_edit(id):
 def user_delete(id):
     if 'username' in session:
         username = session['username']
-        user = User.query.get(id)
-        db.session.delete(user)
-        db.session.commit()
-        return redirect((url_for('users')))
+        if session['role'] == 2 or session['role'] == 3:
+            user = User.query.get(id)
+            db.session.delete(user)
+            db.session.commit()
+            return redirect((url_for('users')))
+        else:
+            return redirect(url_for('forbidden'))
     return redirect(url_for('login'))
 
 
@@ -588,47 +665,50 @@ def user_delete(id):
 def select_students(id):
     if 'username' in session:
         username = session['username']
-        form = SearchStudentForm()
-        usedStudents = Training.query.get(id).students
-        print(usedStudents)
-        allStudents = [(u.id) for u in Student.query.all()]
-        print(allStudents)
-        list1 = []
-        
-        for x in usedStudents:
-            list1.append(x.id)
+        if session['role'] == 2:
+            form = SearchStudentForm()
+            usedStudents = Training.query.get(id).students
+            print(usedStudents)
+            allStudents = [(u.id) for u in Student.query.all()]
+            print(allStudents)
+            list1 = []
+            
+            for x in usedStudents:
+                list1.append(x.id)
 
-        list3= [item for item in allStudents if item not in list1]
+            list3= [item for item in allStudents if item not in list1]
 
-        xchoices=[]
+            xchoices=[]
 
-        for x in range(len(list3)-1,-1,-1):
-            xchoices.extend([(u.id, u.name) for u in Student.query.filter_by(id=list3[x])])
-          
-        form.search.choices=xchoices
-        
-        if form.validate_on_submit():
-            xstudents=form.search.data
-            for xid in xstudents:
-                student = Student.query.get(xid)
-                student.lstTraining.append(Training.query.get(id))
-                training=Training.query.get(id)
-                #ENVIAR MAIL A ESTUDIANTE
-                msg= Message('Capacitacion Asignada',
-                sender='matiastorsello@gmail.com',
-                recipients=[student.email])
-                msg.html='<b>Capacitacion: </b>'+training.name+'<br><b>Comienza: </b>'+str(training.start)+'<br><b>Finaliza: </b>'+str(training.end)+'<br><b>Descripcion: </b>'+training.description
-                mail.send(msg)
-                db.session.commit()
-            return redirect((url_for('trainings')))
-        return render_template(
-            'select_students.html',
-            title='Asignacion',
-            form=form,
-            training=Training.query.get(id),
-            students=Student.query.all(),
-            list=form.search.choices
-        )
+            for x in range(len(list3)-1,-1,-1):
+                xchoices.extend([(u.id, u.name) for u in Student.query.filter_by(id=list3[x])])
+            
+            form.search.choices=xchoices
+            
+            if form.validate_on_submit():
+                xstudents=form.search.data
+                for xid in xstudents:
+                    student = Student.query.get(xid)
+                    student.lstTraining.append(Training.query.get(id))
+                    training=Training.query.get(id)
+                    #ENVIAR MAIL A ESTUDIANTE
+                    msg= Message('Capacitacion Asignada',
+                    sender='matiastorsello@gmail.com',
+                    recipients=[student.email])
+                    msg.html='<b>Capacitacion: </b>'+training.name+'<br><b>Comienza: </b>'+str(training.start)+'<br><b>Finaliza: </b>'+str(training.end)+'<br><b>Descripcion: </b>'+training.description
+                    mail.send(msg)
+                    db.session.commit()
+                return redirect((url_for('trainings')))
+            return render_template(
+                'select_students.html',
+                title='Asignacion',
+                form=form,
+                training=Training.query.get(id),
+                students=Student.query.all(),
+                list=form.search.choices
+            )
+        else:
+            return redirect(url_for('forbidden'))
     return redirect(url_for('login'))
 
 
@@ -636,22 +716,25 @@ def select_students(id):
 def student_create():
     if 'username' in session:
         username = session['username']
-        form = StudentForm()
-        if request.method == 'POST':
-            student = Student(
-                file=form.file.data,
-                email=form.email.data,
-                surname=form.surname.data,
-                name=form.name.data,
-                degree=form.degree.data)
-            db.session.add(student)
-            db.session.commit()
-            flash('Estudiante creado', 'success')
-            return redirect(url_for('students'))
-        return render_template(
-            'student_create.html',
-            title='Crear estudiante',
-            form=form)
+        if session['role'] == 2:
+            form = StudentForm()
+            if request.method == 'POST':
+                student = Student(
+                    file=form.file.data,
+                    email=form.email.data,
+                    surname=form.surname.data,
+                    name=form.name.data,
+                    degree=form.degree.data)
+                db.session.add(student)
+                db.session.commit()
+                flash('Estudiante creado', 'success')
+                return redirect(url_for('students'))
+            return render_template(
+                'student_create.html',
+                title='Crear estudiante',
+                form=form)
+        else:
+            return redirect(url_for('forbidden'))
     return redirect(url_for('login'))
 
 
@@ -659,10 +742,13 @@ def student_create():
 def student_delete(file):
     if 'username' in session:
         username = session['username']
-        student = Student.query.filter_by(file=file).first()
-        db.session.delete(student)
-        db.session.commit()
-        return redirect(url_for('students'))
+        if session['role'] == 2:
+            student = Student.query.filter_by(file=file).first()
+            db.session.delete(student)
+            db.session.commit()
+            return redirect(url_for('students'))
+        else:
+            return redirect(url_for('forbidden'))
     return redirect(url_for('login'))
 
 
@@ -670,23 +756,26 @@ def student_delete(file):
 def student_edit(file):
     if 'username' in session:
         username = session['username']
-        student = Student.query.filter_by(file=file).first()
-        form = StudentForm(
-            file=student.file,
-            name=student.name,
-            surname=student.surname,
-            email=student.email,
-            degree=student.degree
-        )   
-        if form.validate_on_submit():
-            student.name=form.name.data
-            student.surname=form.surname.data
-            student.email=form.email.data
-            student.degree=form.degree.data
-            db.session.commit()
-            return redirect(url_for('students'))
-        return render_template('student_create.html', title='Actualizar Estudiante',
-                                form=form)
+        if session['role'] == 2:
+            student = Student.query.filter_by(file=file).first()
+            form = StudentForm(
+                file=student.file,
+                name=student.name,
+                surname=student.surname,
+                email=student.email,
+                degree=student.degree
+            )   
+            if form.validate_on_submit():
+                student.name=form.name.data
+                student.surname=form.surname.data
+                student.email=form.email.data
+                student.degree=form.degree.data
+                db.session.commit()
+                return redirect(url_for('students'))
+            return render_template('student_create.html', title='Actualizar Estudiante',
+                                    form=form)
+        else:
+            return redirect(url_for('forbidden'))
     return redirect(url_for('login'))
 
 
@@ -694,11 +783,14 @@ def student_edit(file):
 def searchStudent():
     if 'username' in session:
         username = session['username']
-        form = SearchStudentForm()
-        if form.validate_on_submit():
-            file = form.search.data
-            return redirect((url_for('student_details.html', file=file)))
-        return render_template('student_search.html', title='Buscar Estudiante', form=form)
+        if session['role'] == 2:
+            form = SearchStudentForm()
+            if form.validate_on_submit():
+                file = form.search.data
+                return redirect((url_for('student_details.html', file=file)))
+            return render_template('student_search.html', title='Buscar Estudiante', form=form)
+        else:
+            return redirect(url_for('forbidden'))
     return redirect(url_for('login'))
 
 
@@ -706,8 +798,11 @@ def searchStudent():
 def student_detials(file):
     if 'username' in session:
         username = session['username']
-        return render_template('detailStudent.html', title='Detalles de Estudiante',
-                                student=Student.query.filter_by(file=file))
+        if session['role'] == 2:
+            return render_template('detailStudent.html', title='Detalles de Estudiante',
+                                    student=Student.query.filter_by(file=file))
+        else:
+            return redirect(url_for('forbidden'))
     return redirect(url_for('login'))
 
 
@@ -715,10 +810,13 @@ def student_detials(file):
 def students():
     if 'username' in session:
         username = session['username']
-        return render_template(
-            'students.html',
-            title='Todos los estudiantes',
-            students= Student.query.all())
+        if session['role'] == 2:
+            return render_template(
+                'students.html',
+                title='Todos los estudiantes',
+                students= Student.query.all())
+        else:
+            return redirect(url_for('forbidden'))
     return redirect(url_for('login'))
 
 
@@ -729,70 +827,72 @@ def students():
 def estadisticas():
     if 'username' in session:
         username = session['username']
-        
-        #variables
-        cantCursando=0
-        cantEstudiantes=0
-        cantNoCursando=0
-        cantCapacitando=0
-        cantCapacitadores=0
-        cantNoCapacitando=0
+        if session['role'] == 2 or session['role'] == 3:
+            #variables
+            cantCursando=0
+            cantEstudiantes=0
+            cantNoCursando=0
+            cantCapacitando=0
+            cantCapacitadores=0
+            cantNoCapacitando=0
 
-        #Stats Capacitaciones
-        statsCapacitaciones=[Training.query.filter_by(finalizada=1).count(), Training.query.filter_by(finalizada=0).count() ]
-        
-        #Stats Estudiantes
-        queryCursando = db.session.query(Student.id.distinct()).join(Training_students, Student.id == Training_students.c.student_id).join(Training, Training_students.c.training_id == Training.id).filter(Training.finalizada==0).all()
-        queryEstudiantes = db.session.query(Student.id).all()
-        
-        for result in queryCursando:
-            cantCursando+=1
-        
-        for result in queryEstudiantes:
-            cantEstudiantes+=1
-        
-        cantNoCursando=cantEstudiantes-cantCursando
+            #Stats Capacitaciones
+            statsCapacitaciones=[Training.query.filter_by(finalizada=1).count(), Training.query.filter_by(finalizada=0).count() ]
+            
+            #Stats Estudiantes
+            queryCursando = db.session.query(Student.id.distinct()).join(Training_students, Student.id == Training_students.c.student_id).join(Training, Training_students.c.training_id == Training.id).filter(Training.finalizada==0).all()
+            queryEstudiantes = db.session.query(Student.id).all()
+            
+            for result in queryCursando:
+                cantCursando+=1
+            
+            for result in queryEstudiantes:
+                cantEstudiantes+=1
+            
+            cantNoCursando=cantEstudiantes-cantCursando
 
-        statsEstudiantes = [cantCursando, cantNoCursando]
-        
-        #Stats Capacitadores
-        queryCapacitando = db.session.query(User.id.distinct()).join(Training, User.id == Training.user_id).filter(Training.finalizada==0).filter(User.role_id!=2).all()
-        queryCapacitadores = db.session.query(User.id).filter(User.role_id!=2).all()
-        
-        for result in queryCapacitando:
-            cantCapacitando+=1
+            statsEstudiantes = [cantCursando, cantNoCursando]
+            
+            #Stats Capacitadores
+            queryCapacitando = db.session.query(User.id.distinct()).join(Training, User.id == Training.user_id).filter(Training.finalizada==0).filter(User.role_id!=2).all()
+            queryCapacitadores = db.session.query(User.id).filter(User.role_id!=2).all()
+            
+            for result in queryCapacitando:
+                cantCapacitando+=1
 
-        print(cantCapacitando)
+            print(cantCapacitando)
 
-        for result in queryCapacitadores:
-            cantCapacitadores+=1
-        
-        cantNoCapacitando=cantCapacitadores-cantCapacitando
+            for result in queryCapacitadores:
+                cantCapacitadores+=1
+            
+            cantNoCapacitando=cantCapacitadores-cantCapacitando
 
-        statsCapacitadores = [cantCapacitando, cantNoCapacitando]
+            statsCapacitadores = [cantCapacitando, cantNoCapacitando]
 
-        #Stats capacitaciones por horario
-        canth1 = Training.query.filter_by(times=1).count()
-        canth2 = Training.query.filter_by(times=2).count()
-        canth3 = Training.query.filter_by(times=3).count()
+            #Stats capacitaciones por horario
+            canth1 = Training.query.filter_by(times=1).count()
+            canth2 = Training.query.filter_by(times=2).count()
+            canth3 = Training.query.filter_by(times=3).count()
 
-        statsCapacitacionesTime=[canth1,canth2,canth3]
+            statsCapacitacionesTime=[canth1,canth2,canth3]
 
-        #Stats capacitaciones por sector
-        cants1 = Training.query.filter_by(department=1).count()
-        cants2 = Training.query.filter_by(department=2).count()
-        cants3 = Training.query.filter_by(department=3).count()
-        cants4 = Training.query.filter_by(department=4).count()
+            #Stats capacitaciones por sector
+            cants1 = Training.query.filter_by(department=1).count()
+            cants2 = Training.query.filter_by(department=2).count()
+            cants3 = Training.query.filter_by(department=3).count()
+            cants4 = Training.query.filter_by(department=4).count()
 
-        statsCapacitacionesDpto=[cants1,cants2,cants3,cants4]
+            statsCapacitacionesDpto=[cants1,cants2,cants3,cants4]
 
-        return render_template(
-            'estadisticas.html',
-            title='Estadisticas',
-            statsCapacitaciones=map(json.dumps,statsCapacitaciones),
-            statsEstudiantes= map(json.dumps,statsEstudiantes),
-            statsCapacitadores=map(json.dumps, statsCapacitadores),
-            statsCapacitacionesTime=map(json.dumps, statsCapacitacionesTime),
-            statsCapacitacionesDpto=map(json.dumps, statsCapacitacionesDpto)
-        )
+            return render_template(
+                'estadisticas.html',
+                title='Estadisticas',
+                statsCapacitaciones=map(json.dumps,statsCapacitaciones),
+                statsEstudiantes= map(json.dumps,statsEstudiantes),
+                statsCapacitadores=map(json.dumps, statsCapacitadores),
+                statsCapacitacionesTime=map(json.dumps, statsCapacitacionesTime),
+                statsCapacitacionesDpto=map(json.dumps, statsCapacitacionesDpto)
+            )
+        else:
+            return redirect(url_for('forbidden'))
     return redirect(url_for('login'))
