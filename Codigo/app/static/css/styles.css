@@ -612,3 +612,37 @@ a:hover{
 .corrector__stats{
 	top:65%
 }
+
+.access-denied-body{
+	background-color: #3F51B5;
+	text-align: center;
+}
+
+.access-denied{
+	display: inline;
+}
+
+.access-denied h1{
+	color: white;
+	font-size: 150px;
+	margin-bottom: 0;
+}
+
+.access-denied h3{
+	color: white;
+	font-size: 75px;
+}
+
+.btn-access-denied{
+	text-decoration: none;
+	font-size: 15px;
+	padding: 10px;
+	color: #fff;
+	border: 1px solid white;
+	background-color: #5C6BC0;
+	font-weight: 500;
+}
+
+.btn-access-denied:hover{
+	background-color: grey;
+}

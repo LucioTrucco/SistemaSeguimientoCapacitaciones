@@ -21,6 +21,15 @@ def setRoles():
     
     db.session.commit()
 
+#---------------------------------------------------------------------------------------------------------------
+# ACCESS DENIED
+
+@app.route('/forbidden')
+def forbidden():
+    if 'username' in session:
+        username = session['username']
+        return render_template('accessDenied.html')
+    return redirect(url_for('login'))
 
 # --------------------------------------------------------------------------------------------------------------
 # INDEX
