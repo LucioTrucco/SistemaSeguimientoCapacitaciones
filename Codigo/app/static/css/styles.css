@@ -646,3 +646,8 @@ a:hover{
 .btn-access-denied:hover{
 	background-color: grey;
 }
+
+.val_error{
+	color:#ff1f1f;
+	display: none;
+}

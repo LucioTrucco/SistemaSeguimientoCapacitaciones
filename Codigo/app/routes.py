@@ -70,6 +70,7 @@ def login():
 def logout():
     session.pop('username', None)
     session.pop('role',None)
+    session.pop('idUser',None)
     logout_user()
     return redirect(url_for('login'))
 
