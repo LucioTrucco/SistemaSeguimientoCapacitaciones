@@ -348,8 +348,11 @@ def edit(id):
             training.comments = form.comments.data
             training.times= form.times.data
             training.department= form.department.data
-            db.session.commit()
-            return redirect((url_for('details', id=training.id)))
+            if not training.name or not training.start or not training.end or not training.description or not training.comments or not training.times or not training.department :
+                flash('Debe llenar todos los campos.')
+            else:
+                db.session.commit()
+                return redirect((url_for('details', id=training.id)))
         return render_template(
             'capacitacion.html',
             title='Editar capacitacion',
@@ -476,13 +479,16 @@ def class_edit(training_id, class_num):
                             topics=edit_class.topics,
                             topicsNext=edit_class.topicsNext,
                             comments=edit_class.comments)
-            if form.validate_on_submit():
+            if request.method == 'POST':
                 edit_class.date = form.date.data
                 edit_class.topics = form.topics.data
                 edit_class.topicsNext = form.topicsNext.data
                 edit_class.comments = form.comments.data
-                db.session.commit()
-                return redirect((url_for('classes', training_id=training.id)))
+                if not edit_class.date or not edit_class.topics or not edit_class.topicsNext or not edit_class.comments:
+                    flash('Debes completar todos los campos.')
+                else:
+                    db.session.commit()
+                    return redirect((url_for('classes', training_id=training.id)))
             return render_template(
                 'class_edit.html',
                 title='Editar clase',
@@ -637,13 +643,12 @@ def user_edit(id):
                 user.username = form.username.data
                 user.email = form.email.data
                 user.Role = Role.query.get(form.role.data)
-                print(user.username)
-                print(user.email)
-                print(user.Role)
-                if(form.password.data is not None and form.data.password != ''):
-                    user.set_password(form.password.data)
-                db.session.commit()
-                return redirect((url_for('user_details', id=user.id)))
+                user.set_password(form.password.data)
+                if not user.username or not user.email or not form.password.data:
+                    flash('Debes completar todos los campos.')
+                else:
+                    db.session.commit()
+                    return redirect((url_for('user_details', id=user.id)))
             return render_template(
                 'user_create.html',
                 title='Editar usuario',
@@ -778,13 +783,16 @@ def student_edit(file):
                 email=student.email,
                 degree=student.degree
             )   
-            if form.validate_on_submit():
+            if request.method == 'POST':
                 student.name=form.name.data
                 student.surname=form.surname.data
                 student.email=form.email.data
                 student.degree=form.degree.data
-                db.session.commit()
-                return redirect(url_for('students'))
+                if not student.file or not student.email or not student.surname or not student.name or not student.degree:
+                    flash('Debes completar todos los campos.')
+                else:
+                    db.session.commit()
+                    return redirect(url_for('students'))
             return render_template('student_create.html', title='Actualizar Estudiante',
                                     form=form)
         else:
