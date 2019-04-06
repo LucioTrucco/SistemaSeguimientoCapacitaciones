@@ -24,6 +24,16 @@
             {% endif %}
     </head>
     <body>
+            {% with messages = get_flashed_messages() %}
+            {% if messages %}
+              {% for message in messages %}
+              <div class="alert alert-danger alert-dismissible alerta_error">
+                  <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+                  {{ message }}
+                </div>
+              {% endfor %}
+            {% endif %}
+        {% endwith %}
             <div class="mdl-layout mdl-js-layout mdl-layout--fixed-header mdl-layout--fixed-tabs">
           <header class="mdl-layout--fixed-drawer custom_navbar">
             <div class="mdl-layout__header-row" id="barraPrincipal" style="display:flex;justify-content: space-between;">

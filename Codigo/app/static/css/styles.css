@@ -647,7 +647,8 @@ a:hover{
 	background-color: grey;
 }
 
-.val_error{
-	color:#ff1f1f;
-	display: none;
+.alerta_error{
+	position: fixed;
+	z-index: 9999999999;
+	width: 100%;
 }

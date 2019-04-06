@@ -395,9 +395,12 @@ def create():
                     times=form.times.data,
                     department=form.department.data
                     )
-                db.session.add(training)
-                db.session.commit()
-                return redirect((url_for('select_students', id=training.id)))
+                if not training.name or not training.start or not training.end or not training.description or not training.comments or not training.times or not training.department :
+                        flash('Debe llenar todos los campos.')
+                else:    
+                    db.session.add(training)
+                    db.session.commit()
+                    return redirect((url_for('select_students', id=training.id)))
             return render_template(
                 'capacitacion.html',
                 title='Crear capacitacion',

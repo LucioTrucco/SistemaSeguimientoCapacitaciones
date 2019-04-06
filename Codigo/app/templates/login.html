@@ -33,7 +33,7 @@
         <p>Ingresar al sistema</p>
       </div>
 
-      <form action="" class="formlogin" method="POST" onsubmit="return ValidateLogin()"  name="loginForm" novalidate>
+      <form action="" class="formlogin" method="POST" novalidate>
         {{ form.hidden_tag() }}
         <div
           class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label inputlogin1"
@@ -42,7 +42,6 @@
           {{form.username.label(class="mdl-textfield__label", for="username")}}
           
         </div>
-        <div id="username_error" class="val_error"></div>
         <div
           class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label inputlogin2"
         >
@@ -50,7 +49,6 @@
           {{form.password.label(class="mdl-textfield__label", for="sample2")}}
          
         </div>
-        <div id="password_error" class="val_error"></div>
         <input type="submit" class="buttonlgn" value="INGRESAR" />
       </form>
     </div>
@@ -59,51 +57,3 @@
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
   </body>
 </html>
-
-<script type="text/javascript">
-
-  var username= document.forms["loginForm"]["username"];
-  var password= document.forms["loginForm"]["password"];
-
-  var username_error = document.getElementById("username_error");
-  var password_error = document.getElementById("password_error");
-
-  username.addEventListener("blur", nameVerify, true);
-  password.addEventListener("blur", passwordVerify, true);
-
-  function ValidateLogin(){
-    if(username.value ==""){
-      username.style.borderBottom = "1px solid red";
-      username_error.style.display="block";
-      username_error.textContent= "Username is required";
-      username.focus();
-      return false;
-    }
-
-    if(password.value ==""){
-      password.style.borderBottom = "1px solid red";
-      password_error.style.display="block";
-      password_error.textContent= "Password is required";
-      password.focus();
-      return false;
-    }
-  }
-
-  function nameVerify(){
-    if(username.value!=""){
-      username.style.borderBottom = "1px solid rgba(0,0,0,.12)";
-      username_error.innerHTML=""
-      return true;
-    }
-  }
-
-  
-  function passwordVerify(){
-    if(password.value!=""){
-      password.style.borderBottom = "1px solid rgba(0,0,0,.12)";
-      password_error.innerHTML=""
-      return true;
-    }
-  }
-
-</script>
