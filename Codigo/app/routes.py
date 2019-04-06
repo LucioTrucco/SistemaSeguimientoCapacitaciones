@@ -422,7 +422,7 @@ def classes(training_id):
         if session['role'] == 1 or session['role'] == 2: ##COMPROBAR SI ES ADMIN PARA ENTRAR
             training=Training.query.get(training_id)
             form = ClassForm()
-            if form.validate_on_submit():
+            if request.method == 'POST':
                 new_class = Class(
                     date=form.date.data,
                     topics=form.topics.data,
@@ -434,9 +434,13 @@ def classes(training_id):
                     new_class.number = db.session.query(func.max(Class.number)).filter(
                         Class.training_id == training_id).first()[0] + 1
                 new_class.training = training
-                db.session.add(new_class)
-                db.session.commit()
-                #return redirect((url_for('classes', training_id=training.id)))
+                if not new_class.date or not new_class.topics or not new_class.topicsNext or not new_class.comments:
+                    flash('Debes completar todos los campos.')
+                    return redirect((url_for('classes', training_id=training.id))) 
+                else:
+                    db.session.add(new_class)
+                    db.session.commit()
+                    #return redirect((url_for('classes', training_id=training.id)))
             return render_template(
                 'classes.html',
                 title='Seguimiento',
@@ -588,9 +592,12 @@ def user_create():
                     email=form.email.data,
                     role = Role.query.get(form.role.data))
                 user.set_password(form.password.data)
-                db.session.add(user)
-                db.session.commit()
-                return redirect((url_for('user_details', id=user.id)))
+                if not user.username or not user.email or not user.role or not form.password.data:
+                    flash('Debes completar todos los campos')
+                else:
+                    db.session.add(user)
+                    db.session.commit()
+                    return redirect((url_for('user_details', id=user.id)))
             return render_template(
                 'user_create.html',
                 title='Crear usuario',
@@ -729,10 +736,12 @@ def student_create():
                     surname=form.surname.data,
                     name=form.name.data,
                     degree=form.degree.data)
-                db.session.add(student)
-                db.session.commit()
-                flash('Estudiante creado', 'success')
-                return redirect(url_for('students'))
+                if not student.file or not student.email or not student.surname or not student.name or not student.degree:
+                    flash('Debes completar todos los campos.')
+                else:
+                    db.session.add(student)
+                    db.session.commit()
+                    return redirect(url_for('students'))
             return render_template(
                 'student_create.html',
                 title='Crear estudiante',
