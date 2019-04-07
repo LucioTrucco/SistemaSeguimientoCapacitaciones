@@ -251,7 +251,7 @@ def ongoingTrainings():
 @app.route('/capacitaciones/<string:username>')
 def trainings_user(username):
     if 'username' in session:
-        username = session['username']
+        xusername = session['username']
         if session['role'] == 2 or session['role'] == 3: ##COMPROBAR SI ES ADMIN PARA ENTRAR
             return render_template(
                 'capacitacionesPorUsuario.html',
