@@ -20,8 +20,12 @@
             <td>{{ student.email }} </td>
             <td>{{ student.degree }} </td>
             <td style="text-align: left;">
+                {%if session ['role'] == 2 %}
                 <a href="{{ url_for('student_edit', file=student.file) }}">Editar</a>
                 | <a href="#" data-toggle="modal" data-target='#confirm{{student.file}}'>Eliminar</a>
+                {%else%}
+                -
+                {%endif%}
             </td>
         </tr>
         <div class="modal fade" id="confirm{{student.file}}" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" data-backdrop="false">
@@ -45,7 +49,8 @@
 </table>
 {% endif %}
 </div>
+{%if session ['role'] == 2 %}
 <a class="button" href="{{ url_for('student_create') }}" >Agregar alumno</a>
-
+{% endif %}
 
 {% endblock %}

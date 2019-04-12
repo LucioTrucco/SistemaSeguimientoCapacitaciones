@@ -48,6 +48,28 @@
     <p>Comentarios:</p>
     {{ training.comments }}
     </div>
+    <div class="detalles__comments">
+        <p>Fecha Inicio:</p>
+        {{ training.start }}
+    </div>
+    <div class="detalles__comments">
+        <p>Fecha Fin:</p>
+        {{ training.end }}
+    </div>
+    <div class="detalles__comments">
+        {% if training.department ==1 %}
+        <p>Sector:</p> DDPyT
+        {% endif %}
+        {% if training.department == 2 %}
+        <p>Sector:</p> DPyPP
+        {% endif %}
+        {%if training.department == 3 %}
+        <p>Sector:</p> DHyA
+        {% endif %}
+        {%if training.department == 4 %}
+        <p>Sector:</p> DeSaCo
+        {% endif %}
+    </div>
     {% if request.path==url_for('select_students', id=training.id) %}
     <div class="detalles__comments">
          {% block assign_students %}

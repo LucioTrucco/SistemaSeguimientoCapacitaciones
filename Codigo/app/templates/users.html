@@ -13,9 +13,10 @@
                 <td>{{ user.email }}</td>
                 <td><a href="{{ url_for('trainings_user', username=user.username) }}">Capacitaciones</a></td>
                 <td>
-                    <a href="{{ url_for('user_details', id=user.id) }}">Detalle</a> |
+                    <a href="{{ url_for('user_details', id=user.id) }}">Detalle</a>{%if session ['role'] == 2 %} |
                     <a href="{{ url_for('user_edit', id=user.id) }}">Editar</a> 
                     | <a href="#" data-toggle="modal" data-target='#confirm{{user.id}}'>Eliminar</a>
+                    {%endif%}
                 </td>
             </tr>
             <div class="modal fade" id="confirm{{user.id}}" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
@@ -37,5 +38,7 @@
         </tbody>
         {% endfor %}
     </table>
+    {%if session ['role'] == 2 %}
     <a class="button" href="{{ url_for('user_create') }}" >Agregar Usuario</a>
+    {%endif%}
 {% endblock %}

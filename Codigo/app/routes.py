@@ -53,7 +53,7 @@ def login():
     if form.validate_on_submit():
         user = User.query.filter_by(username=form.username.data).first()
         if user is None or not user.check_password(form.password.data):
-            flash('Invalid username or password')
+            flash('Invalid username or password','error')
             return redirect(url_for('login'))
         session['username'] = form.username.data
         session['role'] = user.role_id
@@ -281,6 +281,7 @@ def deleteTraining(id):
             training = Training.query.get(id)
             db.session.delete(training)
             db.session.commit()
+            flash('Capacitacion eliminada.','success')
             return redirect(url_for('trainings'))
         else:
             return redirect(url_for('forbidden'))
@@ -295,6 +296,7 @@ def deleteOnGoingTraining(id):
             training = Training.query.get(id)
             db.session.delete(training)
             db.session.commit()
+            flash('Capacitacion eliminada.','success')
             return redirect(url_for('ongoingTrainings'))
         else:
             return redirect(url_for('forbidden'))
@@ -309,6 +311,7 @@ def deleteCompletedTraining(id):
             training = Training.query.get(id)
             db.session.delete(training)
             db.session.commit()
+            flash('Capacitacion eliminada.','success')
             return redirect(url_for('completedTrainings'))
         else:
             return redirect(url_for('forbidden'))
@@ -349,9 +352,10 @@ def edit(id):
             training.times= form.times.data
             training.department= form.department.data
             if not training.name or not training.start or not training.end or not training.description or not training.comments or not training.times or not training.department :
-                flash('Debe llenar todos los campos.')
+                flash('Debe llenar todos los campos.','error')
             else:
                 db.session.commit()
+                flash('Capacitacion editada.','success')
                 return redirect((url_for('details', id=training.id)))
         return render_template(
             'capacitacion.html',
@@ -367,6 +371,7 @@ def finish(id):
         training = Training.query.get(id)
         training.finalizada = True
         db.session.commit()
+        flash('Capacitacion finalizada.','success')
         if session['role'] == 2 or session['role'] == 3:
             return redirect((url_for('completedTrainings')))
         else:
@@ -399,10 +404,11 @@ def create():
                     department=form.department.data
                     )
                 if not training.name or not training.start or not training.end or not training.description or not training.comments or not training.times or not training.department :
-                        flash('Debe llenar todos los campos.')
+                        flash('Debe llenar todos los campos.','error')
                 else:    
                     db.session.add(training)
                     db.session.commit()
+                    flash('Capacitacion creada.','success')
                     return redirect((url_for('select_students', id=training.id)))
             return render_template(
                 'capacitacion.html',
@@ -438,11 +444,12 @@ def classes(training_id):
                         Class.training_id == training_id).first()[0] + 1
                 new_class.training = training
                 if not new_class.date or not new_class.topics or not new_class.topicsNext or not new_class.comments:
-                    flash('Debes completar todos los campos.')
+                    flash('Debes completar todos los campos.','error')
                     return redirect((url_for('classes', training_id=training.id))) 
                 else:
                     db.session.add(new_class)
                     db.session.commit()
+                    flash('Clase agregada correctamente', 'success')
                     #return redirect((url_for('classes', training_id=training.id)))
             return render_template(
                 'classes.html',
@@ -485,9 +492,10 @@ def class_edit(training_id, class_num):
                 edit_class.topicsNext = form.topicsNext.data
                 edit_class.comments = form.comments.data
                 if not edit_class.date or not edit_class.topics or not edit_class.topicsNext or not edit_class.comments:
-                    flash('Debes completar todos los campos.')
+                    flash('Debes completar todos los campos.','error')
                 else:
                     db.session.commit()
+                    flash('Cambio realizado correctamente','success')
                     return redirect((url_for('classes', training_id=training.id)))
             return render_template(
                 'class_edit.html',
@@ -511,6 +519,7 @@ def class_delete(training_id, class_num):
                     next_class.number -= 1
             db.session.delete(class_entity)
             db.session.commit()
+            flash('Clase eliminada.','success')
             return redirect((url_for('classes', training_id=training.id)))
         else:
             return redirect(url_for('forbidden'))
@@ -550,11 +559,13 @@ def select_trainer(id):
                 training = Training.query.get(id)
                 training.trainer = trainer
                 msg= Message('Capacitacion Asignada',
-                sender='matiastorsello@gmail.com',
+                sender='capacitacionesunla@gmail.com',
                 recipients=[trainer.email])
                 msg.html='<b>Capacitacion: </b>'+training.name+'<br><b>Comienza: </b>'+str(training.start)+'<br><b>Finaliza: </b>'+str(training.end)+'<br><b>Descripcion: </b>'+training.description
                 mail.send(msg)
+                flash('Capacitacion asignada.', 'success')
                 db.session.commit()
+
                 return redirect((url_for('details', id=training.id)))
             return render_template(
                 'select_trainer.html',
@@ -599,10 +610,11 @@ def user_create():
                     role = Role.query.get(form.role.data))
                 user.set_password(form.password.data)
                 if not user.username or not user.email or not user.role or not form.password.data:
-                    flash('Debes completar todos los campos')
+                    flash('Debes completar todos los campos','error')
                 else:
                     db.session.add(user)
                     db.session.commit()
+                    flash('Usuario registrado correctamente', 'success')
                     return redirect((url_for('user_details', id=user.id)))
             return render_template(
                 'user_create.html',
@@ -645,9 +657,10 @@ def user_edit(id):
                 user.Role = Role.query.get(form.role.data)
                 user.set_password(form.password.data)
                 if not user.username or not user.email or not form.password.data:
-                    flash('Debes completar todos los campos.')
+                    flash('Debes completar todos los campos.','error')
                 else:
                     db.session.commit()
+                    flash('Usuario editado.', 'success')
                     return redirect((url_for('user_details', id=user.id)))
             return render_template(
                 'user_create.html',
@@ -667,6 +680,7 @@ def user_delete(id):
             user = User.query.get(id)
             db.session.delete(user)
             db.session.commit()
+            flash('Usuario eliminado.','success')
             return redirect((url_for('users')))
         else:
             return redirect(url_for('forbidden'))
@@ -709,11 +723,12 @@ def select_students(id):
                     training=Training.query.get(id)
                     #ENVIAR MAIL A ESTUDIANTE
                     msg= Message('Capacitacion Asignada',
-                    sender='matiastorsello@gmail.com',
+                    sender='seguimientounlatest@gmail.com',
                     recipients=[student.email])
                     msg.html='<b>Capacitacion: </b>'+training.name+'<br><b>Comienza: </b>'+str(training.start)+'<br><b>Finaliza: </b>'+str(training.end)+'<br><b>Descripcion: </b>'+training.description
                     mail.send(msg)
                     db.session.commit()
+                    flash('Estudiantes asignados. Les llegara un mail con informacion sobre la capacitacion.','success')
                 return redirect((url_for('trainings')))
             return render_template(
                 'select_students.html',
@@ -742,10 +757,11 @@ def student_create():
                     name=form.name.data,
                     degree=form.degree.data)
                 if not student.file or not student.email or not student.surname or not student.name or not student.degree:
-                    flash('Debes completar todos los campos.')
+                    flash('Debes completar todos los campos.','error')
                 else:
                     db.session.add(student)
                     db.session.commit()
+                    flash('Estudiante agregado.','success')
                     return redirect(url_for('students'))
             return render_template(
                 'student_create.html',
@@ -764,6 +780,7 @@ def student_delete(file):
             student = Student.query.filter_by(file=file).first()
             db.session.delete(student)
             db.session.commit()
+            flash('Estudiante eliminado','success')
             return redirect(url_for('students'))
         else:
             return redirect(url_for('forbidden'))
@@ -789,9 +806,10 @@ def student_edit(file):
                 student.email=form.email.data
                 student.degree=form.degree.data
                 if not student.file or not student.email or not student.surname or not student.name or not student.degree:
-                    flash('Debes completar todos los campos.')
+                    flash('Debes completar todos los campos.','error')
                 else:
                     db.session.commit()
+                    flash('Estudiante editado.','success')
                     return redirect(url_for('students'))
             return render_template('student_create.html', title='Actualizar Estudiante',
                                     form=form)
@@ -831,7 +849,7 @@ def student_detials(file):
 def students():
     if 'username' in session:
         username = session['username']
-        if session['role'] == 2:
+        if session['role'] == 2 or session['role'] == 3:
             return render_template(
                 'students.html',
                 title='Todos los estudiantes',

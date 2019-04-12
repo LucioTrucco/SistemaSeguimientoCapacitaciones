@@ -13,11 +13,13 @@
         </thead>
         {% for training_class in classes %}
             <tr>
+                    {% set x = training_class.date.strftime('%Y-%m-%d') %}
+                    
                 <td>{{ training_class.number }} </td>
                 <td>{{ training_class.topics }} </td>
                 <td>{{ training_class.topicsNext }} </td>
                 <td>{{ training_class.comments }} </td>
-                <td>{{ training_class.date }} </td>
+                <td>{{ x }}</td>
                 <td>
                     <a href="{{ url_for('class_details', training_id=training_id, class_num=training_class.number) }}">Detalle</a> |
                     <a href="{{ url_for('class_edit', training_id=training_id, class_num=training_class.number) }}">Editar</a> |

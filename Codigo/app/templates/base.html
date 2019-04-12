@@ -24,7 +24,7 @@
             {% endif %}
     </head>
     <body>
-            {% with messages = get_flashed_messages() %}
+            {% with messages = get_flashed_messages(category_filter=["error"]) %}
             {% if messages %}
               {% for message in messages %}
               <div class="alert alert-danger alert-dismissible alerta_error">
@@ -33,7 +33,18 @@
                 </div>
               {% endfor %}
             {% endif %}
-        {% endwith %}
+            {% endwith %}
+            {% with messages = get_flashed_messages(category_filter=["success"]) %}
+            {% if messages %}
+              {% for message in messages %}
+              <div class="alert alert-success alert-dismissible alerta_error">
+                  <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+                  {{ message }}
+                </div>
+              {% endfor %}
+            {% endif %}
+            {% endwith %}
+
             <div class="mdl-layout mdl-js-layout mdl-layout--fixed-header mdl-layout--fixed-tabs">
           <header class="mdl-layout--fixed-drawer custom_navbar">
             <div class="mdl-layout__header-row" id="barraPrincipal" style="display:flex;justify-content: space-between;">
@@ -63,9 +74,9 @@
                     <a class="dropdown-item" href="{{url_for('completedTrainings')}}">Finalizadas</a>
                     <a class="dropdown-item" href="{{ url_for('trainings') }}">Todas</a>
                     <div class="dropdown-divider"></div>
-                    <a class="dropdown-item" href="{{ url_for('ochoatrece') }}">8 a 13</a>
-                    <a class="dropdown-item" href="{{ url_for('trecea18') }}">13 a 18</a>
-                    <a class="dropdown-item" href="{{ url_for('diecia22') }}">18 a 22</a>
+                    <a class="dropdown-item" href="{{ url_for('ochoatrece') }}">8 a 13 hs</a>
+                    <a class="dropdown-item" href="{{ url_for('trecea18') }}">13 a 18 hs</a>
+                    <a class="dropdown-item" href="{{ url_for('diecia22') }}">18 a 22 hs</a>
                     <div class="dropdown-divider"></div>
                     <a class="dropdown-item" href="{{ url_for('DDPyT') }}">DDPyT</a>
                     <a class="dropdown-item" href="{{ url_for('DPyPP') }}">DPyPP</a>
@@ -77,12 +88,12 @@
             {% endif %}
             <!--ROL ADMIN-->
             {% if session['role'] == 2 or session['role']==3 %}
-            <a href="{{ url_for('users') }}" class="mdl-layout__tab">Capacitaciones Usuario</a>
+            <a href="{{ url_for('users') }}" class="mdl-layout__tab">Usuarios</a>
             {% if session['role']==2%}
             <a href="{{ url_for('create')}} " class="mdl-layout__tab">Alta capacitaciones</a>
             <a href="{{ url_for('assign')}} " class="mdl-layout__tab">Asignar capacitaciones</a>
             {%endif%}
-            <a href="{{ url_for('students')}}" class="mdl-layout__tab">Listar estudiantes</a>
+            <a href="{{ url_for('students')}}" class="mdl-layout__tab">Estudiantes</a>
             <a href="{{ url_for('estadisticas')}}" class="mdl-layout__tab">Estadisticas</a>
             {% endif %}
             <!--ROL CAPACITADOR-->
