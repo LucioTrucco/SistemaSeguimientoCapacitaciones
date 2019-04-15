@@ -7,7 +7,9 @@ from app import db, mail
 from sqlalchemy.sql.expression import func
 from flask_mail import Message
 from datetime import datetime
+from validate_email import validate_email
 import json
+import re
 
 
 ## INICIO DE APP
@@ -604,17 +606,47 @@ def user_create():
             form = UserForm()
             form.role.choices = [(u.id, u.name) for u in Role.query.all()]
             if request.method == 'POST':
-                user = User(
-                    username=form.username.data,
-                    email=form.email.data,
-                    role = Role.query.get(form.role.data))
-                user.set_password(form.password.data)
-                if not user.username or not user.email or not user.role or not form.password.data:
-                    flash('Debes completar todos los campos','error')
+                
+                usuarios= User.query.filter_by(username=form.username.data).count()
+                mails = User.query.filter_by(email=form.email.data).count()
+                is_valid = validate_email(form.email.data)
+                if not form.username.data: 
+                        flash('El campo "Username" no puede estar vacio','error')
+                elif not form.email.data: 
+                    flash('El campo "Email" no puede estar vacio','error')
+                elif not form.role.data: 
+                    flash('El campo "Rol" no puede estar vacio','error')
+                elif not form.password.data:
+                    flash('El campo "Contrasena" no puede estar vacio','error')
+                elif not form.confirm.data:
+                    flash('El campo "Repetir Contrasena" no puede estar vacio','error')
+                elif not re.match("^[a-zA-Z0-9]$'", form.username.data):
+                    flash('El campo "Username" tiene caracteres invalidos','error')
+                elif re.match("r'[\w-]*$'", form.password.data):
+                    flash('El campo "Contrasena" tiene caracteres invalidos','error')
+                elif re.match("^r'[\w-]*$'", form.confirm.data):
+                    flash('El campo "Repetir Contrasena" tiene caracteres invalidos','error')
+                elif usuarios>0:
+                    flash('Ya existe un usuario con ese nombre','error')
+                elif mails>0:
+                    flash('Ya existe un usuario con ese mail','error')
+                elif not is_valid:
+                    flash('El email ingresado es incorrecto','error')  
+                elif len(form.password.data) < 4:
+                    flash('Contrasena incorrecta (cantidad de caracteres mayor a 4)','error') 
+                elif form.confirm.data != form.password.data:
+                    flash('Las contrasenas deben coincidir','error') 
                 else:
+                    user = User(
+                        username=form.username.data,
+                        email=form.email.data,
+                        role = Role.query.get(form.role.data))
+                    user.set_password(form.password.data)
+                    
+                
                     db.session.add(user)
                     db.session.commit()
-                    flash('Usuario registrado correctamente', 'success')
+                    flash('El usuario es creado exitosamente', 'success')
                     return redirect((url_for('user_details', id=user.id)))
             return render_template(
                 'user_create.html',
