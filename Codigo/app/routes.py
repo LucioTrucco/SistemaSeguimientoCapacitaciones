@@ -53,15 +53,21 @@ def login():
         return redirect(url_for('index'))
     form = LoginForm()
     if form.validate_on_submit():
-        user = User.query.filter_by(username=form.username.data).first()
-        if user is None or not user.check_password(form.password.data):
-            flash('Invalid username or password','error')
-            return redirect(url_for('login'))
-        session['username'] = form.username.data
-        session['role'] = user.role_id
-        session['idUser'] = user.id
-        login_user(user, remember=form.remember_me.data)
-        return redirect(url_for('index'))
+        if len(form.username.data)==0:
+            flash('El campo "username" esta vacio','error')
+        elif len(form.password.data)==0:
+            flash('El campo "password" esta vacio','error')
+        else:
+            user = User.query.filter_by(username=form.username.data).first()
+            
+            if user is None or not user.check_password(form.password.data):
+                flash('El usuario ingreado no existe o la contrasena es incorrecta','error')
+                return redirect(url_for('login'))
+            session['username'] = form.username.data
+            session['role'] = user.role_id
+            session['idUser'] = user.id
+            login_user(user, remember=form.remember_me.data)
+            return redirect(url_for('index'))
     return render_template(
         'login.html',
         title='Sign In',
@@ -405,8 +411,20 @@ def create():
                     times=form.times.data,
                     department=form.department.data
                     )
-                if not training.name or not training.start or not training.end or not training.description or not training.comments or not training.times or not training.department :
-                        flash('Debe llenar todos los campos.','error')
+                if not training.name: 
+                    flash('El campo "Nombre" no puede estar vacio','error')
+                elif not training.start:
+                    flash('El campo "Inicio" no puede estar vacio','error') 
+                elif not training.end: 
+                    flash('El campo "Fin" no puede estar vacio','error')
+                elif not training.description: 
+                    flash('El campo "Descripcion" no puede estar vacio','error')
+                elif not training.comments: 
+                    flash('El campo "Comentario" no puede estar vacio','error')
+                elif not training.times: 
+                    flash('El campo "Horarios" no puede estar vacio','error')
+                elif not training.department :
+                    flash('El campo "sector" no puede estar vacio','error')
                 else:    
                     db.session.add(training)
                     db.session.commit()
@@ -620,11 +638,11 @@ def user_create():
                     flash('El campo "Contrasena" no puede estar vacio','error')
                 elif not form.confirm.data:
                     flash('El campo "Repetir Contrasena" no puede estar vacio','error')
-                elif not re.match("^[a-zA-Z0-9]$'", form.username.data):
+                elif re.match(r"\W", form.username.data):
                     flash('El campo "Username" tiene caracteres invalidos','error')
-                elif re.match("r'[\w-]*$'", form.password.data):
+                elif re.match(r"\W", form.password.data):
                     flash('El campo "Contrasena" tiene caracteres invalidos','error')
-                elif re.match("^r'[\w-]*$'", form.confirm.data):
+                elif re.match(r"\W", form.confirm.data):
                     flash('El campo "Repetir Contrasena" tiene caracteres invalidos','error')
                 elif usuarios>0:
                     flash('Ya existe un usuario con ese nombre','error')
