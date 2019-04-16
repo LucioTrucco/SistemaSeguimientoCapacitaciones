@@ -422,7 +422,7 @@ def create():
                 elif not training.comments: 
                     flash('El campo "Comentario" no puede estar vacio','error')
                 elif not training.times: 
-                    flash('El campo "Horarios" no puede estar vacio','error')
+                    flash('El campo "sector" no puede estar vacio','error')
                 elif not training.department :
                     flash('El campo "sector" no puede estar vacio','error')
                 else:    
