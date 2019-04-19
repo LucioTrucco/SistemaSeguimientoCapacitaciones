@@ -39,7 +39,7 @@ class StudentForm(FlaskForm):
     email = StringField('Email', validators=[DataRequired()])
     surname = StringField('Apellido', validators=[DataRequired()])
     name = StringField('Nombre', validators=[DataRequired()])
-    degree = StringField('Carreras', validators=[DataRequired()])
+    degree = StringField('Carrera', validators=[DataRequired()])
 
 
 class SearchStudentForm(FlaskForm):

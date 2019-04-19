@@ -13,8 +13,8 @@
             {% if session['role'] == 2 %}
             <div class="mdl-textfield__input">{{ form.name.label }} {{ form.name(class="rectangulos") }}</div>
             {%endif%}
-            <div class="mdl-textfield__input" >{{ form.start.label }} {{ form.start(class="rectangulos",id="datetimepicker1") }}</div>
-            <div class="mdl-textfield__input">{{ form.end.label }} {{ form.end(class="rectangulos",id="datetimepicker2") }}</div>
+            <div class="mdl-textfield__input" >{{ form.start.label }} {{ form.start(class="rectangulos",id="datepicker1") }}</div>
+            <div class="mdl-textfield__input">{{ form.end.label }} {{ form.end(class="rectangulos",id="datepicker2") }}</div>
             {% if session['role'] == 2 %}
             <div class="mdl-textfield__input" >{{ form.description.label }} {{ form.description(class="rectangulos") }}</div>
             {%endif%}
@@ -28,9 +28,14 @@
 </div>
 </div>
 <script>
-    $("#datetimepicker1").datetimepicker({
-        
-           });
-    $("#datetimepicker2").datetimepicker();
+    
+    $("#datepicker1").datepicker({
+        dateFormat: "yy/mm/dd"
+    });
+   
+    $("#datepicker2").datepicker({
+        dateFormat: "yy/mm/dd"
+    });
+
 </script>
 {% endblock %}

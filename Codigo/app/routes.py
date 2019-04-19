@@ -8,6 +8,7 @@ from sqlalchemy.sql.expression import func
 from flask_mail import Message
 from datetime import datetime
 from validate_email import validate_email
+from datetime import datetime, date, timedelta
 import json
 import re
 
@@ -333,8 +334,8 @@ def edit(id):
         training = Training.query.get(id)
         form = TrainingForm(
             name=training.name,
-            start=training.start,
-            end=training.end,
+            start=str(training.start)[:10],
+            end=str(training.end)[:10],
             description=training.description,
             comments=training.comments,
             times=training.times,
@@ -349,22 +350,41 @@ def edit(id):
             #---------
             training.start=training.start.replace('/', '-') 
             training.end= training.end.replace('/','-')
-            if len(training.start) == 16:
-                training.start=training.start+':00'
-            if len(training.end) == 16:
-                training.end=training.end+':00'
-            #-----
-            training.finalizada = False
-            training.description = form.description.data
-            training.comments = form.comments.data
-            training.times= form.times.data
-            training.department= form.department.data
-            if not training.name or not training.start or not training.end or not training.description or not training.comments or not training.times or not training.department :
-                flash('Debe llenar todos los campos.','error')
+            if form.times.data == '1':
+                training.start=training.start+' 08:00:00'
+                training.end=training.end+' 13:00:00'
+            elif form.times.data == '2':
+                training.start=training.start+' 13:00:00'
+                training.end=training.end+' 18:00:00'
+            elif form.times.data == '3':
+                training.start=training.start+' 18:00:00'
+                training.end=training.end+' 22:00:00'
+
+            fechaHoy= datetime.now().date()
+            xfecha = fechaHoy.strftime("%Y-%m-%d")
+
+            fechaA = datetime.strptime(form.start.data,"%Y-%m-%d")
+            fechaB = datetime.strptime(form.end.data,"%Y-%m-%d")
+            fechaC = datetime.strptime(xfecha,"%Y-%m-%d")
+
+            if fechaA > fechaB:
+                flash('La fecha final debe ser posterior a la inicial','error')
+            elif fechaA < fechaC:
+                flash('La fecha inicial debe ser posterior o igual a la de hoy','error')
+            elif fechaB < fechaC:
+                flash('La fecha final debe ser posterior o igual a la de hoy','error')
             else:
-                db.session.commit()
-                flash('Capacitacion editada.','success')
-                return redirect((url_for('details', id=training.id)))
+                training.finalizada = False
+                training.description = form.description.data
+                training.comments = form.comments.data
+                training.times= form.times.data
+                training.department= form.department.data
+                if not training.name or not training.start or not training.end or not training.description or not training.comments or not training.times or not training.department :
+                    flash('Debe llenar todos los campos.','error')
+                else:
+                    db.session.commit()
+                    flash('Capacitacion editada.','success')
+                    return redirect((url_for('details', id=training.id)))
         return render_template(
             'capacitacion.html',
             title='Editar capacitacion',
@@ -398,38 +418,59 @@ def create():
                 fechaEnd= form.end.data
                 fechaStart=fechaStart.replace('/', '-') 
                 fechaEnd= fechaEnd.replace('/','-')
-                fechaStart=fechaStart+':00'
-                fechaEnd=fechaEnd+':00'
-                
-                training = Training(
-                    name=form.name.data,
-                    start=fechaStart,
-                    end=fechaEnd,
-                    finalizada=False,
-                    description=form.description.data,
-                    comments=form.comments.data,
-                    times=form.times.data,
-                    department=form.department.data
-                    )
-                if not training.name: 
-                    flash('El campo "Nombre" no puede estar vacio','error')
-                elif not training.start:
-                    flash('El campo "Inicio" no puede estar vacio','error') 
-                elif not training.end: 
-                    flash('El campo "Fin" no puede estar vacio','error')
-                elif not training.description: 
-                    flash('El campo "Descripcion" no puede estar vacio','error')
-                elif not training.comments: 
-                    flash('El campo "Comentario" no puede estar vacio','error')
-                elif not training.times: 
-                    flash('El campo "sector" no puede estar vacio','error')
-                elif not training.department :
-                    flash('El campo "sector" no puede estar vacio','error')
-                else:    
-                    db.session.add(training)
-                    db.session.commit()
-                    flash('Capacitacion creada.','success')
-                    return redirect((url_for('select_students', id=training.id)))
+
+                if form.times.data == '1':
+                    fechaStart=fechaStart+' 08:00:00'
+                    fechaEnd=fechaEnd+' 13:00:00'
+                elif form.times.data == '2':
+                    fechaStart=fechaStart+' 13:00:00'
+                    fechaEnd=fechaEnd+' 18:00:00'
+                elif form.times.data == '3':
+                    fechaStart=fechaStart+' 18:00:00'
+                    fechaEnd=fechaEnd+' 22:00:00'
+
+                fechaHoy= datetime.now().date()
+                xfecha = fechaHoy.strftime("%Y/%m/%d")
+
+                fechaA = datetime.strptime(form.start.data,"%Y/%m/%d")
+                fechaB = datetime.strptime(form.end.data,"%Y/%m/%d")
+                fechaC = datetime.strptime(xfecha,"%Y/%m/%d")
+
+                if fechaA > fechaB:
+                    flash('La fecha final debe ser posterior a la inicial','error')
+                elif fechaA < fechaC:
+                    flash('La fecha inicial debe ser posterior o igual a la de hoy','error')
+                elif fechaB < fechaC:
+                    flash('La fecha final debe ser posterior o igual a la de hoy','error')
+                else:
+                    training = Training(
+                        name=form.name.data,
+                        start=fechaStart,
+                        end=fechaEnd,
+                        finalizada=False,
+                        description=form.description.data,
+                        comments=form.comments.data,
+                        times=form.times.data,
+                        department=form.department.data
+                        )
+
+                    if not training.name: 
+                        flash('El campo "Nombre" no puede estar vacio','error')
+                    elif not training.start:
+                        flash('El campo "Inicio" no puede estar vacio','error') 
+                    elif not training.end: 
+                        flash('El campo "Fin" no puede estar vacio','error')
+                    elif not training.description: 
+                        flash('El campo "Descripcion" no puede estar vacio','error')
+                    elif not training.times: 
+                        flash('El campo "Horarios" no puede estar vacio','error')
+                    elif not training.department :
+                        flash('El campo "Sector" no puede estar vacio','error')
+                    else:    
+                        db.session.add(training)
+                        db.session.commit()
+                        flash('Capacitacion creada.','success')
+                        return redirect((url_for('select_students', id=training.id)))
             return render_template(
                 'capacitacion.html',
                 title='Crear capacitacion',
@@ -463,7 +504,7 @@ def classes(training_id):
                     new_class.number = db.session.query(func.max(Class.number)).filter(
                         Class.training_id == training_id).first()[0] + 1
                 new_class.training = training
-                if not new_class.date or not new_class.topics or not new_class.topicsNext or not new_class.comments:
+                if not new_class.date or not new_class.topics or not new_class.topicsNext:
                     flash('Debes completar todos los campos.','error')
                     return redirect((url_for('classes', training_id=training.id))) 
                 else:
@@ -702,16 +743,37 @@ def user_edit(id):
             )
             form.role.choices = [(u.id, u.name) for u in Role.query.all()]
             if request.method == 'POST':
-                user.username = form.username.data
-                user.email = form.email.data
-                user.Role = Role.query.get(form.role.data)
-                user.set_password(form.password.data)
-                if not user.username or not user.email or not form.password.data:
-                    flash('Debes completar todos los campos.','error')
+
+                is_valid = validate_email(form.email.data)
+                if not form.role.data: 
+                    flash('El campo "Rol" no puede estar vacio','error')
+                elif not form.password.data:
+                    flash('El campo "Contrasena" no puede estar vacio','error')
+                elif not form.confirm.data:
+                    flash('El campo "Repetir Contrasena" no puede estar vacio','error')
+                elif re.match(r"\W", form.username.data):
+                    flash('El campo "Username" tiene caracteres invalidos','error')
+                elif re.match(r"\W", form.password.data):
+                    flash('El campo "Contrasena" tiene caracteres invalidos','error')
+                elif re.match(r"\W", form.confirm.data):
+                    flash('El campo "Repetir Contrasena" tiene caracteres invalidos','error')
+                elif not is_valid:
+                    flash('El email ingresado es incorrecto','error')  
+                elif len(form.password.data) < 4:
+                    flash('Contrasena incorrecta (cantidad de caracteres mayor a 4)','error') 
+                elif form.confirm.data != form.password.data:
+                    flash('Las contrasenas deben coincidir','error') 
                 else:
-                    db.session.commit()
-                    flash('Usuario editado.', 'success')
-                    return redirect((url_for('user_details', id=user.id)))
+                    user.username = form.username.data
+                    user.email = form.email.data
+                    user.Role = Role.query.get(form.role.data)
+                    user.set_password(form.password.data)
+                    if not user.username or not user.email or not form.password.data:
+                        flash('Debes completar todos los campos.','error')
+                    else:
+                        db.session.commit()
+                        flash('Usuario editado.', 'success')
+                        return redirect((url_for('user_details', id=user.id)))
             return render_template(
                 'user_create.html',
                 title='Editar usuario',
@@ -748,9 +810,7 @@ def select_students(id):
         if session['role'] == 2:
             form = SearchStudentForm()
             usedStudents = Training.query.get(id).students
-            print(usedStudents)
             allStudents = [(u.id) for u in Student.query.all()]
-            print(allStudents)
             list1 = []
             
             for x in usedStudents:
@@ -800,19 +860,42 @@ def student_create():
         if session['role'] == 2:
             form = StudentForm()
             if request.method == 'POST':
-                student = Student(
-                    file=form.file.data,
-                    email=form.email.data,
-                    surname=form.surname.data,
-                    name=form.name.data,
-                    degree=form.degree.data)
-                if not student.file or not student.email or not student.surname or not student.name or not student.degree:
-                    flash('Debes completar todos los campos.','error')
+                
+                if form.file.data <=0:
+                    flash('El legajo debe ser mayor a cero','error')
+                elif form.file.data > 2147483647:
+                    flash('El numero de legajo debe ser menor.','error')
                 else:
-                    db.session.add(student)
-                    db.session.commit()
-                    flash('Estudiante agregado.','success')
-                    return redirect(url_for('students'))
+                    estudiante = Student.query.filter_by(file=form.file.data).count()
+                    mail = Student.query.filter_by(email=form.email.data).count()
+                    is_valid = validate_email(form.email.data)
+
+                    if estudiante > 0:
+                        flash('Ya existe un estudiante con el mismo legajo.','error')
+                    elif mail > 0:
+                        flash('Ya existe un estudiante con el mismo email.','error')
+                    elif not is_valid:
+                        flash('El campo "Email" contiene caracteres invalidos','error')
+                    elif re.match(r"\W", form.surname.data):
+                        flash('El campo "Apellido" tiene caracteres invalidos','error')
+                    elif re.match(r"\W", form.name.data):
+                        flash('El campo "Nombre" tiene caracteres invalidos','error')
+                    elif re.match(r"\W", form.degree.data):
+                        flash('El campo "Carrera" tiene caracteres invalidos','error')
+                    else:
+                        student = Student(
+                            file=form.file.data,
+                            email=form.email.data,
+                            surname=form.surname.data,
+                            name=form.name.data,
+                            degree=form.degree.data)
+                        if not student.file or not student.email or not student.surname or not student.name or not student.degree:
+                            flash('Debes completar todos los campos.','error')
+                        else:
+                            db.session.add(student)
+                            db.session.commit()
+                            flash('Estudiante agregado.','success')
+                            return redirect(url_for('students'))
             return render_template(
                 'student_create.html',
                 title='Crear estudiante',
@@ -851,16 +934,32 @@ def student_edit(file):
                 degree=student.degree
             )   
             if request.method == 'POST':
-                student.name=form.name.data
-                student.surname=form.surname.data
-                student.email=form.email.data
-                student.degree=form.degree.data
-                if not student.file or not student.email or not student.surname or not student.name or not student.degree:
-                    flash('Debes completar todos los campos.','error')
+                if form.file.data <=0:
+                    flash('El legajo debe ser mayor a cero','error')
+                elif form.file.data > 2147483647:
+                    flash('El numero de legajo debe ser menor.','error')
                 else:
-                    db.session.commit()
-                    flash('Estudiante editado.','success')
-                    return redirect(url_for('students'))
+                    is_valid = validate_email(form.email.data)
+
+                    if not is_valid:
+                        flash('El campo "Email" contiene caracteres invalidos','error')
+                    elif re.match(r"\W", form.surname.data):
+                        flash('El campo "Apellido" tiene caracteres invalidos','error')
+                    elif re.match(r"\W", form.name.data):
+                        flash('El campo "Nombre" tiene caracteres invalidos','error')
+                    elif re.match(r"\W", form.degree.data):
+                        flash('El campo "Carrera" tiene caracteres invalidos','error')
+                    else:
+                        student.name=form.name.data
+                        student.surname=form.surname.data
+                        student.email=form.email.data
+                        student.degree=form.degree.data
+                        if not student.file or not student.email or not student.surname or not student.name or not student.degree:
+                            flash('Debes completar todos los campos.','error')
+                        else:
+                            db.session.commit()
+                            flash('Estudiante editado.','success')
+                            return redirect(url_for('students'))
             return render_template('student_create.html', title='Actualizar Estudiante',
                                     form=form)
         else:
@@ -949,7 +1048,6 @@ def estadisticas():
             for result in queryCapacitando:
                 cantCapacitando+=1
 
-            print(cantCapacitando)
 
             for result in queryCapacitadores:
                 cantCapacitadores+=1
